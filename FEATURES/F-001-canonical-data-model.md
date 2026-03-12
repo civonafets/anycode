@@ -7,12 +7,13 @@
 - Owner: `TBD`
 
 ## Goal
-Define concrete domain entities and boundaries for memory, policy/procedure, trace/proof, and approvals/conversation using `Postgres` + `pgvector`.
+Define concrete domain entities and boundaries for memory, policy/procedure, trace/proof, approvals/conversation, and standalone auth using `Postgres` + `pgvector`.
 
 ## In Scope
 - Domain entities and ownership boundaries.
 - Cross-domain references and versioning.
 - Minimal indexing and retention expectations.
+- Generic workflow typing so approvals are not tied to coding-only objects.
 
 ## Out of Scope
 - Final production SQL migrations.
@@ -20,6 +21,8 @@ Define concrete domain entities and boundaries for memory, policy/procedure, tra
 
 ## Acceptance Criteria
 - Clear entity map for all four domains.
+- Standalone auth/session entities are identified.
+- Approval entities support generic workflow types without assuming code diffs.
 - Rules describing mutable vs immutable records.
 - Retrieval metadata fields defined for memory records.
 - Append-only trace invariant formally stated.

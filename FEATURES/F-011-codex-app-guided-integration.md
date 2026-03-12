@@ -2,7 +2,7 @@
 
 ## Status
 - Priority: `P1`
-- Phase: `3 - Surfaces`
+- Phase: `3 - Standalone Surfaces`
 - State: `Planned`
 - Owner: `TBD`
 
