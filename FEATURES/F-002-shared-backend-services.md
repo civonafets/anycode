@@ -3,7 +3,7 @@
 ## Status
 - Priority: `P0`
 - Phase: `1 - Governance Core`
-- State: `Planned`
+- State: `In Progress`
 - Owner: `TBD`
 
 ## Goal

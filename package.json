@@ -1,0 +1,14 @@
+{
+  "name": "memory-guardrail-proof-system",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:api": "node apps/api/src/server.mjs",
+    "test": "node --test"
+  }
+}

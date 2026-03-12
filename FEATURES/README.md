@@ -18,8 +18,8 @@ This index is the backlog map. Detailed scope and acceptance criteria live in ea
 ## Feature Map
 | ID | Feature | Priority | Phase | Status | File |
 |---|---|---|---|---|---|
-| F-001 | Canonical Data Model and Storage Baseline | P0 | 0 - Planning | In Progress | [`F-001-canonical-data-model.md`](./F-001-canonical-data-model.md) |
-| F-002 | Shared Backend Service Skeleton | P0 | 1 - Governance Core | Planned | [`F-002-shared-backend-services.md`](./F-002-shared-backend-services.md) |
+| F-001 | Canonical Data Model and Storage Baseline | P0 | 0 - Planning | Planned | [`F-001-canonical-data-model.md`](./F-001-canonical-data-model.md) |
+| F-002 | Shared Backend Service Skeleton | P0 | 1 - Governance Core | In Progress | [`F-002-shared-backend-services.md`](./F-002-shared-backend-services.md) |
 | F-003 | Local Broker Runtime | P0 | 2 - Broker + Tooling | Planned | [`F-003-local-broker-runtime.md`](./F-003-local-broker-runtime.md) |
 | F-004 | Policy and Procedure Enforcement Engine | P0 | 1 - Governance Core | Planned | [`F-004-policy-procedure-enforcement.md`](./F-004-policy-procedure-enforcement.md) |
 | F-005 | Trace and Proof Pipeline | P0 | 1 - Governance Core | Planned | [`F-005-trace-proof-pipeline.md`](./F-005-trace-proof-pipeline.md) |
@@ -32,7 +32,7 @@ This index is the backlog map. Detailed scope and acceptance criteria live in ea
 | F-012 | Shared Core Skill and Tool Addenda | P0 | 2 - Broker + Tooling | Planned | [`F-012-core-skill-and-addenda.md`](./F-012-core-skill-and-addenda.md) |
 | F-013 | Analyt Suite Integration Adapter | P0 | 4 - Suite Integrations | Planned | [`F-013-analyt-suite-integration.md`](./F-013-analyt-suite-integration.md) |
 | F-014 | Standalone Core Boundary and Portability Contract | P0 | 0 - Planning | In Progress | [`F-014-standalone-core-boundary.md`](./F-014-standalone-core-boundary.md) |
-| F-015 | Reusable Approval Domain | P0 | 1 - Governance Core | Planned | [`F-015-reusable-approval-domain.md`](./F-015-reusable-approval-domain.md) |
+| F-015 | Reusable Approval Domain | P0 | 1 - Governance Core | In Progress | [`F-015-reusable-approval-domain.md`](./F-015-reusable-approval-domain.md) |
 
 ## Usage Rules
 1. New feature: add file first, then add row here, then add TODO item.

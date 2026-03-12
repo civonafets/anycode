@@ -3,7 +3,7 @@
 ## Status
 - Priority: `P0`
 - Phase: `0 - Planning`
-- State: `In Progress`
+- State: `Planned`
 - Owner: `TBD`
 
 ## Goal
