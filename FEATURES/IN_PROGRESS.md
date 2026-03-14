@@ -5,9 +5,9 @@ WIP limit: `3` active items.
 ## Active
 | Work Item | Feature ID | Owner | Started | Target | Status | Next Step | Blockers |
 |---|---|---|---|---|---|---|---|
-| Define API slice for memory/policy/approval/trace/auth | F-002 | Team | 2026-03-12 | TBD | In Progress | Replace file-backed dev store with Postgres-backed repository seams | Need schema finalization |
-| Lock standalone core vs suite adapter boundary | F-014 | Team | 2026-03-12 | TBD | In Progress | Write explicit token-exchange and embedded-mode contract | Need Analyt adapter endpoint spec |
-| Implement reusable approval domain skeleton | F-015 | Team | 2026-03-12 | TBD | In Progress | Expand generic approval payloads and disposition rules beyond MVP skeleton | Need canonical entity mapping from F-001 |
+| Define API slice for memory/policy/approval/trace/auth | F-002 | Team | 2026-03-12 | TBD | In Progress | Replace file-backed dev store with Postgres-backed repository seams and workspace-aware auth scoping | Need schema finalization with org/workspace model |
+| Lock standalone core vs suite adapter boundary | F-014 | Team | 2026-03-12 | TBD | In Progress | Write explicit token-exchange and embedded-mode contract with tenancy guardrails | Need Analyt adapter endpoint spec |
+| Implement reusable approval domain skeleton | F-015 | Team | 2026-03-12 | TBD | In Progress | Expand generic approval payloads and disposition rules with shared/private scope behavior | Need canonical entity mapping from F-001 |
 
 ## Blocked
 | Work Item | Feature ID | Blocked On | Since | Unblock Plan |

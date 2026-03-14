@@ -11,7 +11,7 @@ Implement vendor-neutral backend service boundaries for memory, policy/procedure
 
 ## In Scope
 - Service interfaces and API surface for MVP.
-- Standalone auth and organization/account model for direct usage.
+- Standalone auth and org/workspace/member model for direct usage.
 - Shared auth and RBAC hooks for standalone and embedded modes.
 - Canonical persistence wiring.
 - Adapter-safe token exchange and integration hooks.
@@ -26,7 +26,9 @@ Implement vendor-neutral backend service boundaries for memory, policy/procedure
 - CRUD and proposal endpoints exist for core domains.
 - Approval object supports non-binary dispositions.
 - Standalone login/session flow works without Analyt services present.
+- Personal/local bootstrap creates a default org/workspace path using the same API contracts as multi-user mode.
 - Standalone APIs work without Analyt services present.
+- APIs enforce workspace scoping from auth/session context by default.
 - Core APIs do not require Analyt-specific session or entitlement types.
 - Core contracts are safe to evolve into hosted multi-tenant deployment later.
 - Retrieval APIs return scored results with enough metadata to explain ranking.

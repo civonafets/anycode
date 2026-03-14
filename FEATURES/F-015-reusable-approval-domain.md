@@ -14,6 +14,7 @@ Define a workflow-generic approval domain that supports chat, edits, proof reque
 - Generic proposal payload contract that does not assume code diffs.
 - Conversation thread model for decision shaping with the agent.
 - Assignee and approver model, starting with single-user/self-approval in MVP.
+- Workspace-aware visibility and scope rules for approval records and related proposals.
 - Disposition rules for approve, reject, edit, rewrite, defer, escalate, and request-proof.
 
 ## Out of Scope
@@ -25,6 +26,7 @@ Define a workflow-generic approval domain that supports chat, edits, proof reque
 - Chat and disposition history are first-class parts of the approval record.
 - The same approval API can be consumed by standalone UI, Analyt, and future products.
 - MVP supports acting-user approval while keeping the model extensible for delegated approvers later.
+- Approval records and conversations support shared and private scopes within a workspace-safe model.
 
 ## Dependencies
 - `F-001`, `F-002`, `F-014`

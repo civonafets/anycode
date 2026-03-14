@@ -15,6 +15,7 @@ This is the canonical project document. If any other file conflicts with this fi
 ## Scope
 ### In scope
 - Shared backend for memory, policy/procedure, approvals/conversation, and trace/proof.
+- Workspace-aware domain model with private and shared record scoping from day 1.
 - Local broker per developer machine for tool integration and enforcement hooks.
 - Memory retrieval engine with broker-side pre-task recall and on-demand search.
 - Reusable approval objects and chat-driven decision workflows for coding and non-coding tasks.
@@ -33,6 +34,8 @@ This is the canonical project document. If any other file conflicts with this fi
 ## Constraints
 - Baseline storage: `Postgres` + `pgvector`.
 - Standalone auth is required in v1.
+- Day-1 canonical schemas and APIs must carry workspace tenancy context (`org_id`, `workspace_id`, and scope fields) even in personal/self-host mode.
+- Personal/local mode must use the same tenancy model via a default org/workspace bootstrap, not a separate single-user schema.
 - Canonical enforcement comes from policy/procedure state, not memory retrieval alone.
 - Retrieval ranking must be explainable, traceable, and deterministic enough for audit review in v1.
 - Trace is append-only and must survive memory/policy evolution.
@@ -46,7 +49,7 @@ This is the canonical project document. If any other file conflicts with this fi
 | Phase | Goal | Exit Criteria | Status | Target Date |
 |---|---|---|---|---|
 | 0 - Planning | Lock architecture, feature boundaries, and delivery slices | Approved feature files + MVP cut | In Progress | TBD |
-| 1 - Governance Core | Implement backend domains, standalone auth, and reusable approval contract | Memory/policy/approval/trace/auth APIs working end-to-end | Not Started | TBD |
+| 1 - Governance Core | Implement backend domains, standalone auth, and reusable approval contract | Memory/policy/approval/trace/auth APIs working end-to-end with workspace/membership scoping and private/shared visibility | Not Started | TBD |
 | 2 - Broker + Tooling | Implement local broker and strongest CLI wrappers | Codex CLI + Claude Code wrapper paths functional | Not Started | TBD |
 | 3 - Standalone Surfaces | Implement direct dashboard + mobile inbox workflows | Standalone approval flows usable with same-screen agent chat, edits, escalation, and web push | Not Started | TBD |
 | 4 - Suite Integrations | Make the system first-class inside Analyt and adapter-ready elsewhere | Analyt integration works without becoming canonical runtime | Not Started | TBD |
@@ -61,6 +64,7 @@ This is the canonical project document. If any other file conflicts with this fi
 - Tool switch (Claude Code <-> Codex CLI) preserves governance continuity.
 - System is usable directly outside Analyt with no dependency on Analyt runtime.
 - Analyt users can access governance workflows as a first-class suite capability.
+- Multi-user workspaces can share governed records while preserving scoped/private records without schema forks.
 
 ## Risks
 - Integration limits in app-based tooling can weaken enforcement compared to CLI wrappers.
@@ -69,6 +73,7 @@ This is the canonical project document. If any other file conflicts with this fi
 - Core implementation could accidentally couple to Analyt auth/session/entitlement models if adapter boundaries are not enforced early.
 - Single-user self-approval in MVP can limit governance strength if role expansion is not planned cleanly.
 - Weak retrieval ranking can surface stale or noisy memory unless score features and decay rules are explicit.
+- Deferring workspace tenancy fields until later would force expensive data migrations and API breaks when packaging for SaaS.
 
 ## Decisions
 | Date | Decision | Reason | Owner |
@@ -82,6 +87,7 @@ This is the canonical project document. If any other file conflicts with this fi
 | 2026-03-12 | MVP approver is the acting user/owner | Keep initial role model simple while preserving reusable workflow objects |
 | 2026-03-12 | Approval system must stay workflow-generic, not coding-specific | Reuse the same approval/chat/memory model across other work types |
 | 2026-03-14 | Start memory retrieval with explainable lexical + recency ranking before heavier semantic ranking | Faster to ship, easier to audit, and fits self-hosted v1 |
+| 2026-03-14 | Make workspace tenancy and record scoping a day-1 core requirement | Keep local mode and future SaaS/product packaging on one canonical model |
 
 ## Linked Working Files
 - Feature index: [`FEATURES/README.md`](./FEATURES/README.md)

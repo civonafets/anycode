@@ -15,6 +15,7 @@ Define the hard boundary between the standalone governance product and product-s
 - Entitlement/feature-gating adapter contract.
 - Shell/navigation/embed contract for suite integrations.
 - Service-management hooks for host-managed broker mode.
+- Tenancy boundary rules so local/self-host and future hosted SaaS share one canonical data contract.
 - Definition of the initial portability proof: direct standalone deployment outside Analyt.
 
 ## Out of Scope
@@ -25,6 +26,8 @@ Define the hard boundary between the standalone governance product and product-s
 - Core backend, broker, and UI can run without Analyt present.
 - Analyt-specific concepts do not appear in canonical core domain models.
 - Embedded mode uses a stable token-exchange or trust boundary contract instead of shared in-process state.
+- Core contracts support both personal/self-host deployment and hosted multi-workspace deployment without schema fork.
+- Workspace and scope enforcement are owned by core APIs and cannot be bypassed by suite adapters.
 - Direct standalone deployment is documented and testable before suite embedding is considered complete.
 - At least one additional non-Analyt adapter path is documented before architecture is declared mature.
 

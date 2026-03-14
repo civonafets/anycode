@@ -3,9 +3,9 @@
 Queue order should reflect execution priority, not just feature priority.
 
 ## Next Up (P0)
-1. `F-001` finalize canonical entities and boundaries.
+1. `F-001` finalize canonical entities, workspace tenancy, and shared/private scoping boundaries.
 2. `F-014` lock standalone core vs suite adapter contract.
-3. `F-002` define backend API contracts and service seams.
+3. `F-002` define backend API contracts, service seams, and workspace-safe auth scoping.
 4. `F-015` define reusable approval domain and generic workflow types.
 5. `F-016` define memory retrieval engine, ranking rules, and score metadata.
 6. `F-004` define enforceable guardrail/procedure model and evaluation rules.
