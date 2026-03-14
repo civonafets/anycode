@@ -33,6 +33,7 @@ This index is the backlog map. Detailed scope and acceptance criteria live in ea
 | F-013 | Analyt Suite Integration Adapter | P0 | 4 - Suite Integrations | Planned | [`F-013-analyt-suite-integration.md`](./F-013-analyt-suite-integration.md) |
 | F-014 | Standalone Core Boundary and Portability Contract | P0 | 0 - Planning | In Progress | [`F-014-standalone-core-boundary.md`](./F-014-standalone-core-boundary.md) |
 | F-015 | Reusable Approval Domain | P0 | 1 - Governance Core | In Progress | [`F-015-reusable-approval-domain.md`](./F-015-reusable-approval-domain.md) |
+| F-016 | Memory Retrieval Engine | P0 | 1 - Governance Core | Planned | [`F-016-memory-retrieval-engine.md`](./F-016-memory-retrieval-engine.md) |
 
 ## Usage Rules
 1. New feature: add file first, then add row here, then add TODO item.

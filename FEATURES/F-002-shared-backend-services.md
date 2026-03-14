@@ -16,6 +16,7 @@ Implement vendor-neutral backend service boundaries for memory, policy/procedure
 - Canonical persistence wiring.
 - Adapter-safe token exchange and integration hooks.
 - Tenancy-safe contracts that support self-hosted now and SaaS later.
+- Memory retrieval endpoints for pre-task context and on-demand search.
 
 ## Out of Scope
 - Full hosted multi-organization SaaS operations in MVP.
@@ -28,6 +29,7 @@ Implement vendor-neutral backend service boundaries for memory, policy/procedure
 - Standalone APIs work without Analyt services present.
 - Core APIs do not require Analyt-specific session or entitlement types.
 - Core contracts are safe to evolve into hosted multi-tenant deployment later.
+- Retrieval APIs return scored results with enough metadata to explain ranking.
 - Dashboard API can query all core domains.
 
 ## Dependencies

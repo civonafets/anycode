@@ -16,6 +16,7 @@ This is the canonical project document. If any other file conflicts with this fi
 ### In scope
 - Shared backend for memory, policy/procedure, approvals/conversation, and trace/proof.
 - Local broker per developer machine for tool integration and enforcement hooks.
+- Memory retrieval engine with broker-side pre-task recall and on-demand search.
 - Reusable approval objects and chat-driven decision workflows for coding and non-coding tasks.
 - Standalone dashboard for memory/policy/approval/trace visibility and control, including in-screen approval chat.
 - Mobile inbox (PWA) for non-binary approvals, edits, and in-screen chat with the agent.
@@ -33,6 +34,7 @@ This is the canonical project document. If any other file conflicts with this fi
 - Baseline storage: `Postgres` + `pgvector`.
 - Standalone auth is required in v1.
 - Canonical enforcement comes from policy/procedure state, not memory retrieval alone.
+- Retrieval ranking must be explainable, traceable, and deterministic enough for audit review in v1.
 - Trace is append-only and must survive memory/policy evolution.
 - Existing user subscriptions must remain directly usable.
 - Deployment must support self-hosted single-tenant first while keeping contracts tenancy-safe for later SaaS evolution.
@@ -55,6 +57,7 @@ This is the canonical project document. If any other file conflicts with this fi
 - Every completed risky action has linked proof artifacts.
 - Approval latency is acceptable for mobile-driven workflows.
 - Approval objects can represent coding and non-coding workflows without schema changes.
+- Retrieved context is relevant enough to improve work quality without hiding applicable policy.
 - Tool switch (Claude Code <-> Codex CLI) preserves governance continuity.
 - System is usable directly outside Analyt with no dependency on Analyt runtime.
 - Analyt users can access governance workflows as a first-class suite capability.
@@ -65,6 +68,7 @@ This is the canonical project document. If any other file conflicts with this fi
 - Data model sprawl across memory/policy/trace domains can slow iteration if contracts are unclear.
 - Core implementation could accidentally couple to Analyt auth/session/entitlement models if adapter boundaries are not enforced early.
 - Single-user self-approval in MVP can limit governance strength if role expansion is not planned cleanly.
+- Weak retrieval ranking can surface stale or noisy memory unless score features and decay rules are explicit.
 
 ## Decisions
 | Date | Decision | Reason | Owner |
@@ -77,6 +81,7 @@ This is the canonical project document. If any other file conflicts with this fi
 | 2026-03-12 | Start with web push on mobile PWA and defer native shell | Fastest route to reliable approval loop in v1 |
 | 2026-03-12 | MVP approver is the acting user/owner | Keep initial role model simple while preserving reusable workflow objects |
 | 2026-03-12 | Approval system must stay workflow-generic, not coding-specific | Reuse the same approval/chat/memory model across other work types |
+| 2026-03-14 | Start memory retrieval with explainable lexical + recency ranking before heavier semantic ranking | Faster to ship, easier to audit, and fits self-hosted v1 |
 
 ## Linked Working Files
 - Feature index: [`FEATURES/README.md`](./FEATURES/README.md)

@@ -14,6 +14,7 @@ Define concrete domain entities and boundaries for memory, policy/procedure, tra
 - Cross-domain references and versioning.
 - Minimal indexing and retention expectations.
 - Generic workflow typing so approvals are not tied to coding-only objects.
+- Retrieval source types, retrieval snapshots, and score metadata.
 
 ## Out of Scope
 - Final production SQL migrations.
@@ -23,6 +24,8 @@ Define concrete domain entities and boundaries for memory, policy/procedure, tra
 - Clear entity map for all four domains.
 - Standalone auth/session entities are identified.
 - Approval entities support generic workflow types without assuming code diffs.
+- Memory schema supports separate source kinds such as approved knowledge, feedback, and proposals.
+- Retrieval snapshots can record query tokens, score components, and returned records.
 - Rules describing mutable vs immutable records.
 - Retrieval metadata fields defined for memory records.
 - Append-only trace invariant formally stated.
