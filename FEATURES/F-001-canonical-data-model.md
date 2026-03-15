@@ -1,3 +1,11 @@
+# Legacy Transition Notice
+
+This file is legacy for one planning cycle.
+Canonical planning now lives in:
+- `plans/anymem/FEATURES/`
+- `plans/anycode/FEATURES/`
+- `plans/integrations/analyt/`
+
 # F-001 - Canonical Data Model and Storage Baseline
 
 ## Status
@@ -17,6 +25,11 @@ Define concrete domain entities and boundaries for memory, policy/procedure, tra
 - Generic workflow typing so approvals are not tied to coding-only objects.
 - Shared vs private record scoping rules across workflows.
 - Retrieval source types, retrieval snapshots, and score metadata.
+- Lineage links for derived/compacted context so retrieved artifacts can be expanded back to governed source records.
+- Search capability flags and fallback-mode metadata to support environments without optional advanced indexing.
+- Memory package entities (`memory_package`, `memory_package_version`, `package_item_map`) with provenance and trust metadata.
+- Activation control entities for package/category/tag toggles and effective-scope resolution.
+- Export pipeline records for sensitivity scan findings, redaction actions, and approval linkage.
 
 ## Out of Scope
 - Final production SQL migrations.
@@ -32,6 +45,11 @@ Define concrete domain entities and boundaries for memory, policy/procedure, tra
 - Query-scoping invariants are explicitly defined so cross-workspace reads/writes are blocked by default.
 - Personal/self-host mode maps to a default org/workspace model instead of a separate single-user schema.
 - Retrieval snapshots can record query tokens, score components, and returned records.
+- Derived context records can retain parent/source lineage required for explainability and expansion.
+- Retrieval operations can persist search-mode metadata (`full_text`, `fallback_like`, or equivalent) for audit.
+- Memory package versions can map to exported records and preserve source lineage for import/embed actions.
+- Activation toggles can be resolved deterministically by workspace, user, and session scope.
+- Sensitivity/redaction outcomes are modeled as first-class records linked to export jobs.
 - Rules describing mutable vs immutable records.
 - Retrieval metadata fields defined for memory records.
 - Append-only trace invariant formally stated.

@@ -1,3 +1,11 @@
+# Legacy Transition Notice
+
+This file is legacy for one planning cycle.
+Canonical planning now lives in:
+- `plans/anymem/FEATURES/`
+- `plans/anycode/FEATURES/`
+- `plans/integrations/analyt/`
+
 # Features Index
 
 This index is the backlog map. Detailed scope and acceptance criteria live in each `F-*.md` file.
@@ -34,6 +42,7 @@ This index is the backlog map. Detailed scope and acceptance criteria live in ea
 | F-014 | Standalone Core Boundary and Portability Contract | P0 | 0 - Planning | In Progress | [`F-014-standalone-core-boundary.md`](./F-014-standalone-core-boundary.md) |
 | F-015 | Reusable Approval Domain | P0 | 1 - Governance Core | In Progress | [`F-015-reusable-approval-domain.md`](./F-015-reusable-approval-domain.md) |
 | F-016 | Memory Retrieval Engine | P0 | 1 - Governance Core | Planned | [`F-016-memory-retrieval-engine.md`](./F-016-memory-retrieval-engine.md) |
+| F-017 | Memory Package Export, Install, and Activation Controls | P1 | 3 - Standalone Surfaces | Planned | [`F-017-memory-package-export-install-controls.md`](./F-017-memory-package-export-install-controls.md) |
 
 ## Usage Rules
 1. New feature: add file first, then add row here, then add TODO item.

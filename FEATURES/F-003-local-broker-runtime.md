@@ -1,3 +1,11 @@
+# Legacy Transition Notice
+
+This file is legacy for one planning cycle.
+Canonical planning now lives in:
+- `plans/anymem/FEATURES/`
+- `plans/anycode/FEATURES/`
+- `plans/integrations/analyt/`
+
 # F-003 - Local Broker Runtime
 
 ## Status
@@ -15,6 +23,9 @@ Build a local broker that exposes MCP/HTTP interfaces, mediates memory retrieval
 - Routing for retrieval, approval requests, and proof submission.
 - Standalone lifecycle plus externally managed lifecycle hooks for suites such as Analyt.
 - Automatic pre-task memory recall and agent-invoked on-demand memory search.
+- Per-session operation serialization to prevent ingest/retrieval/proposal races under concurrent tool activity.
+- Restart reconciliation for local queue/state so broker restarts do not break trace continuity.
+- Delegated deep-recall orchestration with bounded execution and guaranteed cleanup hooks.
 
 ## Out of Scope
 - Model hosting or token proxying.
@@ -25,6 +36,9 @@ Build a local broker that exposes MCP/HTTP interfaces, mediates memory retrieval
 - The same broker binary can be supervised by an external host manager without changing protocol behavior.
 - Broker injects top-ranked relevant context before work starts when retrieval policy allows it.
 - Broker exposes a searchable memory interface for mid-task lookup.
+- Broker serializes mutable per-session operations to avoid race-induced state corruption.
+- Broker enforces depth/token/timeout limits for deep recall and cleans delegated sessions/grants after completion or failure.
+- Broker can reconcile pending local operations after restart without cross-workspace leakage.
 - Privileged actions are paused at approval boundaries.
 - Trace/proof events are persisted server-side.
 

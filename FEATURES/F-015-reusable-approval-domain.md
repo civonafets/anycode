@@ -1,3 +1,11 @@
+# Legacy Transition Notice
+
+This file is legacy for one planning cycle.
+Canonical planning now lives in:
+- `plans/anymem/FEATURES/`
+- `plans/anycode/FEATURES/`
+- `plans/integrations/analyt/`
+
 # F-015 - Reusable Approval Domain
 
 ## Status
@@ -16,6 +24,7 @@ Define a workflow-generic approval domain that supports chat, edits, proof reque
 - Assignee and approver model, starting with single-user/self-approval in MVP.
 - Workspace-aware visibility and scope rules for approval records and related proposals.
 - Disposition rules for approve, reject, edit, rewrite, defer, escalate, and request-proof.
+- Approval templates for memory package export/publish and high-impact import/embed operations.
 
 ## Out of Scope
 - Complex enterprise role hierarchy in MVP.
@@ -27,6 +36,7 @@ Define a workflow-generic approval domain that supports chat, edits, proof reque
 - The same approval API can be consumed by standalone UI, Analyt, and future products.
 - MVP supports acting-user approval while keeping the model extensible for delegated approvers later.
 - Approval records and conversations support shared and private scopes within a workspace-safe model.
+- Memory package export/import approvals are represented with the same generic workflow model.
 
 ## Dependencies
 - `F-001`, `F-002`, `F-014`

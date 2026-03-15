@@ -1,3 +1,11 @@
+# Legacy Transition Notice
+
+This file is legacy for one planning cycle.
+Canonical planning now lives in:
+- `plans/anymem/FEATURES/`
+- `plans/anycode/FEATURES/`
+- `plans/integrations/analyt/`
+
 # F-002 - Shared Backend Service Skeleton
 
 ## Status
@@ -17,6 +25,9 @@ Implement vendor-neutral backend service boundaries for memory, policy/procedure
 - Adapter-safe token exchange and integration hooks.
 - Tenancy-safe contracts that support self-hosted now and SaaS later.
 - Memory retrieval endpoints for pre-task context and on-demand search.
+- Memory package export pipeline endpoints (request, scan, redact, approve, package, publish).
+- Memory package install endpoints with explicit modes: `external` and `embed`.
+- Memory activation endpoints for package/category/tag toggles and effective-state resolution.
 
 ## Out of Scope
 - Full hosted multi-organization SaaS operations in MVP.
@@ -32,6 +43,9 @@ Implement vendor-neutral backend service boundaries for memory, policy/procedure
 - Core APIs do not require Analyt-specific session or entitlement types.
 - Core contracts are safe to evolve into hosted multi-tenant deployment later.
 - Retrieval APIs return scored results with enough metadata to explain ranking.
+- Export pipeline fails closed when sensitivity findings are unresolved.
+- Importers can install a package as external (toggleable) or embed it into governed local memory with provenance.
+- Activation APIs are available to both dashboard and agents with explicit audit fields.
 - Dashboard API can query all core domains.
 
 ## Dependencies
