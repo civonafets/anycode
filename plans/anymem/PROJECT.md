@@ -34,3 +34,9 @@
 - Can be embedded by suite adapters.
 - Supports SaaS-safe tenancy model from day 1.
 - Has a stable product boundary that can be extracted to its own repo without redefining runtime contracts.
+- Every delivered feature includes automated tests and/or evaluation coverage appropriate to its risk profile.
+
+## Delivery Rule
+- A feature is not considered complete until its required tests are added and passing.
+- Tests serve two purposes: proof that the feature works now, and regression protection for future changes.
+- Ranking/retrieval features must also include replayable evaluation or benchmark coverage where correctness is not binary.

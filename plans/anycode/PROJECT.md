@@ -24,3 +24,8 @@
 - Coding workflows remain portable across tool vendors.
 - Governance continuity is preserved through `anymem` contracts.
 - Policy layering remains deterministic and auditable across coding integrations.
+- Every delivered feature includes automated tests that prove wrapper behavior and guard against regressions.
+
+## Delivery Rule
+- A feature is not complete until its required tests are added and passing.
+- Wrapper and integration features must include contract/integration tests, not only unit tests.

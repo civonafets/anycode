@@ -13,6 +13,11 @@
 - `P1` required for v1 hardening
 - `P2` later
 
+## Test Rule
+1. Every feature file must define required test coverage before implementation starts.
+2. No feature is `Done` until its required tests are implemented and passing.
+3. Wrapper/integration features must include integration or contract tests, not only local unit tests.
+
 ## Feature Map
 | ID | Feature | Priority | Phase | Status | File |
 |---|---|---|---|---|---|
