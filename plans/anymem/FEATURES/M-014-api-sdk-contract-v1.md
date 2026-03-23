@@ -8,12 +8,372 @@
 ## Goal
 Define the stable public contract that external products and adapters use to consume anymem.
 
+## Contract Shape
+- Authoritative interface: REST/JSON resources plus official SDKs wrapping those resources.
+- Live delivery interface: authenticated event subscriptions for first-party clients; signed webhooks for external consumers.
+- Resource groups:
+  - auth + tenancy context
+  - memory + retrieval (`search`, `describe`, `expand_query`)
+  - policy/procedure evaluation
+  - approvals + conversations + dispositions
+  - trace/proof
+  - package export/install/activation
+
+## Initial Endpoint Families
+- `POST /api/v1/auth/register`
+- `POST /api/v1/auth/login`
+- `GET /api/v1/workspaces/current`
+- `GET /api/v1/memory/records`
+- `POST /api/v1/memory/records`
+- `GET /api/v1/memory/records/:id`
+- `POST /api/v1/memory/search`
+- `POST /api/v1/memory/describe`
+- `POST /api/v1/memory/expand_query`
+- `POST /api/v1/policies/evaluate`
+- `GET /api/v1/approvals`
+- `POST /api/v1/approvals`
+- `GET /api/v1/approvals/:id`
+- `POST /api/v1/approvals/:id/messages`
+- `POST /api/v1/approvals/:id/dispositions`
+- `GET /api/v1/trace/events`
+- `POST /api/v1/proof-artifacts`
+- `POST /api/v1/packages/exports`
+- `GET /api/v1/packages/exports/:id`
+- `POST /api/v1/packages/installs`
+- `GET /api/v1/packages/installs/:id`
+- `POST /api/v1/activations/resolve`
+- `POST /api/v1/activations/toggles`
+
+## Common Wire Conventions
+- IDs are opaque stable strings.
+- Timestamps use ISO 8601 UTC strings.
+- Collections use cursor pagination where needed: `next_cursor` and `limit`.
+- Error envelope shape:
+  - `error.code`
+  - `error.message`
+  - `error.retryable`
+  - `error.details`
+- Mutating requests accept `idempotency_key` when duplicate submission risk exists.
+
+## Initial Request and Response Shapes
+- `POST /api/v1/auth/register`
+  - request:
+    - `email`
+    - `password`
+    - `display_name`
+    - `workspace_name` (optional bootstrap)
+  - response:
+    - `actor`
+    - `workspace`
+    - `session.access_token`
+    - `session.refresh_token`
+    - `session.expires_at`
+- `POST /api/v1/auth/login`
+  - request:
+    - `email`
+    - `password`
+  - response:
+    - `actor`
+    - `workspace`
+    - `session.access_token`
+    - `session.refresh_token`
+    - `session.expires_at`
+- `GET /api/v1/workspaces/current`
+  - response:
+    - `workspace.workspace_id`
+    - `workspace.name`
+    - `workspace.role_bindings`
+    - `workspace.permission_bundles`
+- `GET /api/v1/memory/records`
+  - query:
+    - `cursor`
+    - `limit`
+    - `scope`
+    - `tag`
+    - `category`
+    - `package_id`
+  - response:
+    - `records[]`
+    - `next_cursor`
+- `POST /api/v1/memory/records`
+  - request:
+    - `kind`
+    - `title`
+    - `content`
+    - `source_type`
+    - `tags`
+    - `category`
+    - `scope`
+    - `provenance_ref`
+    - `idempotency_key`
+  - response:
+    - `record`
+- `GET /api/v1/memory/records/:id`
+  - response:
+    - `record`
+    - `lineage`
+    - `activation_refs`
+- `POST /api/v1/memory/search`
+  - request:
+    - `query`
+    - `limit`
+    - `filters.tags`
+    - `filters.categories`
+    - `filters.package_ids`
+    - `filters.scopes`
+    - `actor_context`
+    - `activation_context`
+  - response:
+    - `results[]`
+    - `search_mode`
+    - `ranking_version`
+    - `next_cursor` (optional)
+- `POST /api/v1/memory/describe`
+  - request:
+    - `record_id`
+  - response:
+    - `record`
+    - `lineage`
+    - `source_refs`
+- `POST /api/v1/memory/expand_query`
+  - request:
+    - `query`
+    - `record_ids`
+    - `max_depth`
+    - `token_cap`
+    - `idempotency_key`
+  - response:
+    - `operation_id`
+    - `status`
+    - `result` (present when completed inline)
+- `POST /api/v1/policies/evaluate`
+  - request:
+    - `action_type`
+    - `target_refs`
+    - `actor_context`
+    - `tool_context`
+    - `profile_refs`
+    - `activation_context`
+  - response:
+    - `decision`
+    - `matched_policy_refs`
+    - `required_approval_refs`
+    - `required_proof_refs`
+    - `applied_profile_refs`
+- `GET /api/v1/approvals`
+  - query:
+    - `cursor`
+    - `limit`
+    - `status`
+    - `workflow_type`
+  - response:
+    - `approvals[]`
+    - `next_cursor`
+- `POST /api/v1/approvals`
+  - request:
+    - `workflow_type`
+    - `requested_action`
+    - `target_refs`
+    - `policy_refs`
+    - `proof_refs`
+    - `initial_reason`
+    - `scope`
+    - `idempotency_key`
+  - response:
+    - `approval`
+- `GET /api/v1/approvals/:id`
+  - response:
+    - `approval`
+    - `messages[]`
+    - `dispositions[]`
+    - `latest_event_id`
+- `POST /api/v1/approvals/:id/messages`
+  - request:
+    - `body`
+    - `attachment_refs`
+    - `idempotency_key`
+  - response:
+    - `message`
+- `POST /api/v1/approvals/:id/dispositions`
+  - request:
+    - `action`
+    - `rationale`
+    - `payload_ref`
+    - `idempotency_key`
+  - response:
+    - `approval`
+    - `disposition`
+- `GET /api/v1/trace/events`
+  - query:
+    - `cursor`
+    - `limit`
+    - `resource_type`
+    - `resource_id`
+    - `topic`
+  - response:
+    - `events[]`
+    - `next_cursor`
+- `POST /api/v1/proof-artifacts`
+  - request:
+    - `kind`
+    - `target_refs`
+    - `storage_ref`
+    - `metadata`
+    - `idempotency_key`
+  - response:
+    - `proof_artifact`
+- `POST /api/v1/packages/exports`
+  - request:
+    - `selection.record_ids`
+    - `selection.tags`
+    - `selection.categories`
+    - `selection.query`
+    - `publish_scope`
+    - `sensitivity_profile`
+    - `idempotency_key`
+  - response:
+    - `export_job`
+- `GET /api/v1/packages/exports/:id`
+  - response:
+    - `export_job`
+    - `sensitivity_findings`
+    - `artifact_ref`
+- `POST /api/v1/packages/installs`
+  - request:
+    - `package_version_id`
+    - `install_mode`
+    - `activation_default`
+    - `idempotency_key`
+  - response:
+    - `install`
+- `GET /api/v1/packages/installs/:id`
+  - response:
+    - `install`
+    - `effective_activation_state`
+- `POST /api/v1/activations/resolve`
+  - request:
+    - `target_refs`
+    - `scope_context`
+  - response:
+    - `effective_state`
+- `POST /api/v1/activations/toggles`
+  - request:
+    - `target_type`
+    - `target_id`
+    - `scope_level`
+    - `enabled`
+    - `idempotency_key`
+  - response:
+    - `toggle`
+    - `effective_state`
+
+## Request Context
+- Required context on every authenticated call: actor ID, workspace ID, caller product, session/tool identifier when present.
+- Effective activation state must be carried explicitly on requests where retrieval behavior depends on it, or must be resolvable server-side from canonical scope state.
+
+## Async and Event Model
+- Canonical state lives in REST resources; no write-only event commands.
+- Long-running operations return a resource/job reference immediately.
+- First-party clients subscribe to resource-change events rather than polling as primary freshness mechanism.
+- External integrations receive webhook deliveries with signed payloads, stable event IDs, retry semantics, and replay-safe idempotency.
+
+## Event Envelope
+- Common event fields:
+  - `event_id`
+  - `topic`
+  - `workspace_id`
+  - `resource_type`
+  - `resource_id`
+  - `actor_id`
+  - `occurred_at`
+  - `delivery_id`
+  - `causation_id`
+  - `payload_version`
+  - `payload`
+
+## Initial Event Topics
+- `approval.created`
+- `approval.updated`
+- `approval.message.created`
+- `approval.disposition.created`
+- `proof.available`
+- `package.export.created`
+- `package.export.updated`
+- `package.install.created`
+- `package.install.updated`
+- `activation.changed`
+
+## Initial Event Payload Classes
+- `approval.created`
+  - `approval_id`
+  - `workflow_type`
+  - `status`
+  - `requested_action`
+- `approval.updated`
+  - `approval_id`
+  - `status`
+  - `previous_status`
+  - `updated_fields`
+- `approval.message.created`
+  - `approval_id`
+  - `message_id`
+  - `speaker_type`
+- `approval.disposition.created`
+  - `approval_id`
+  - `disposition_id`
+  - `action`
+  - `resulting_status`
+- `proof.available`
+  - `proof_artifact_id`
+  - `target_refs`
+  - `kind`
+- `package.export.created`
+  - `export_id`
+  - `status`
+- `package.export.updated`
+  - `export_id`
+  - `status`
+  - `finding_counts`
+  - `artifact_ref`
+- `package.install.created`
+  - `install_id`
+  - `package_version_id`
+  - `install_mode`
+  - `status`
+- `package.install.updated`
+  - `install_id`
+  - `status`
+  - `effective_activation_state`
+- `activation.changed`
+  - `target_type`
+  - `target_id`
+  - `scope_level`
+  - `enabled`
+  - `effective_state_hash`
+
+## Webhook Delivery Rules
+- Every delivery includes stable `event_id` and unique `delivery_id`.
+- Deliveries are signed.
+- Duplicate deliveries are allowed; consumers must dedupe by `event_id`.
+- Retries are expected on timeout and retryable failure.
+- Consumers acknowledge by successful `2xx` response only.
+- Retry policy: exponential backoff with jitter for up to 6 delivery attempts over approximately 30 minutes.
+- Failed terminal deliveries move to a dead-letter state visible in package/integration operations.
+
+## SDK Surface Expectations
+- SDK wraps REST resources first; it does not invent alternate stateful semantics.
+- SDK exposes typed event subscription helpers for first-party surfaces.
+- SDK exposes typed webhook verification helpers for external consumers.
+
 ## Acceptance Criteria
 - Contract covers authentication propagation, workspace context, actor/session/tool identifiers, and activation-state context.
 - Mutating operations define idempotency requirements.
 - Long-running flows define async job or resumable interaction behavior.
 - Contract versioning and deprecation rules are explicit.
 - Error model distinguishes retryable, terminal, auth, and scope failures.
+- Event topics or subscription classes are defined for approvals, package lifecycle, activation changes, and proof availability.
+- Webhook verification, retry, and duplicate-delivery expectations are explicit.
+- Initial endpoint families are fixed enough that SDK and adapter work can start without inventing new domain boundaries.
 
 ## Dependencies
 - `M-001`, `M-009`, `M-016`

@@ -15,6 +15,9 @@
 7. `anymem` package installation is treated as a trust and supply-chain problem, not only an import/export problem.
 8. `anymem` owns the canonical local broker runtime for strong-enforcement paths; lighter consumers may use API/SDK-only paths.
 9. Every implemented feature must ship with automated tests that act both as proof of work and as regression protection.
+10. Long-running `anymem` flows are events-first: canonical write/read APIs remain REST/SDK resources, while live state changes are delivered through event subscriptions for first-party clients and webhook delivery for external consumers.
+11. `anymem` authorization is permission-based RBAC: roles are named bundles of granular permissions and new roles are composed by permission assignment, not schema forks.
+12. Analyt presents `anymem` and `anycode` as two separate first-class entries within the same suite group.
 
 ## Repo Extraction Readiness Gates
 1. `anymem` API/SDK contract v1 is documented and stable.
