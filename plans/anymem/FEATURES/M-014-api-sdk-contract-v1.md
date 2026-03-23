@@ -30,13 +30,16 @@ Define the stable public contract that external products and adapters use to con
   - monotonic `stream_position` within the workspace event log
 - `SSE` event `id` uses `stream_position` so clients can resume with `Last-Event-ID`.
 - Clients may also pass explicit `cursor` query parameter for replay bootstrap.
-- Replay retention is finite and deployment-configurable. When requested cursor is outside the retained window, server responds with `409 replay_window_expired`; client must resync canonical resources and restart from head.
+- Replay retention is finite and deployment-configurable.
+- Default replay retention target in v1: `72h`.
+- When requested cursor is outside the retained window, server responds with `409 replay_window_expired`; client must resync canonical resources and restart from head.
 - Heartbeat comments are emitted on idle connections so UI and broker clients can detect broken links quickly without polling resource endpoints.
 
 ## Initial Endpoint Families
 - `POST /api/v1/auth/register`
 - `POST /api/v1/auth/login`
 - `GET /api/v1/workspaces/current`
+- `POST /api/v1/runtime/bootstrap-tokens`
 - `GET /api/v1/memory/records`
 - `POST /api/v1/memory/records`
 - `GET /api/v1/memory/records/:id`
@@ -99,6 +102,19 @@ Define the stable public contract that external products and adapters use to con
     - `workspace.name`
     - `workspace.role_bindings`
     - `workspace.permission_bundles`
+- `POST /api/v1/runtime/bootstrap-tokens`
+  - request:
+    - `tool_kind`
+    - `session_id`
+    - `requested_capabilities[]`
+    - `caller_product`
+    - `broker_instance_id` (optional)
+    - `idempotency_key`
+  - response:
+    - `bootstrap_token`
+    - `expires_at`
+    - `broker_endpoint_hint`
+    - `granted_capabilities[]`
 - `GET /api/v1/memory/records`
   - query:
     - `cursor`

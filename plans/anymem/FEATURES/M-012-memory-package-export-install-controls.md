@@ -33,6 +33,10 @@ Enable safe reusable memory packages with strict sensitivity pipeline and explic
 - Only one key is default signing key at a time.
 - Private signing keys remain server-side in deployment-managed secret storage or KMS-backed signing facilities; normal product flows do not export raw private keys.
 - Rotation creates a new `active` key while older trusted keys move to `verify_only` until explicitly retired.
+- Signer implementation uses one abstraction with deployment-selectable backends:
+  - default self-hosted backend: local sealed signer storage outside the relational database
+  - optional hosted/enterprise backend: external KMS or HSM-backed signer
+- Manifest and verification semantics stay identical across signer backends.
 
 ## Install Verification
 - Install verifies:

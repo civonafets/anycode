@@ -12,11 +12,12 @@ Implement stable anymem APIs for auth tenancy context, memory/retrieval, policy,
 - APIs are standalone and do not require Analyt services.
 - Contracts are tenancy-safe for self-host and future SaaS.
 - Export/install/activation endpoints are present and auditable.
+- Runtime bootstrap endpoint exists for local broker session bootstrapping and is owned by anymem, not by wrappers.
 - API contracts are suitable for external product consumers (`anycode`, adapters).
 - Request context contract includes actor identity, workspace context, tool/session identifiers, and effective activation state.
 - Mutating APIs support idempotency keys where duplicate submission risk exists.
 - Long-running flows (`approval`, `proof`, `package export`, `sensitivity scan`) have explicit async resource semantics plus live event delivery.
-- First-party UI contract supports authenticated event subscriptions for fresh state.
+- First-party UI contract uses ordered replayable `SSE` for fresh state.
 - External integration contract supports webhook delivery with signing, retry, and idempotent event identifiers.
 - Versioning and deprecation policy are documented for external consumers.
 - Failure semantics are explicit enough that consumers can distinguish retryable, terminal, and authorization/scope failures.

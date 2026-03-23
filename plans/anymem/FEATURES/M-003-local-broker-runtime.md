@@ -22,7 +22,9 @@ Provide a generic local broker for retrieval bootstrap, policy checks, approval 
 - Loopback TCP is debug-only and disabled by default in production-facing builds.
 
 ## Session Bootstrap
+- Broker bootstrap tokens are minted by canonical `anymem` APIs from an already-authenticated actor session; wrappers and launchers do not self-sign them.
 - Wrapper or launcher receives a short-lived broker bootstrap token scoped to one actor, workspace, tool, and session.
+- Default bootstrap token TTL in v1: `120s`.
 - Wrapper opens local IPC channel and calls `POST /local/v1/sessions/bootstrap`.
 - Broker validates:
   - token signature and expiry
@@ -42,6 +44,7 @@ Provide a generic local broker for retrieval bootstrap, policy checks, approval 
 - Broker tracks last acknowledged upstream `stream_position` per active local session.
 - On reconnect, broker resumes upstream event consumption from the last durable `stream_position`.
 - If replay window has expired, broker must force a canonical resource resync before resuming enforcement-sensitive operations.
+- Broker startup path assumes upstream replay retention default of `72h`; operators may increase that window, but v1 implementations should not assume infinite replay.
 
 ## Acceptance Criteria
 - Broker role is explicitly defined as canonical optional local runtime for strong-enforcement integrations, not mandatory for all consumers.
