@@ -1,18 +1,27 @@
-# Memory Guardrail Proof System
+# anymem + anycode Monorepo
 
-Standalone governance, memory, approval, and proof system for AI-assisted work.
+Monorepo for `anymem` and `anycode`.
+
+Current implemented baseline is the standalone `anymem` core API scaffold.
 
 ## Current Implementation
-- `apps/api`: standalone HTTP API skeleton
-- `packages/contracts`: shared workflow and approval constants
+- `apps/anymem-api`: standalone HTTP API skeleton for `anymem`
+- `packages/anymem-contracts`: shared approval and workflow constants
 - `tests`: built-in API tests using `node:test`
 
 ## Run
+```bash
+npm run dev:anymem-api
+```
+
+Compatibility alias:
 ```bash
 npm run dev:api
 ```
 
 API defaults to `http://127.0.0.1:4010`.
+
+Override the dev state path with `ANYMEM_STATE_FILE=/path/to/state.json`.
 
 ## Manual Checks
 ```bash

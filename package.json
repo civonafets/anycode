@@ -1,5 +1,5 @@
 {
-  "name": "memory-guardrail-proof-system",
+  "name": "anycode-monorepo",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -8,7 +8,8 @@
     "packages/*"
   ],
   "scripts": {
-    "dev:api": "node apps/api/src/server.mjs",
+    "dev:anymem-api": "node apps/anymem-api/src/server.mjs",
+    "dev:api": "node apps/anymem-api/src/server.mjs",
     "test": "node --test"
   }
 }

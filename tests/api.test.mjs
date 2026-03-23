@@ -4,10 +4,10 @@ import { mkdtemp } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
-import { createApp } from '../apps/api/src/app.mjs';
+import { createApp } from '../apps/anymem-api/src/app.mjs';
 
 test('standalone auth and generic approval flow works end-to-end', async () => {
-  const dir = await mkdtemp(join(tmpdir(), 'mgps-'));
+  const dir = await mkdtemp(join(tmpdir(), 'anymem-'));
   const storePath = join(dir, 'state.json');
   const { server } = await createApp({ storePath });
 
@@ -21,12 +21,14 @@ test('standalone auth and generic approval flow works end-to-end', async () => {
       body: {
         email: 'owner@example.com',
         password: 'super-secret-123',
-        name: 'Owner',
-        organization_name: 'Standalone Org'
+        display_name: 'Owner',
+        workspace_name: 'Standalone Workspace'
       }
     });
     assert.equal(registerResponse.status, 201);
-    assert.equal(registerResponse.body.data.email, 'owner@example.com');
+    assert.equal(registerResponse.body.data.actor.email, 'owner@example.com');
+    assert.equal(registerResponse.body.data.workspace.name, 'Standalone Workspace');
+    assert.ok(registerResponse.body.data.session.access_token);
 
     const loginResponse = await requestJson(`${baseUrl}/api/v1/auth/login`, {
       method: 'POST',
@@ -36,15 +38,15 @@ test('standalone auth and generic approval flow works end-to-end', async () => {
       }
     });
     assert.equal(loginResponse.status, 200);
-    assert.ok(loginResponse.body.data.token);
+    assert.ok(loginResponse.body.data.session.access_token);
 
-    const token = loginResponse.body.data.token;
+    const token = loginResponse.body.data.session.access_token;
 
     const approvalResponse = await requestJson(`${baseUrl}/api/v1/approvals`, {
       method: 'POST',
       token,
       body: {
-        workflow_kind: 'general_work_item',
+        workflow_type: 'general_work_item',
         title: 'Approve updated team operating note',
         reason: 'Agent proposes changing shared memory after repeated confusion in approvals.',
         context: {
@@ -55,7 +57,7 @@ test('standalone auth and generic approval flow works end-to-end', async () => {
     });
     assert.equal(approvalResponse.status, 201);
     assert.equal(approvalResponse.body.data.status, 'pending');
-    assert.equal(approvalResponse.body.data.workflow_kind, 'general_work_item');
+    assert.equal(approvalResponse.body.data.workflow_type, 'general_work_item');
 
     const approvalId = approvalResponse.body.data.id;
 
@@ -63,7 +65,7 @@ test('standalone auth and generic approval flow works end-to-end', async () => {
       method: 'POST',
       token,
       body: {
-        author_kind: 'user',
+        speaker_type: 'user',
         body: 'Explain why this memory change is better than adding a new rule.'
       }
     });
@@ -76,8 +78,8 @@ test('standalone auth and generic approval flow works end-to-end', async () => {
         method: 'POST',
         token,
         body: {
-          kind: 'request_proof',
-          note: 'Show an example where the current memory failed.'
+          action: 'request_proof',
+          rationale: 'Show an example where the current memory failed.'
         }
       }
     );

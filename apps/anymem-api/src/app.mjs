@@ -11,12 +11,12 @@ import {
   isWorkflowKind,
   messageAuthorKinds,
   workflowKinds
-} from '../../../packages/contracts/src/domain.mjs';
+} from '../../../packages/anymem-contracts/src/domain.mjs';
 import { JsonStore } from './lib/json-store.mjs';
 import { fail, ok, readJson } from './lib/http.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const DEFAULT_STORE_PATH = resolve(__dirname, '../../../.local/dev-state.json');
+const DEFAULT_STORE_PATH = resolve(__dirname, '../../../.local/anymem-dev-state.json');
 const SESSION_TTL_MS = 1000 * 60 * 60 * 12;
 
 export async function createApp(options = {}) {
@@ -30,7 +30,7 @@ export async function createApp(options = {}) {
 
       if (method === 'GET' && url.pathname === '/healthz') {
         return ok(response, 200, {
-          service: 'memory-guardrail-proof-system-api',
+          service: 'anymem-api',
           status: 'ok',
           now: new Date().toISOString()
         });
@@ -38,10 +38,11 @@ export async function createApp(options = {}) {
 
       if (method === 'GET' && url.pathname === '/api/v1/meta') {
         return ok(response, 200, {
-          product: 'Memory Guardrail Proof System',
+          product: 'anymem',
           mode: 'standalone-core',
           auth: 'standalone',
           approval_model: 'workflow-generic',
+          workflow_types: workflowKinds,
           workflow_kinds: workflowKinds,
           dispositions: dispositionKinds
         });
@@ -49,6 +50,7 @@ export async function createApp(options = {}) {
 
       if (method === 'GET' && url.pathname === '/api/v1/approval-types') {
         return ok(response, 200, {
+          workflow_types: workflowKinds,
           workflow_kinds: workflowKinds,
           message_author_kinds: messageAuthorKinds,
           approval_statuses: approvalStatuses,
@@ -60,45 +62,58 @@ export async function createApp(options = {}) {
         const body = await readJson(request);
         const email = String(body.email || '').trim().toLowerCase();
         const password = String(body.password || '');
-        const name = String(body.name || '').trim();
-        const organizationName = String(body.organization_name || '').trim();
+        const displayName = String(body.display_name || body.name || '').trim();
+        const workspaceName = String(body.workspace_name || body.organization_name || '').trim();
 
-        if (!email || !password || !name || !organizationName) {
-          return fail(response, 400, 'email, password, name, and organization_name are required');
+        if (!email || !password || !displayName || !workspaceName) {
+          return fail(
+            response,
+            400,
+            'email, password, display_name/name, and workspace_name/organization_name are required'
+          );
         }
         if (password.length < 10) {
           return fail(response, 400, 'password must be at least 10 characters');
         }
 
-        const state = await store.update(async (current) => {
-          if (current.users.some((user) => user.email === email)) {
-            throw new AppError(409, 'user already exists');
+        const result = await store.update(async (current) => {
+          if (current.actors.some((actor) => actor.email === email)) {
+            throw new AppError(409, 'actor already exists');
           }
 
-          const organizationId = randomUUID();
-          const userId = randomUUID();
+          const workspaceId = randomUUID();
+          const actorId = randomUUID();
           const now = new Date().toISOString();
           const passwordHash = hashPassword(password);
-
-          current.organizations.push({
-            id: organizationId,
-            name: organizationName,
+          const workspace = {
+            id: workspaceId,
+            name: workspaceName,
             created_at: now
-          });
-          current.users.push({
-            id: userId,
-            organization_id: organizationId,
+          };
+          const actor = {
+            id: actorId,
+            workspace_id: workspaceId,
             email,
-            name,
+            display_name: displayName,
             password_hash: passwordHash,
             created_at: now
-          });
+          };
 
-          return current;
+          current.workspaces.push(workspace);
+          current.actors.push(actor);
+
+          const session = issueSession(current, actorId);
+          return {
+            ...current,
+            _result: {
+              actor,
+              workspace,
+              session
+            }
+          };
         });
 
-        const user = state.users.find((entry) => entry.email === email);
-        return ok(response, 201, sanitizeUser(user));
+        return ok(response, 201, buildAuthPayload(result._result));
       }
 
       if (method === 'POST' && url.pathname === '/api/v1/auth/login') {
@@ -110,30 +125,29 @@ export async function createApp(options = {}) {
           return fail(response, 400, 'email and password are required');
         }
 
-        const state = await store.read();
-        const user = state.users.find((entry) => entry.email === email);
-        if (!user || !verifyPassword(password, user.password_hash)) {
-          return fail(response, 401, 'invalid credentials');
-        }
+        const result = await store.update(async (current) => {
+          const actor = current.actors.find((entry) => entry.email === email);
+          if (!actor || !verifyPassword(password, actor.password_hash)) {
+            throw new AppError(401, 'invalid credentials');
+          }
 
-        const token = randomBytes(24).toString('hex');
-        const now = Date.now();
-        const expiresAt = new Date(now + SESSION_TTL_MS).toISOString();
+          const workspace = current.workspaces.find((entry) => entry.id === actor.workspace_id);
+          if (!workspace) {
+            throw new AppError(500, 'actor workspace missing');
+          }
 
-        state.sessions = state.sessions.filter((session) => session.user_id !== user.id);
-        state.sessions.push({
-          token,
-          user_id: user.id,
-          created_at: new Date(now).toISOString(),
-          expires_at: expiresAt
+          const session = issueSession(current, actor.id);
+          return {
+            ...current,
+            _result: {
+              actor,
+              workspace,
+              session
+            }
+          };
         });
-        await store.write(state);
 
-        return ok(response, 200, {
-          token,
-          expires_at: expiresAt,
-          user: sanitizeUser(user)
-        });
+        return ok(response, 200, buildAuthPayload(result._result));
       }
 
       if (method === 'GET' && url.pathname === '/api/v1/approvals') {
@@ -141,8 +155,9 @@ export async function createApp(options = {}) {
         const state = await store.read();
         const approvals = state.approvals.filter(
           (approval) =>
-            approval.requested_by_user_id === session.user.id ||
-            approval.approver_user_id === session.user.id
+            approval.workspace_id === session.workspace.id &&
+            (approval.requested_by_actor_id === session.actor.id ||
+              approval.approver_actor_id === session.actor.id)
         );
         return ok(response, 200, approvals, { count: approvals.length });
       }
@@ -150,13 +165,13 @@ export async function createApp(options = {}) {
       if (method === 'POST' && url.pathname === '/api/v1/approvals') {
         const session = await requireSession(request, store);
         const body = await readJson(request);
-        const workflowKind = String(body.workflow_kind || '').trim();
+        const workflowType = String(body.workflow_type || body.workflow_kind || '').trim();
         const title = String(body.title || '').trim();
-        const reason = String(body.reason || '').trim();
+        const reason = String(body.reason || body.initial_reason || '').trim();
         const context = body.context && typeof body.context === 'object' ? body.context : {};
 
-        if (!isWorkflowKind(workflowKind)) {
-          return fail(response, 400, 'workflow_kind is invalid', { allowed: workflowKinds });
+        if (!isWorkflowKind(workflowType)) {
+          return fail(response, 400, 'workflow_type is invalid', { allowed: workflowKinds });
         }
         if (!title || !reason) {
           return fail(response, 400, 'title and reason are required');
@@ -165,20 +180,21 @@ export async function createApp(options = {}) {
         const now = new Date().toISOString();
         const approval = {
           id: randomUUID(),
-          workflow_kind: workflowKind,
+          workspace_id: session.workspace.id,
+          workflow_type: workflowType,
+          workflow_kind: workflowType,
           title,
           reason,
           status: 'pending',
-          requested_by_user_id: session.user.id,
-          approver_user_id: session.user.id,
+          requested_by_actor_id: session.actor.id,
+          approver_actor_id: session.actor.id,
           context,
           messages: [
-            {
-              id: randomUUID(),
-              author_kind: 'agent',
+            buildMessage({
+              speakerType: 'agent',
               body: reason,
-              created_at: now
-            }
+              createdAt: now
+            })
           ],
           dispositions: [],
           created_at: now,
@@ -196,13 +212,7 @@ export async function createApp(options = {}) {
       const approvalMatch = url.pathname.match(/^\/api\/v1\/approvals\/([^/]+)$/);
       if (method === 'GET' && approvalMatch) {
         const session = await requireSession(request, store);
-        const approval = await findApproval(store, approvalMatch[1]);
-        if (
-          approval.requested_by_user_id !== session.user.id &&
-          approval.approver_user_id !== session.user.id
-        ) {
-          return fail(response, 403, 'approval not visible to current user');
-        }
+        const approval = await findVisibleApproval(store, approvalMatch[1], session);
         return ok(response, 200, approval);
       }
 
@@ -210,31 +220,23 @@ export async function createApp(options = {}) {
       if (method === 'POST' && messageMatch) {
         const session = await requireSession(request, store);
         const body = await readJson(request);
-        const authorKind = String(body.author_kind || '').trim();
+        const speakerType = String(body.speaker_type || body.author_kind || '').trim();
         const messageBody = String(body.body || '').trim();
 
-        if (!isMessageAuthorKind(authorKind) || !messageBody) {
-          return fail(response, 400, 'author_kind and body are required');
+        if (!isMessageAuthorKind(speakerType) || !messageBody) {
+          return fail(response, 400, 'speaker_type/author_kind and body are required');
         }
 
         const state = await store.update(async (current) => {
-          const approval = current.approvals.find((entry) => entry.id === messageMatch[1]);
-          if (!approval) {
-            throw new AppError(404, 'approval not found');
-          }
-          if (
-            approval.requested_by_user_id !== session.user.id &&
-            approval.approver_user_id !== session.user.id
-          ) {
-            throw new AppError(403, 'approval not visible to current user');
-          }
+          const approval = findVisibleApprovalInState(current, messageMatch[1], session);
 
-          approval.messages.push({
-            id: randomUUID(),
-            author_kind: authorKind,
-            body: messageBody,
-            created_at: new Date().toISOString()
-          });
+          approval.messages.push(
+            buildMessage({
+              speakerType,
+              body: messageBody,
+              createdAt: new Date().toISOString()
+            })
+          );
           approval.updated_at = new Date().toISOString();
           return current;
         });
@@ -247,33 +249,31 @@ export async function createApp(options = {}) {
       if (method === 'POST' && dispositionMatch) {
         const session = await requireSession(request, store);
         const body = await readJson(request);
-        const kind = String(body.kind || '').trim();
-        const note = String(body.note || '').trim();
+        const action = String(body.action || body.kind || '').trim();
+        const rationale = String(body.rationale || body.note || '').trim();
 
-        if (!isDispositionKind(kind)) {
-          return fail(response, 400, 'kind is invalid', { allowed: dispositionKinds });
+        if (!isDispositionKind(action)) {
+          return fail(response, 400, 'action/kind is invalid', { allowed: dispositionKinds });
         }
-        if (!note) {
-          return fail(response, 400, 'note is required');
+        if (!rationale) {
+          return fail(response, 400, 'rationale/note is required');
         }
 
         const state = await store.update(async (current) => {
-          const approval = current.approvals.find((entry) => entry.id === dispositionMatch[1]);
-          if (!approval) {
-            throw new AppError(404, 'approval not found');
-          }
-          if (approval.approver_user_id !== session.user.id) {
-            throw new AppError(403, 'current user is not the approver');
+          const approval = findVisibleApprovalInState(current, dispositionMatch[1], session);
+          if (approval.approver_actor_id !== session.actor.id) {
+            throw new AppError(403, 'current actor is not the approver');
           }
 
-          approval.dispositions.push({
-            id: randomUUID(),
-            kind,
-            note,
-            actor_user_id: session.user.id,
-            created_at: new Date().toISOString()
-          });
-          approval.status = mapDispositionToStatus(kind);
+          approval.dispositions.push(
+            buildDisposition({
+              action,
+              rationale,
+              actorId: session.actor.id,
+              createdAt: new Date().toISOString()
+            })
+          );
+          approval.status = mapDispositionToStatus(action);
           approval.updated_at = new Date().toISOString();
           return current;
         });
@@ -337,7 +337,7 @@ async function requireSession(request, store) {
   }
 
   const state = await store.read();
-  const session = state.sessions.find((entry) => entry.token === token);
+  const session = state.sessions.find((entry) => entry.access_token === token);
   if (!session) {
     throw new AppError(401, 'invalid session token');
   }
@@ -345,33 +345,112 @@ async function requireSession(request, store) {
     throw new AppError(401, 'session expired');
   }
 
-  const user = state.users.find((entry) => entry.id === session.user_id);
-  if (!user) {
-    throw new AppError(401, 'session user missing');
+  const actor = state.actors.find((entry) => entry.id === session.actor_id);
+  if (!actor) {
+    throw new AppError(401, 'session actor missing');
+  }
+
+  const workspace = state.workspaces.find((entry) => entry.id === actor.workspace_id);
+  if (!workspace) {
+    throw new AppError(401, 'session workspace missing');
   }
 
   return {
-    token,
-    user
+    accessToken: token,
+    actor,
+    workspace,
+    session
   };
 }
 
-async function findApproval(store, approvalId) {
+async function findVisibleApproval(store, approvalId, session) {
   const state = await store.read();
+  return findVisibleApprovalInState(state, approvalId, session);
+}
+
+function findVisibleApprovalInState(state, approvalId, session) {
   const approval = state.approvals.find((entry) => entry.id === approvalId);
   if (!approval) {
     throw new AppError(404, 'approval not found');
   }
+  if (approval.workspace_id !== session.workspace.id) {
+    throw new AppError(403, 'approval not visible to current actor');
+  }
+  if (
+    approval.requested_by_actor_id !== session.actor.id &&
+    approval.approver_actor_id !== session.actor.id
+  ) {
+    throw new AppError(403, 'approval not visible to current actor');
+  }
   return approval;
 }
 
-function sanitizeUser(user) {
+function buildAuthPayload({ actor, workspace, session }) {
   return {
-    id: user.id,
-    organization_id: user.organization_id,
-    email: user.email,
-    name: user.name,
-    created_at: user.created_at
+    actor: sanitizeActor(actor),
+    workspace: sanitizeWorkspace(workspace),
+    session: {
+      access_token: session.access_token,
+      refresh_token: session.refresh_token,
+      expires_at: session.expires_at
+    }
+  };
+}
+
+function sanitizeActor(actor) {
+  return {
+    id: actor.id,
+    workspace_id: actor.workspace_id,
+    email: actor.email,
+    display_name: actor.display_name,
+    name: actor.display_name,
+    created_at: actor.created_at
+  };
+}
+
+function sanitizeWorkspace(workspace) {
+  return {
+    workspace_id: workspace.id,
+    id: workspace.id,
+    name: workspace.name,
+    created_at: workspace.created_at
+  };
+}
+
+function issueSession(state, actorId) {
+  const now = Date.now();
+  const session = {
+    access_token: randomBytes(24).toString('hex'),
+    refresh_token: null,
+    actor_id: actorId,
+    created_at: new Date(now).toISOString(),
+    expires_at: new Date(now + SESSION_TTL_MS).toISOString()
+  };
+
+  state.sessions = state.sessions.filter((entry) => entry.actor_id !== actorId);
+  state.sessions.push(session);
+  return session;
+}
+
+function buildMessage({ speakerType, body, createdAt }) {
+  return {
+    id: randomUUID(),
+    speaker_type: speakerType,
+    author_kind: speakerType,
+    body,
+    created_at: createdAt
+  };
+}
+
+function buildDisposition({ action, rationale, actorId, createdAt }) {
+  return {
+    id: randomUUID(),
+    action,
+    kind: action,
+    rationale,
+    note: rationale,
+    actor_id: actorId,
+    created_at: createdAt
   };
 }
 

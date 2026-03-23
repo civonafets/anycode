@@ -1,4 +1,4 @@
-import { apiEnvelope, apiError } from '../../../../packages/contracts/src/domain.mjs';
+import { apiEnvelope, apiError } from '../../../../packages/anymem-contracts/src/domain.mjs';
 
 export async function readJson(request) {
   const chunks = [];
