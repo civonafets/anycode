@@ -37,3 +37,4 @@
 | M-014 | API and SDK Contract v1 | P0 | 0 - Planning | Planned | [`M-014-api-sdk-contract-v1.md`](./M-014-api-sdk-contract-v1.md) |
 | M-015 | Retrieval Evaluation and Benchmarks | P1 | 1 - Governance Core | Planned | [`M-015-retrieval-evaluation-and-benchmarks.md`](./M-015-retrieval-evaluation-and-benchmarks.md) |
 | M-016 | Role, Scope, and Delegation Model | P0 | 0 - Planning | Planned | [`M-016-role-scope-and-delegation-model.md`](./M-016-role-scope-and-delegation-model.md) |
+| M-017 | Agent MCP Adapter (Optional) | P1 | 2 - Broker + Tooling | Planned | [`M-017-agent-mcp-adapter.md`](./M-017-agent-mcp-adapter.md) |

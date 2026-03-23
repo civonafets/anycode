@@ -18,6 +18,10 @@
 - Role/scope/delegation model for publish/install/embed/toggle/approve actions.
 - Canonical local broker runtime for strong-enforcement integrations.
 - Events-first delivery for long-running state changes and live UI updates.
+- Ordered first-party `SSE` stream with resumable replay semantics.
+- Canonical local IPC protocol for wrappers and other strong-enforcement local clients.
+- Workspace publisher key management for package signing and verification.
+- Optional agent-facing MCP adapter layered on top of canonical APIs/SDKs.
 - Standalone surfaces for governance operations.
 
 ### Out of scope
@@ -29,7 +33,9 @@
 - Consumers (including `anycode`) use public contracts only.
 - No direct DB coupling from consumer products.
 - API contract includes auth propagation, idempotency, async job behavior, versioning, and failure semantics.
-- First-party surfaces consume live event subscriptions from `anymem`; third-party integrations use webhook delivery or explicit event consumption contracts.
+- First-party surfaces consume ordered `SSE` subscriptions from `anymem`; third-party integrations use webhook delivery or explicit event consumption contracts.
+- Strong-enforcement local clients use the official local client SDK over the canonical broker IPC protocol.
+- Optional MCP adapters stay above the canonical REST/SDK contract and never replace it.
 
 ## Success Conditions
 - Can run standalone.
@@ -38,6 +44,7 @@
 - Has a stable product boundary that can be extracted to its own repo without redefining runtime contracts.
 - Every delivered feature includes automated tests and/or evaluation coverage appropriate to its risk profile.
 - Supports granular permission-based RBAC without hard-coding a fixed small role set.
+- Supports live-first UI freshness without requiring first-party polling loops as the primary update mechanism.
 
 ## Delivery Rule
 - A feature is not considered complete until its required tests are added and passing.

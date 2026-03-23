@@ -18,6 +18,10 @@
 10. Long-running `anymem` flows are events-first: canonical write/read APIs remain REST/SDK resources, while live state changes are delivered through event subscriptions for first-party clients and webhook delivery for external consumers.
 11. `anymem` authorization is permission-based RBAC: roles are named bundles of granular permissions and new roles are composed by permission assignment, not schema forks.
 12. Analyt presents `anymem` and `anycode` as two separate first-class entries within the same suite group.
+13. First-party live transport in v1 is workspace-scoped ordered `SSE` with resumable replay; webhooks remain the external delivery path.
+14. Wrapper-to-broker communication uses one canonical local protocol: HTTP/JSON over OS-native local IPC, hidden behind an official local client SDK.
+15. Memory packages are signed with workspace publisher keys; install-time verification is fail-closed and quarantine-capable.
+16. Agent-facing MCP or Code Mode adapters are optional layers above canonical APIs/SDKs and may not bypass canonical auth, policy, approval, proof, or trace paths.
 
 ## Repo Extraction Readiness Gates
 1. `anymem` API/SDK contract v1 is documented and stable.

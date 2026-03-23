@@ -10,7 +10,7 @@ Define the stable public contract that external products and adapters use to con
 
 ## Contract Shape
 - Authoritative interface: REST/JSON resources plus official SDKs wrapping those resources.
-- Live delivery interface: authenticated event subscriptions for first-party clients; signed webhooks for external consumers.
+- Live delivery interface: workspace-scoped ordered `SSE` for first-party clients; signed webhooks for external consumers.
 - Resource groups:
   - auth + tenancy context
   - memory + retrieval (`search`, `describe`, `expand_query`)
@@ -18,6 +18,20 @@ Define the stable public contract that external products and adapters use to con
   - approvals + conversations + dispositions
   - trace/proof
   - package export/install/activation
+
+## First-Party Live Transport and Replay
+- Canonical first-party live transport in v1: `GET /api/v1/events/stream` over `text/event-stream`.
+- Delivery model:
+  - ordered per workspace stream
+  - at-least-once delivery
+  - duplicate events possible across reconnect boundaries
+- Every emitted event carries:
+  - stable `event_id`
+  - monotonic `stream_position` within the workspace event log
+- `SSE` event `id` uses `stream_position` so clients can resume with `Last-Event-ID`.
+- Clients may also pass explicit `cursor` query parameter for replay bootstrap.
+- Replay retention is finite and deployment-configurable. When requested cursor is outside the retained window, server responds with `409 replay_window_expired`; client must resync canonical resources and restart from head.
+- Heartbeat comments are emitted on idle connections so UI and broker clients can detect broken links quickly without polling resource endpoints.
 
 ## Initial Endpoint Families
 - `POST /api/v1/auth/register`
@@ -36,6 +50,7 @@ Define the stable public contract that external products and adapters use to con
 - `POST /api/v1/approvals/:id/messages`
 - `POST /api/v1/approvals/:id/dispositions`
 - `GET /api/v1/trace/events`
+- `GET /api/v1/events/stream`
 - `POST /api/v1/proof-artifacts`
 - `POST /api/v1/packages/exports`
 - `GET /api/v1/packages/exports/:id`
@@ -213,6 +228,16 @@ Define the stable public contract that external products and adapters use to con
   - response:
     - `events[]`
     - `next_cursor`
+- `GET /api/v1/events/stream`
+  - query:
+    - `cursor` (optional replay starting point)
+    - `topics[]` (optional)
+    - `resource_types[]` (optional)
+  - transport:
+    - `text/event-stream`
+    - `id` field set to `stream_position`
+    - `event` field set to topic name
+    - `data` field set to serialized event envelope
 - `POST /api/v1/proof-artifacts`
   - request:
     - `kind`
@@ -274,12 +299,13 @@ Define the stable public contract that external products and adapters use to con
 ## Async and Event Model
 - Canonical state lives in REST resources; no write-only event commands.
 - Long-running operations return a resource/job reference immediately.
-- First-party clients subscribe to resource-change events rather than polling as primary freshness mechanism.
+- First-party clients subscribe through ordered `SSE` rather than polling as the primary freshness mechanism.
 - External integrations receive webhook deliveries with signed payloads, stable event IDs, retry semantics, and replay-safe idempotency.
 
 ## Event Envelope
 - Common event fields:
   - `event_id`
+  - `stream_position`
   - `topic`
   - `workspace_id`
   - `resource_type`
@@ -360,6 +386,12 @@ Define the stable public contract that external products and adapters use to con
 - Retry policy: exponential backoff with jitter for up to 6 delivery attempts over approximately 30 minutes.
 - Failed terminal deliveries move to a dead-letter state visible in package/integration operations.
 
+## Versioning and Deprecation
+- REST contract is versioned under `/api/v1`.
+- `v1` changes are additive by default; breaking semantic changes require a new major API version.
+- Event payloads are versioned independently with `payload_version`.
+- Deprecated endpoints or event fields must emit deprecation notices in docs and changelog before removal.
+
 ## SDK Surface Expectations
 - SDK wraps REST resources first; it does not invent alternate stateful semantics.
 - SDK exposes typed event subscription helpers for first-party surfaces.
@@ -373,6 +405,7 @@ Define the stable public contract that external products and adapters use to con
 - Error model distinguishes retryable, terminal, auth, and scope failures.
 - Event topics or subscription classes are defined for approvals, package lifecycle, activation changes, and proof availability.
 - Webhook verification, retry, and duplicate-delivery expectations are explicit.
+- First-party live transport and replay semantics are explicit enough that web UI, mobile UI, and broker clients can share one recovery model.
 - Initial endpoint families are fixed enough that SDK and adapter work can start without inventing new domain boundaries.
 
 ## Dependencies

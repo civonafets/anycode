@@ -8,6 +8,7 @@
 ### In scope
 - Codex CLI and Claude Code wrapper integrations.
 - Codex app guided integration path with explicit enforcement limits.
+- Optional consumption of `anymem` MCP adapter where that improves agent ergonomics without weakening canonical governance.
 - Coding skill addenda and coding policy packs/profiles.
 - Coding workflow routing to `anymem` APIs (memory, policy checks, approvals, trace/proof).
 

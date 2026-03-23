@@ -10,6 +10,7 @@ Launch Codex CLI through an anycode wrapper that consumes anymem APIs for memory
 
 ## Acceptance Criteria
 - Session bootstrap retrieves anymem context through API/SDK only.
+- Wrapper talks to the local broker only through the official local client SDK over the canonical local IPC protocol.
 - Privileged action gating honors anymem policy decisions.
 - Trace/proof submissions route through anymem contracts.
 

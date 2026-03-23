@@ -17,8 +17,9 @@
 ## After Core (P1)
 1. `M-015` implement retrieval evaluation harness and benchmark scenarios.
 2. `M-012` implement package export/install pipeline with trust, sensitivity pruning, revocation, update policy, and activation controls.
-3. `M-007` implement dashboard memory/policy/approval/trace surfaces.
-4. `M-008` implement mobile inbox flows.
+3. `M-017` implement optional MCP adapter over canonical APIs for low-context agent access without weakening governance boundaries.
+4. `M-007` implement dashboard memory/policy/approval/trace surfaces.
+5. `M-008` implement mobile inbox flows.
 
 ## Rule
 - anymem planning owns generic governance domains and does not depend on anycode implementation details.

@@ -10,6 +10,7 @@ Provide Claude Code wrapper behavior equivalent to C-001 using the same anymem c
 
 ## Acceptance Criteria
 - Governance behavior parity with Codex CLI wrapper path.
+- Wrapper uses the same canonical local broker SDK and IPC contract as C-001 rather than a tool-specific local protocol.
 - No direct persistence coupling to anymem internals.
 
 ## Dependencies
