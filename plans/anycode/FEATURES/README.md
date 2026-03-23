@@ -21,3 +21,4 @@
 | C-003 | Codex App Guided Integration | P1 | 3 - Standalone Surfaces | Planned | [`C-003-codex-app-guided-integration.md`](./C-003-codex-app-guided-integration.md) |
 | C-004 | Coding Skill Addenda | P0 | 2 - Broker + Tooling | Planned | [`C-004-coding-skill-addenda.md`](./C-004-coding-skill-addenda.md) |
 | C-005 | Coding Policy Packs and Profiles | P1 | 2 - Broker + Tooling | Planned | [`C-005-coding-policy-packs.md`](./C-005-coding-policy-packs.md) |
+| C-006 | Policy Layering Contract | P0 | 0 - Planning | Planned | [`C-006-policy-layering-contract.md`](./C-006-policy-layering-contract.md) |

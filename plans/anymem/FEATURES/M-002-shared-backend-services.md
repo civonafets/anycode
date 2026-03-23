@@ -13,6 +13,11 @@ Implement stable anymem APIs for auth tenancy context, memory/retrieval, policy,
 - Contracts are tenancy-safe for self-host and future SaaS.
 - Export/install/activation endpoints are present and auditable.
 - API contracts are suitable for external product consumers (`anycode`, adapters).
+- Request context contract includes actor identity, workspace context, tool/session identifiers, and effective activation state.
+- Mutating APIs support idempotency keys where duplicate submission risk exists.
+- Long-running flows (`approval`, `proof`, `package export`, `sensitivity scan`) have explicit async job or resumable interaction semantics.
+- Versioning and deprecation policy are documented for external consumers.
+- Failure semantics are explicit enough that consumers can distinguish retryable, terminal, and authorization/scope failures.
 
 ## Dependencies
-- `M-001`, `M-009`
+- `M-001`, `M-009`, `M-014`, `M-016`

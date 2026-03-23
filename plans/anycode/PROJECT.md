@@ -18,7 +18,9 @@
 ## Boundary Contract
 - `anycode` depends on `anymem` via API/SDK only.
 - Every call carries `workspace_id` and effective activation state context.
+- Coding policy packs extend or narrow `anymem` policy applicability but cannot bypass canonical `anymem` enforcement outcomes.
 
 ## Success Conditions
 - Coding workflows remain portable across tool vendors.
 - Governance continuity is preserved through `anymem` contracts.
+- Policy layering remains deterministic and auditable across coding integrations.

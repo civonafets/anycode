@@ -1,9 +1,10 @@
 # anycode TODO Queue
 
 ## Next Up (P0)
-1. `C-001` codex CLI wrapper contract via anymem API/SDK.
-2. `C-002` claude code wrapper contract parity via anymem API/SDK.
-3. `C-004` publish coding skill addenda that extend generic anymem skill behavior.
+1. `C-006` define policy layering contract so coding packs cannot bypass canonical anymem enforcement.
+2. `C-001` codex CLI wrapper contract via anymem API/SDK.
+3. `C-002` claude code wrapper contract parity via anymem API/SDK.
+4. `C-004` publish coding skill addenda that extend generic anymem skill behavior.
 
 ## After Core (P1)
 1. `C-005` define coding policy packs/profiles layered on top of generic anymem policy model.

@@ -9,6 +9,7 @@
 Provide a generic local broker for retrieval bootstrap, policy checks, approval routing, and trace/proof emission.
 
 ## Acceptance Criteria
+- Broker role is explicitly defined as canonical optional local runtime for strong-enforcement integrations, not mandatory for all consumers.
 - Per-session mutable operations are serialized.
 - Restart reconciliation preserves trace continuity.
 - Deep-recall delegation is bounded and cleaned up safely.

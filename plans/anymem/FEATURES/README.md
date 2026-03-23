@@ -29,3 +29,6 @@
 | M-011 | Memory Retrieval Engine | P0 | 1 - Governance Core | Planned | [`M-011-memory-retrieval-engine.md`](./M-011-memory-retrieval-engine.md) |
 | M-012 | Memory Package Export, Install, and Activation Controls | P1 | 3 - Standalone Surfaces | Planned | [`M-012-memory-package-export-install-controls.md`](./M-012-memory-package-export-install-controls.md) |
 | M-013 | Core Skill Contract (Generic) | P0 | 2 - Broker + Tooling | Planned | [`M-013-core-skill-generic.md`](./M-013-core-skill-generic.md) |
+| M-014 | API and SDK Contract v1 | P0 | 0 - Planning | Planned | [`M-014-api-sdk-contract-v1.md`](./M-014-api-sdk-contract-v1.md) |
+| M-015 | Retrieval Evaluation and Benchmarks | P1 | 1 - Governance Core | Planned | [`M-015-retrieval-evaluation-and-benchmarks.md`](./M-015-retrieval-evaluation-and-benchmarks.md) |
+| M-016 | Role, Scope, and Delegation Model | P0 | 0 - Planning | Planned | [`M-016-role-scope-and-delegation-model.md`](./M-016-role-scope-and-delegation-model.md) |
