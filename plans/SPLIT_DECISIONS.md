@@ -24,6 +24,8 @@
 16. Agent-facing MCP or Code Mode adapters are optional layers above canonical APIs/SDKs and may not bypass canonical auth, policy, approval, proof, or trace paths.
 17. Phase progression is gated: the next phase cannot start until the current phase exit criteria and proof bundle are complete.
 18. Proof bundle for phase exit must include passing automated regression tests, required integration tests, and performance checks for phase-relevant hot paths.
+19. Personal and other sensitive memory categories are deny-by-default across apps and workflows unless explicit allow policy and permissions exist.
+20. Preference and behavior resolution must be deterministic, precedence-driven, and traceable; no hidden or non-auditable preference overrides are allowed.
 
 ## Repo Extraction Readiness Gates
 1. `anymem` API/SDK contract v1 is documented and stable.

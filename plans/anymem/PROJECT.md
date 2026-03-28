@@ -8,9 +8,15 @@
 ### In scope
 - Multi-workspace auth tenancy context.
 - Memory and retrieval domains.
+- Manual memory authoring and preference profile capture.
 - Generic policy/procedure evaluation.
+- Deterministic preference precedence and conflict resolution.
 - Generic approvals and approval conversation flows.
 - Append-only trace/proof.
+- Memory lifecycle governance (decay, archival, revalidation).
+- Outcome feedback to governed memory proposal loop.
+- Context packing and budget policies for model and tool integrations.
+- Sensitive personal-memory guardrails and redaction/consent controls.
 - Memory package export/install/activation controls.
 - Package trust lifecycle, publisher identity, revocation, and update policy.
 - Stable external API/SDK contract for product consumers.
@@ -45,6 +51,7 @@
 - Every delivered feature includes automated tests and/or evaluation coverage appropriate to its risk profile.
 - Supports granular permission-based RBAC without hard-coding a fixed small role set.
 - Supports live-first UI freshness without requiring first-party polling loops as the primary update mechanism.
+- Supports long-term growth of personal and shared memory without quality collapse through lifecycle and precedence controls.
 
 ## Delivery Rule
 - A feature is not considered complete until its required tests are added and passing.

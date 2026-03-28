@@ -1,0 +1,19 @@
+# M-021 - Context Packing and Budget Policy
+
+## Status
+- Priority: `P0`
+- Phase: `2 - Broker + Tooling`
+- State: `Planned`
+
+## Goal
+Define deterministic context-packing rules per integration/model budget so memory remains performant and behavior stays consistent across tools.
+
+## Acceptance Criteria
+- Budget profiles are defined per tool/model integration with explicit token and section budgets.
+- Context assembly order is deterministic and policy-aware.
+- Truncation strategy is deterministic and traceable (no silent random drops).
+- Packing outputs include attribution for included and dropped context segments.
+- Overflow and budget-pressure metrics are emitted for tuning and regression checks.
+
+## Dependencies
+- `M-003`, `M-005`, `M-011`, `M-014`, `M-015`, `M-019`

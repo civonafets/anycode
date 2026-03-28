@@ -39,3 +39,9 @@
 | M-015 | Retrieval Evaluation and Benchmarks | P1 | 1 - Governance Core | Planned | [`M-015-retrieval-evaluation-and-benchmarks.md`](./M-015-retrieval-evaluation-and-benchmarks.md) |
 | M-016 | Role, Scope, and Delegation Model | P0 | 0 - Planning | Planned | [`M-016-role-scope-and-delegation-model.md`](./M-016-role-scope-and-delegation-model.md) |
 | M-017 | Agent MCP Adapter (Optional) | P1 | 2 - Broker + Tooling | Planned | [`M-017-agent-mcp-adapter.md`](./M-017-agent-mcp-adapter.md) |
+| M-018 | Manual Memory Authoring and Preference Capture | P0 | 1 - Governance Core | Planned | [`M-018-manual-memory-authoring-and-preference-capture.md`](./M-018-manual-memory-authoring-and-preference-capture.md) |
+| M-019 | Preference Resolution and Behavioral Precedence | P0 | 1 - Governance Core | Planned | [`M-019-preference-resolution-and-behavioral-precedence.md`](./M-019-preference-resolution-and-behavioral-precedence.md) |
+| M-020 | Memory Lifecycle Governance (Decay, Archival, Revalidation) | P1 | 1 - Governance Core | Planned | [`M-020-memory-lifecycle-governance.md`](./M-020-memory-lifecycle-governance.md) |
+| M-021 | Context Packing and Budget Policy | P0 | 2 - Broker + Tooling | Planned | [`M-021-context-packing-and-budget-policy.md`](./M-021-context-packing-and-budget-policy.md) |
+| M-022 | Outcome Feedback to Memory Proposal Loop | P1 | 2 - Broker + Tooling | Planned | [`M-022-outcome-feedback-to-memory-proposal-loop.md`](./M-022-outcome-feedback-to-memory-proposal-loop.md) |
+| M-023 | Personal Profile Privacy and Sensitive Memory Guardrails | P0 | 1 - Governance Core | Planned | [`M-023-personal-profile-privacy-and-sensitive-memory-guardrails.md`](./M-023-personal-profile-privacy-and-sensitive-memory-guardrails.md) |
