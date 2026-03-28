@@ -17,6 +17,7 @@
 1. Every feature file must define required test coverage before implementation starts.
 2. No feature is `Done` until its required tests are implemented and passing.
 3. Tests are part of the feature deliverable, not a follow-up cleanup task.
+4. Performance-sensitive features must define measurable performance checks and regression thresholds as part of required coverage.
 
 ## Feature Map
 | ID | Feature | Priority | Phase | Status | File |

@@ -14,3 +14,4 @@
 - No task may depend on `anycode`-internal state from `anymem`.
 - `anycode` dependencies must use only `anymem` public API/SDK contracts.
 - No feature may be closed without explicit test coverage requirements and passing automated tests.
+- No phase may be closed without a phase proof bundle containing wrapper/integration regression results and phase-relevant performance checks.

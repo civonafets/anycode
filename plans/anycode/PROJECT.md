@@ -30,3 +30,8 @@
 ## Delivery Rule
 - A feature is not complete until its required tests are added and passing.
 - Wrapper and integration features must include contract/integration tests, not only unit tests.
+- Phase completion requires a recorded proof bundle before moving to the next phase.
+- anycode phase proof bundle must include:
+  - passing wrapper contract and integration suites
+  - regression coverage for policy gating and proof/trace routing
+  - performance checks for wrapper/broker overhead and end-to-end action latency on supported tools

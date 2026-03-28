@@ -17,6 +17,7 @@
 1. Every feature file must define required test coverage before implementation starts.
 2. No feature is `Done` until its required tests are implemented and passing.
 3. Wrapper/integration features must include integration or contract tests, not only local unit tests.
+4. Performance-sensitive wrapper paths must define measurable latency/overhead checks with regression thresholds.
 
 ## Feature Map
 | ID | Feature | Priority | Phase | Status | File |

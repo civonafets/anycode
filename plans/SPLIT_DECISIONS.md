@@ -22,6 +22,8 @@
 14. Wrapper-to-broker communication uses one canonical local protocol: HTTP/JSON over OS-native local IPC, hidden behind an official local client SDK.
 15. Memory packages are signed with workspace publisher keys; install-time verification is fail-closed and quarantine-capable.
 16. Agent-facing MCP or Code Mode adapters are optional layers above canonical APIs/SDKs and may not bypass canonical auth, policy, approval, proof, or trace paths.
+17. Phase progression is gated: the next phase cannot start until the current phase exit criteria and proof bundle are complete.
+18. Proof bundle for phase exit must include passing automated regression tests, required integration tests, and performance checks for phase-relevant hot paths.
 
 ## Repo Extraction Readiness Gates
 1. `anymem` API/SDK contract v1 is documented and stable.
@@ -31,6 +33,7 @@
 5. Policy layering precedence is documented and testable.
 6. Package trust, revocation, and update rules are documented and testable.
 7. Each feature has defined required test coverage before it can be marked complete.
+8. Each phase has explicit exit criteria and a recorded proof bundle before the phase can be marked complete.
 
 ## Transition Rule
 - Legacy root planning files remain for one cycle as reference only.

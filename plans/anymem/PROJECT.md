@@ -50,3 +50,8 @@
 - A feature is not considered complete until its required tests are added and passing.
 - Tests serve two purposes: proof that the feature works now, and regression protection for future changes.
 - Ranking/retrieval features must also include replayable evaluation or benchmark coverage where correctness is not binary.
+- Phase completion requires a recorded proof bundle before moving to the next phase.
+- anymem phase proof bundle must include:
+  - passing unit/integration/regression suites for all in-phase deliverables
+  - replayable evaluation outputs for retrieval/ranking changes
+  - performance checks for hot paths introduced or modified in the phase (API latency, retrieval latency, event stream stability, broker-path overhead when applicable)

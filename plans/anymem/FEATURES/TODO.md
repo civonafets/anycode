@@ -24,3 +24,4 @@
 ## Rule
 - anymem planning owns generic governance domains and does not depend on anycode implementation details.
 - No feature may be closed without explicit test coverage requirements and passing automated tests.
+- No phase may be closed without a phase proof bundle containing regression results and phase-relevant performance check results.
