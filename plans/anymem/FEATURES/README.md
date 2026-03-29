@@ -50,3 +50,4 @@
 | M-026 | External Agent Identity and Principal Model | P0 | 0 - Planning | Planned | [`M-026-external-agent-identity-and-principal-model.md`](./M-026-external-agent-identity-and-principal-model.md) |
 | M-027 | Concurrent Memory Write Conflict Resolution | P1 | 1 - Governance Core | Planned | [`M-027-concurrent-memory-write-conflict-resolution.md`](./M-027-concurrent-memory-write-conflict-resolution.md) |
 | M-028 | Pre-Decision Performance SLOs and Latency Guardrails | P0 | 1 - Governance Core | Planned | [`M-028-pre-decision-performance-slos.md`](./M-028-pre-decision-performance-slos.md) |
+| M-029 | Hybrid RAG Gateway and RAM Hot Cache | P1 | 2 - Broker + Tooling | Planned | [`M-029-hybrid-rag-gateway-and-ram-hot-cache.md`](./M-029-hybrid-rag-gateway-and-ram-hot-cache.md) |

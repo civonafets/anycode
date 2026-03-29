@@ -21,6 +21,7 @@
 - Outcome feedback to governed memory proposal loop.
 - Context packing and budget policies for model and tool integrations.
 - Pre-decision latency SLOs and regression guardrails.
+- First-class secondary use case: hybrid retrieval integration for external full-document/vector corpora through governed gateways.
 - Sensitive personal-memory guardrails and redaction/consent controls.
 - Memory package export/install/activation controls.
 - Package trust lifecycle, publisher identity, revocation, and update policy.
@@ -58,6 +59,7 @@
 - Supports live-first UI freshness without requiring first-party polling loops as the primary update mechanism.
 - Supports long-term growth of personal and shared memory without quality collapse through lifecycle and precedence controls.
 - Supports reliable pre-decision behavior under partial failure through explicit degraded-mode policy.
+- Supports first-class hybrid deployments where anymem governs decisions while external vector/doc systems serve large corpus retrieval.
 
 ## Delivery Rule
 - A feature is not considered complete until its required tests are added and passing.

@@ -31,6 +31,9 @@
 23. External agent identities (service principals and delegated user sessions) must be first-class and auditable.
 24. Concurrent memory writes from multiple agents must resolve through deterministic conflict/merge rules; no last-writer-wins by accident.
 25. Pre-decision memory/retrieval paths require explicit SLOs with regression checks.
+26. In-memory acceleration layers are caches only; canonical memory/policy/trace state must remain durable and recoverable.
+27. Full-document corpus retrieval can use external vector/doc systems; `anymem` remains the governed decision-context and policy gateway.
+28. Hybrid retrieval gateway support is a first-class anymem capability for future deployments, even though primary default usage remains direct anymem memory/policy paths.
 
 ## Repo Extraction Readiness Gates
 1. `anymem` API/SDK contract v1 is documented and stable.
