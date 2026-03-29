@@ -97,3 +97,8 @@ Define workflow-generic approval object model with conversations, non-binary out
 
 ## Dependencies
 - `M-001`, `M-002`, `M-009`
+
+## Required Coverage
+- Unit tests for approval state transitions, disposition semantics, and invalid transition rejection.
+- Integration tests for same-thread conversation + disposition flows and reconnect/resume behavior from canonical resources.
+- Event-contract tests validating live update ordering and replay compatibility for first-party subscribed clients.

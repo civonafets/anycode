@@ -19,6 +19,8 @@ Convert execution outcomes and human feedback into governed memory proposals wit
   - auto-accepted for low-risk categories
   - auto-rejected for protected categories
 - Proposal acceptance/rejection outcomes feed retrieval evaluation datasets.
+- Negative relevance feedback is first-class (`irrelevant`, `too_old`, `off_topic`, `over_personalized`) and can generate suppression/snooze/downweight proposals instead of only new memory proposals.
+- Feedback outcomes are linked to retrieval distraction metrics so tuning closes the loop.
 - The full loop is auditable from outcome signal to final memory decision.
 
 ## Dependencies

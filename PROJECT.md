@@ -1,14 +1,14 @@
 # Legacy Transition Notice
 
-This root `PROJECT.md` is legacy for one planning cycle.
+This root `PROJECT.md` is legacy reference only.
 Canonical planning now lives in:
 - `plans/anymem/PROJECT.md`
 - `plans/anycode/PROJECT.md`
 - `plans/integrations/analyt/PROJECT.md`
 
-# Project (Source of Truth)
+# Legacy Reference Snapshot
 
-This is the canonical project document. If any other file conflicts with this file, this file wins.
+If any content here conflicts with split planning docs, split planning docs win.
 
 ## Purpose
 - Product name: `Memory Guardrail Proof System`
@@ -110,13 +110,10 @@ This is the canonical project document. If any other file conflicts with this fi
 | 2026-03-15 | Add memory package export/install model with strict sensitivity pipeline and runtime toggles | Enable safe memory sharing and controlled experimentation without breaking governance boundaries |
 
 ## Linked Working Files
-- Feature index: [`FEATURES/README.md`](./FEATURES/README.md)
-- In progress: [`FEATURES/IN_PROGRESS.md`](./FEATURES/IN_PROGRESS.md)
-- TODO: [`FEATURES/TODO.md`](./FEATURES/TODO.md)
+- anymem project: [`plans/anymem/PROJECT.md`](./plans/anymem/PROJECT.md)
+- anycode project: [`plans/anycode/PROJECT.md`](./plans/anycode/PROJECT.md)
+- analyt integration project: [`plans/integrations/analyt/PROJECT.md`](./plans/integrations/analyt/PROJECT.md)
 
 ## Update Protocol
-1. Update this file first when scope, constraints, or phase boundaries change.
-2. Update `FEATURES/README.md` when adding, removing, or reprioritizing features.
-3. Update individual `FEATURES/F-*.md` files for acceptance criteria or design shifts.
-4. Update `FEATURES/IN_PROGRESS.md` when work starts/stops/gets blocked/completes.
-5. Update `FEATURES/TODO.md` when queue order changes.
+1. Update split docs first (`plans/anymem`, `plans/anycode`, `plans/integrations/analyt`).
+2. Keep this file as optional historical context only.

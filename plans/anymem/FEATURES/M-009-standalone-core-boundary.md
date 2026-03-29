@@ -15,3 +15,8 @@ Define hard boundaries so adapters and consumers cannot become canonical runtime
 
 ## Dependencies
 - `M-001`
+
+## Required Coverage
+- Contract tests proving anymem can operate standalone without anycode or Analyt dependencies.
+- Integration tests validating token-exchange-only adapter paths with no direct persistence coupling.
+- Regression tests that fail on attempts to introduce host-product-specific auth/session/storage assumptions.

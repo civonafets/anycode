@@ -19,12 +19,16 @@ Allow users to manually add, edit, and manage memories (including personal thoug
   - scope
   - sensitivity level
   - confidence level
+  - observed timestamp (or explicit confirmation to use write time)
+  - workstream reference (or explicit `general`)
+  - intent tags (`intent_tags[]`, may include `general`)
   - optional expiration window
 - Manual records support full lifecycle operations with lineage:
   - create
   - edit
   - supersede
   - archive
+- Optional expiration windows control default retrieval visibility (snooze/archive behavior), not automatic hard deletion.
 - Workspace policy can require approval for selected manual memory categories before they affect retrieval.
 - Manual authoring is available via API and standalone surfaces.
 

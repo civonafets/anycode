@@ -14,6 +14,7 @@ Support enterprise identity federation and lifecycle provisioning for multi-comp
 - JIT provisioning is supported with policy controls.
 - Group-to-role mapping integrates with canonical permission bundles.
 - Federation and provisioning events are traceable and auditable.
+- Federation requirements publish explicit deployment-profile assumptions consumed by `M-049` parity matrix work.
 
 ## Dependencies
 - `M-002`, `M-014`, `M-016`, `M-026`, `M-032`

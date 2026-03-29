@@ -120,6 +120,8 @@ Define the stable public contract that external products and adapters use to con
   - request:
     - `action_type`
     - `target_refs`
+    - `task_intent` (optional, recommended)
+    - `workstream_ref` (optional, recommended)
     - `actor_context`
     - `tool_context`
     - `activation_context`
@@ -151,6 +153,9 @@ Define the stable public contract that external products and adapters use to con
     - `title`
     - `content`
     - `source_type`
+    - `observed_at` (optional; defaults to write timestamp when omitted)
+    - `workstream_ref` (optional; defaults to `general`)
+    - `intent_tags[]` (optional; defaults to `general`)
     - `tags`
     - `category`
     - `scope`
@@ -171,12 +176,17 @@ Define the stable public contract that external products and adapters use to con
     - `filters.categories`
     - `filters.package_ids`
     - `filters.scopes`
+    - `filters.workstream_refs`
+    - `filters.intent_tags`
+    - `filters.time_window`
+    - `filters.exclude_suppressed` (default `true`)
     - `actor_context`
     - `activation_context`
   - response:
     - `results[]`
     - `search_mode`
     - `ranking_version`
+    - `score_breakdown[]` (optional compact factors)
     - `next_cursor` (optional)
 - `POST /api/v1/memory/describe`
   - request:

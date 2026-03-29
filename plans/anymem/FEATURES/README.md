@@ -14,7 +14,7 @@
 - `P2` later
 
 ## Test Rule
-1. Every feature file must define required test coverage before implementation starts.
+1. A feature file must define a `Required Coverage` section before it can move to `In Progress`.
 2. No feature is `Done` until its required tests are implemented and passing.
 3. Tests are part of the feature deliverable, not a follow-up cleanup task.
 4. Performance-sensitive features must define measurable performance checks and regression thresholds as part of required coverage.
@@ -67,3 +67,9 @@
 | M-043 | Policy and Memory Rollout Controls | P1 | 2 - Broker + Tooling | Planned | [`M-043-policy-and-memory-rollout-controls.md`](./M-043-policy-and-memory-rollout-controls.md) |
 | M-044 | Contract Stability and Migration Program | P1 | 0 - Planning | Planned | [`M-044-contract-stability-and-migration-program.md`](./M-044-contract-stability-and-migration-program.md) |
 | M-045 | Admin Control Plane | P1 | 3 - Standalone Surfaces | Planned | [`M-045-admin-control-plane.md`](./M-045-admin-control-plane.md) |
+| M-046 | Data Classification, DLP, and Redaction Gateway | P1 | 1 - Governance Core | Planned | [`M-046-data-classification-dlp-and-redaction-gateway.md`](./M-046-data-classification-dlp-and-redaction-gateway.md) |
+| M-047 | Legal Hold and eDiscovery Workflows | P1 | 2 - Broker + Tooling | Planned | [`M-047-legal-hold-and-ediscovery-workflows.md`](./M-047-legal-hold-and-ediscovery-workflows.md) |
+| M-048 | Prompt Injection and Context Attack Resilience | P1 | 1 - Governance Core | Planned | [`M-048-prompt-injection-and-context-attack-resilience.md`](./M-048-prompt-injection-and-context-attack-resilience.md) |
+| M-049 | Deployment Profiles and Air-Gapped Parity | P1 | 2 - Broker + Tooling | Planned | [`M-049-deployment-profiles-and-air-gapped-parity.md`](./M-049-deployment-profiles-and-air-gapped-parity.md) |
+| M-050 | Memory Influence Explainability and Decision Attribution | P1 | 3 - Standalone Surfaces | Planned | [`M-050-memory-influence-explainability-and-decision-attribution.md`](./M-050-memory-influence-explainability-and-decision-attribution.md) |
+| M-051 | Policy-as-Code Verification and Promotion Gates | P1 | 2 - Broker + Tooling | Planned | [`M-051-policy-as-code-verification-and-promotion-gates.md`](./M-051-policy-as-code-verification-and-promotion-gates.md) |

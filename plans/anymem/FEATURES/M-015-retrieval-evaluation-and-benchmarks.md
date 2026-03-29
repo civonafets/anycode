@@ -15,6 +15,13 @@ Measure and regress retrieval quality, attribution, and toggle/package impact be
 - Ranking regressions can be detected offline.
 - Evaluation captures attribution for which sources changed quality or precision.
 - Evaluation includes decision-context quality checks (selection precision and missing-critical-context rate).
+- Evaluation tracks distraction metrics and promotion thresholds:
+  - irrelevant-memory mention rate
+  - stale-topic resurfacing rate
+  - suppression-violation rate
+- Time-sliced and workstream-sliced benchmark sets exist to catch long-tail over-personalization drift.
+- Retrieval/policy rollout gates fail when distraction metrics regress beyond agreed thresholds.
+- Benchmarks include long-horizon recall checks proving that old but still-relevant memories remain retrievable under strong intent/workstream match.
 
 ## Dependencies
-- `M-005`, `M-011`, `M-012`, `M-024`
+- `M-005`, `M-011`, `M-012`, `M-020`, `M-021`, `M-022`, `M-024`

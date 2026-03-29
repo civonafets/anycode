@@ -14,7 +14,7 @@
 - `P2` later
 
 ## Test Rule
-1. Every feature file must define required test coverage before implementation starts.
+1. A feature file must define a `Required Coverage` section before it can move to `In Progress`.
 2. No feature is `Done` until its required tests are implemented and passing.
 3. Wrapper/integration features must include integration or contract tests, not only local unit tests.
 4. Performance-sensitive wrapper paths must define measurable latency/overhead checks with regression thresholds.

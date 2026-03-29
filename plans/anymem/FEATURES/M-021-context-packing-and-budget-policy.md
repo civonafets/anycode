@@ -11,10 +11,12 @@ Define deterministic context-packing rules per integration/model budget so memor
 ## Acceptance Criteria
 - Budget profiles are defined per tool/model integration with explicit token and section budgets.
 - Context assembly order is deterministic and policy-aware.
+- Context assembly enforces suppression and intent/workstream relevance gates before budget allocation.
 - Truncation strategy is deterministic and traceable (no silent random drops).
 - Packing outputs include attribution for included and dropped context segments.
 - Overflow and budget-pressure metrics are emitted for tuning and regression checks.
 - Packing outputs align with the canonical decision-context contract for cross-tool consistency.
+- Under budget pressure, low-relevance aged context is dropped before recent high-intent matches unless policy marks context as mandatory.
 
 ## Dependencies
 - `M-003`, `M-005`, `M-011`, `M-014`, `M-015`, `M-019`, `M-024`

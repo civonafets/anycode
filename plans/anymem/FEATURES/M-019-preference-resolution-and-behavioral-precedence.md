@@ -16,6 +16,7 @@ Provide deterministic, auditable resolution of policy and preference conflicts s
   - personal preferences
   - session/tool hints
 - Resolution supports both `hard` and `soft` preferences with deterministic tie-breaking.
+- Suppression preferences (`mute`, `snooze_until`, `never_for_scope`) are treated as hard constraints for retrieval/context assembly unless an explicit higher-priority policy override exists.
 - Conflicts produce machine-readable resolution artifacts that explain:
   - what conflicted
   - what won

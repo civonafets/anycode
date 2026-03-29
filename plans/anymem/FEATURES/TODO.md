@@ -48,6 +48,12 @@
 23. `M-043` implement staged rollout/canary/automatic rollback controls.
 24. `M-044` implement API/SDK contract stability matrix and migration tooling.
 25. `M-045` implement admin control plane for tenant operations and emergency controls.
+26. `M-046` implement data classification/DLP/redaction controls across ingest, retrieval, export, and events.
+27. `M-047` implement legal hold and eDiscovery workflows with chain-of-custody evidence packages.
+28. `M-048` implement prompt-injection/context-attack resilience and taint-aware context assembly.
+29. `M-049` implement SaaS/self-hosted/air-gapped deployment profile parity and conformance tests.
+30. `M-050` implement memory influence explainability and decision attribution surfaces.
+31. `M-051` implement policy-as-code validation and promotion gates with replay/canary evidence.
 
 ## Rule
 - anymem planning owns generic governance domains and does not depend on anycode implementation details.

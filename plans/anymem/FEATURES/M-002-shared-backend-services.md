@@ -26,3 +26,8 @@ Implement stable anymem APIs for auth tenancy context, memory/retrieval, policy,
 
 ## Dependencies
 - `M-001`, `M-009`, `M-014`, `M-016`
+
+## Required Coverage
+- Unit tests for request-context validation, idempotency behavior, and async job state transitions.
+- Integration tests for auth/tenancy scoping, decision-context generation, approval/proof flows, and package lifecycle endpoints.
+- Contract tests for `SSE` replay semantics (`stream_position`, resume, replay-window-expired resync) and signed webhook delivery behavior.

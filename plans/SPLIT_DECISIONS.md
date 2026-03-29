@@ -22,7 +22,7 @@
 14. Wrapper-to-broker communication uses one canonical local protocol: HTTP/JSON over OS-native local IPC, hidden behind an official local client SDK.
 15. Memory packages are signed with workspace publisher keys; install-time verification is fail-closed and quarantine-capable.
 16. Agent-facing MCP or Code Mode adapters are optional layers above canonical APIs/SDKs and may not bypass canonical auth, policy, approval, proof, or trace paths.
-17. Phase progression is gated: the next phase cannot start until the current phase exit criteria and proof bundle are complete.
+17. Implementation phase progression is gated: no phase may be marked complete and no dependent implementation rollout may proceed until the current phase exit criteria and proof bundle are complete; planning/spec drafting may overlap phases.
 18. Proof bundle for phase exit must include passing automated regression tests, required integration tests, and performance checks for phase-relevant hot paths.
 19. Personal and other sensitive memory categories are deny-by-default across apps and workflows unless explicit allow policy and permissions exist.
 20. Preference and behavior resolution must be deterministic, precedence-driven, and traceable; no hidden or non-auditable preference overrides are allowed.
@@ -46,6 +46,18 @@
 38. Policy and memory rollout controls must support staged release, canary evaluation, and automated rollback on regression thresholds.
 39. API/SDK stability and migration guarantees are treated as product requirements, not ad hoc documentation tasks.
 40. Admin control plane capabilities are required for enterprise operations and emergency response.
+41. End-to-end data classification, DLP, and redaction controls are mandatory across ingest, retrieval, export, package, and event paths.
+42. Legal hold and eDiscovery workflows must override retention/deletion paths while preserving evidence-chain guarantees.
+43. Untrusted external content must carry taint metadata and pass prompt-injection/context-attack policy checks before decision-context inclusion.
+44. SaaS, self-hosted, and air-gapped deployment profiles must preserve canonical governance semantics and contract behavior.
+45. Decision-attribution outputs (`why included`, `why excluded`, policy influence) are required within permission boundaries.
+46. Policy promotion is gated by policy-as-code validation, replay/canary checks, and rollback readiness.
+47. Retrieval ranking must include explicit recency decay and capped usage reinforcement so old one-off memories do not dominate future decisions.
+48. Suppression controls (`mute`, `snooze_until`, `never_for_scope`) are first-class and must be enforced consistently in retrieval and context packing.
+49. Decision-context assembly must be intent/workstream-aware and avoid injecting memories without a relevance match except pinned or policy-required context.
+50. Retrieval promotion gates must include distraction metrics (irrelevant-memory mention rate, stale-topic resurfacing rate, suppression-violation rate).
+51. Memory lifecycle controls are non-destructive by default: decay, stale marking, and archival may change retrieval behavior but must not hard-delete canonical memory records.
+52. Hard deletion requires an explicit human-initiated delete action in normal operation; automated lifecycle jobs may not delete memory.
 
 ## Repo Extraction Readiness Gates
 1. `anymem` API/SDK contract v1 is documented and stable.
@@ -59,7 +71,11 @@
 9. Phase proof bundles include non-coding benchmark coverage for retrieval and decision-context quality.
 10. Interchange/import-export conformance is tested for portable memory package flows.
 11. Enterprise readiness includes tested federation, isolation, restore, rollout, and contract-migration paths.
+12. Enterprise safety readiness includes tested DLP/legal-hold/attack-resilience behavior and deployment-profile conformance checks.
+13. Explainability and policy-promotion guardrails include regression-checked attribution outputs and replay/canary pass evidence.
+14. Retrieval readiness includes passing recency/suppression/intent-match conformance and distraction-metric thresholds.
+15. Lifecycle readiness proves non-destructive retention behavior: automated decay/archive jobs do not hard-delete canonical memory.
 
 ## Transition Rule
-- Legacy root planning files remain for one cycle as reference only.
+- Legacy root planning files are reference-only and non-authoritative.
 - Canonical planning source moves to `plans/anymem`, `plans/anycode`, and `plans/integrations/analyt`.
