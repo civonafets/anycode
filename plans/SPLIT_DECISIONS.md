@@ -34,6 +34,10 @@
 26. In-memory acceleration layers are caches only; canonical memory/policy/trace state must remain durable and recoverable.
 27. Full-document corpus retrieval can use external vector/doc systems; `anymem` remains the governed decision-context and policy gateway.
 28. Hybrid retrieval gateway support is a first-class anymem capability for future deployments, even though primary default usage remains direct anymem memory/policy paths.
+29. Memory interchange must remain portable and vendor-neutral; exported memory artifacts must be importable without tool-specific lock-in.
+30. Ingestion trust and anti-poisoning controls are first-class and may quarantine suspicious memory before retrieval influence.
+31. Multimodal memory keeps original artifacts as canonical evidence while derived text/features are used for retrieval and decision-context assembly.
+32. Persona and domain boundaries (work/personal/client) are explicit and enforceable with controlled bridge flows.
 
 ## Repo Extraction Readiness Gates
 1. `anymem` API/SDK contract v1 is documented and stable.
@@ -45,6 +49,7 @@
 7. Each feature has defined required test coverage before it can be marked complete.
 8. Each phase has explicit exit criteria and a recorded proof bundle before the phase can be marked complete.
 9. Phase proof bundles include non-coding benchmark coverage for retrieval and decision-context quality.
+10. Interchange/import-export conformance is tested for portable memory package flows.
 
 ## Transition Rule
 - Legacy root planning files remain for one cycle as reference only.

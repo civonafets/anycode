@@ -51,3 +51,11 @@
 | M-027 | Concurrent Memory Write Conflict Resolution | P1 | 1 - Governance Core | Planned | [`M-027-concurrent-memory-write-conflict-resolution.md`](./M-027-concurrent-memory-write-conflict-resolution.md) |
 | M-028 | Pre-Decision Performance SLOs and Latency Guardrails | P0 | 1 - Governance Core | Planned | [`M-028-pre-decision-performance-slos.md`](./M-028-pre-decision-performance-slos.md) |
 | M-029 | Hybrid RAG Gateway and RAM Hot Cache | P1 | 2 - Broker + Tooling | Planned | [`M-029-hybrid-rag-gateway-and-ram-hot-cache.md`](./M-029-hybrid-rag-gateway-and-ram-hot-cache.md) |
+| M-030 | Memory Interchange and Portability Standard | P1 | 2 - Broker + Tooling | Planned | [`M-030-memory-interchange-and-portability-standard.md`](./M-030-memory-interchange-and-portability-standard.md) |
+| M-031 | Memory Trust Scoring and Anti-Poisoning Controls | P1 | 1 - Governance Core | Planned | [`M-031-memory-trust-scoring-and-anti-poisoning-controls.md`](./M-031-memory-trust-scoring-and-anti-poisoning-controls.md) |
+| M-032 | Compliance, Residency, and Data Governance Controls | P1 | 1 - Governance Core | Planned | [`M-032-compliance-residency-and-data-governance-controls.md`](./M-032-compliance-residency-and-data-governance-controls.md) |
+| M-033 | Connector Ingestion and Provenance Sync | P1 | 2 - Broker + Tooling | Planned | [`M-033-connector-ingestion-and-provenance-sync.md`](./M-033-connector-ingestion-and-provenance-sync.md) |
+| M-034 | Model and Agent Behavior Profiles | P1 | 2 - Broker + Tooling | Planned | [`M-034-model-and-agent-behavior-profiles.md`](./M-034-model-and-agent-behavior-profiles.md) |
+| M-035 | Counterfactual Replay and Simulation Harness | P1 | 2 - Broker + Tooling | Planned | [`M-035-counterfactual-replay-and-simulation-harness.md`](./M-035-counterfactual-replay-and-simulation-harness.md) |
+| M-036 | Persona and Domain Isolation Boundaries | P1 | 1 - Governance Core | Planned | [`M-036-persona-and-domain-isolation-boundaries.md`](./M-036-persona-and-domain-isolation-boundaries.md) |
+| M-037 | Multimodal Memory and Artifact Handling | P1 | 2 - Broker + Tooling | Planned | [`M-037-multimodal-memory-and-artifact-handling.md`](./M-037-multimodal-memory-and-artifact-handling.md) |

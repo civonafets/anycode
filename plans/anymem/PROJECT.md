@@ -22,6 +22,13 @@
 - Context packing and budget policies for model and tool integrations.
 - Pre-decision latency SLOs and regression guardrails.
 - First-class secondary use case: hybrid retrieval integration for external full-document/vector corpora through governed gateways.
+- Memory interchange and portability contracts for cross-tool and cross-vendor movement.
+- Ingestion trust scoring and anti-poisoning controls.
+- Connector ingestion and provenance-preserving sync model.
+- Model/agent behavior profiles for consistent cross-model context rendering.
+- Counterfactual replay and simulation for memory/policy rollout safety.
+- Persona/domain isolation boundaries with controlled bridging.
+- Multimodal memory support (image/audio/video artifacts plus derived representations).
 - Sensitive personal-memory guardrails and redaction/consent controls.
 - Memory package export/install/activation controls.
 - Package trust lifecycle, publisher identity, revocation, and update policy.
@@ -60,6 +67,7 @@
 - Supports long-term growth of personal and shared memory without quality collapse through lifecycle and precedence controls.
 - Supports reliable pre-decision behavior under partial failure through explicit degraded-mode policy.
 - Supports first-class hybrid deployments where anymem governs decisions while external vector/doc systems serve large corpus retrieval.
+- Supports portable memory flows and multimodal evidence without sacrificing governance/auditability.
 
 ## Delivery Rule
 - A feature is not considered complete until its required tests are added and passing.
