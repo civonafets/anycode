@@ -29,6 +29,14 @@
 - Counterfactual replay and simulation for memory/policy rollout safety.
 - Persona/domain isolation boundaries with controlled bridging.
 - Multimodal memory support (image/audio/video artifacts plus derived representations).
+- Enterprise IAM federation and provisioning.
+- Hard tenant isolation and BYOK encryption domains.
+- HA/DR backup/restore guarantees with tested recovery objectives.
+- Tenant cost/capacity governance controls.
+- Ops/SIEM export and incident-forensics support.
+- Policy/memory staged rollout and automatic rollback controls.
+- API/SDK contract stability program with migration tooling.
+- Admin control plane for tenant operations and emergency controls.
 - Sensitive personal-memory guardrails and redaction/consent controls.
 - Memory package export/install/activation controls.
 - Package trust lifecycle, publisher identity, revocation, and update policy.
@@ -68,6 +76,7 @@
 - Supports reliable pre-decision behavior under partial failure through explicit degraded-mode policy.
 - Supports first-class hybrid deployments where anymem governs decisions while external vector/doc systems serve large corpus retrieval.
 - Supports portable memory flows and multimodal evidence without sacrificing governance/auditability.
+- Supports enterprise operations with strong identity, isolation, resilience, and admin controls.
 
 ## Delivery Rule
 - A feature is not considered complete until its required tests are added and passing.

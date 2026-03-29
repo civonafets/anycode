@@ -38,6 +38,14 @@
 30. Ingestion trust and anti-poisoning controls are first-class and may quarantine suspicious memory before retrieval influence.
 31. Multimodal memory keeps original artifacts as canonical evidence while derived text/features are used for retrieval and decision-context assembly.
 32. Persona and domain boundaries (work/personal/client) are explicit and enforceable with controlled bridge flows.
+33. Enterprise IAM federation (SAML/OIDC/SCIM/JIT/group mapping) is a first-class identity requirement for multi-company deployment.
+34. Tenant isolation guarantees and BYOK encryption domains are mandatory for enterprise-grade trust boundaries.
+35. HA/DR guarantees require explicit RPO/RTO targets, tested restore paths, and documented incident runbooks.
+36. Tenant cost/capacity controls (quotas, rate limits, budget guards, backpressure policy) are mandatory shared-runtime controls.
+37. Ops/SIEM integrations must expose security/audit signals for alerting and forensics.
+38. Policy and memory rollout controls must support staged release, canary evaluation, and automated rollback on regression thresholds.
+39. API/SDK stability and migration guarantees are treated as product requirements, not ad hoc documentation tasks.
+40. Admin control plane capabilities are required for enterprise operations and emergency response.
 
 ## Repo Extraction Readiness Gates
 1. `anymem` API/SDK contract v1 is documented and stable.
@@ -50,6 +58,7 @@
 8. Each phase has explicit exit criteria and a recorded proof bundle before the phase can be marked complete.
 9. Phase proof bundles include non-coding benchmark coverage for retrieval and decision-context quality.
 10. Interchange/import-export conformance is tested for portable memory package flows.
+11. Enterprise readiness includes tested federation, isolation, restore, rollout, and contract-migration paths.
 
 ## Transition Rule
 - Legacy root planning files remain for one cycle as reference only.

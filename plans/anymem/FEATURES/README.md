@@ -59,3 +59,11 @@
 | M-035 | Counterfactual Replay and Simulation Harness | P1 | 2 - Broker + Tooling | Planned | [`M-035-counterfactual-replay-and-simulation-harness.md`](./M-035-counterfactual-replay-and-simulation-harness.md) |
 | M-036 | Persona and Domain Isolation Boundaries | P1 | 1 - Governance Core | Planned | [`M-036-persona-and-domain-isolation-boundaries.md`](./M-036-persona-and-domain-isolation-boundaries.md) |
 | M-037 | Multimodal Memory and Artifact Handling | P1 | 2 - Broker + Tooling | Planned | [`M-037-multimodal-memory-and-artifact-handling.md`](./M-037-multimodal-memory-and-artifact-handling.md) |
+| M-038 | Enterprise IAM Federation and Provisioning | P1 | 1 - Governance Core | Planned | [`M-038-enterprise-iam-federation-and-provisioning.md`](./M-038-enterprise-iam-federation-and-provisioning.md) |
+| M-039 | Hard Tenant Isolation and BYOK | P1 | 1 - Governance Core | Planned | [`M-039-hard-tenant-isolation-and-byok.md`](./M-039-hard-tenant-isolation-and-byok.md) |
+| M-040 | HA/DR and Restore Guarantees | P1 | 2 - Broker + Tooling | Planned | [`M-040-ha-dr-and-restore-guarantees.md`](./M-040-ha-dr-and-restore-guarantees.md) |
+| M-041 | Cost and Capacity Governance | P1 | 2 - Broker + Tooling | Planned | [`M-041-cost-and-capacity-governance.md`](./M-041-cost-and-capacity-governance.md) |
+| M-042 | Ops and SIEM Integration | P1 | 2 - Broker + Tooling | Planned | [`M-042-ops-and-siem-integration.md`](./M-042-ops-and-siem-integration.md) |
+| M-043 | Policy and Memory Rollout Controls | P1 | 2 - Broker + Tooling | Planned | [`M-043-policy-and-memory-rollout-controls.md`](./M-043-policy-and-memory-rollout-controls.md) |
+| M-044 | Contract Stability and Migration Program | P1 | 0 - Planning | Planned | [`M-044-contract-stability-and-migration-program.md`](./M-044-contract-stability-and-migration-program.md) |
+| M-045 | Admin Control Plane | P1 | 3 - Standalone Surfaces | Planned | [`M-045-admin-control-plane.md`](./M-045-admin-control-plane.md) |

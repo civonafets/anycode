@@ -40,6 +40,14 @@
 15. `M-017` implement optional MCP adapter over canonical APIs for low-context agent access without weakening governance boundaries.
 16. `M-007` implement dashboard memory/policy/approval/trace surfaces.
 17. `M-008` implement mobile inbox flows.
+18. `M-038` implement enterprise IAM federation and provisioning flows.
+19. `M-039` implement hard tenant isolation guarantees and BYOK domains.
+20. `M-040` implement HA/DR backup/restore guarantees and drill workflows.
+21. `M-041` implement tenant cost/capacity governance controls.
+22. `M-042` implement ops/SIEM export and forensics integration.
+23. `M-043` implement staged rollout/canary/automatic rollback controls.
+24. `M-044` implement API/SDK contract stability matrix and migration tooling.
+25. `M-045` implement admin control plane for tenant operations and emergency controls.
 
 ## Rule
 - anymem planning owns generic governance domains and does not depend on anycode implementation details.
