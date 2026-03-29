@@ -23,6 +23,7 @@ Define who can publish, install, embed, activate, approve, and delegate across w
 - Package publish/install/embed/revoke/update/toggle
 - Role and permission administration
 - Delegation grant creation and delegation approval
+- External principal registration, rotation, and disable controls
 
 ## Initial Permission Names
 - `memory.records.read`
@@ -56,6 +57,10 @@ Define who can publish, install, embed, activate, approve, and delegate across w
 - `permission.assign`
 - `delegation.create`
 - `delegation.approve`
+- `principal.read`
+- `principal.write`
+- `principal.rotate`
+- `principal.disable`
 
 ## Initial Built-In Role Bundles
 - `owner`: all permissions
@@ -79,6 +84,7 @@ Define who can publish, install, embed, activate, approve, and delegate across w
 - Roles are composable from permission bundles without schema changes.
 - Every sensitive action records both acting principal and delegated-on-behalf-of principal when delegation exists.
 - Initial permission names and built-in role bundles are defined well enough for implementation to start without inventing authorization vocabulary.
+- External service principals and delegated user sessions are first-class identities with auditable mapping to actions.
 
 ## Dependencies
 - `M-001`, `M-009`

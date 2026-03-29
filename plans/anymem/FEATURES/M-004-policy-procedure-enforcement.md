@@ -12,6 +12,7 @@ Define deterministic generic policy/procedure evaluation for allow/block/require
 - Evaluation order and outputs are deterministic.
 - Procedure updates are proposal/approval-driven.
 - Enforcement is separate from retrieval context.
+- Action classes carry explicit degraded-mode directives (`block`, `warn`, `continue`) for memory/retrieval/policy partial outage conditions.
 
 ## Dependencies
 - `M-001`, `M-002`

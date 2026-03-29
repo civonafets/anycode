@@ -26,6 +26,11 @@
 18. Proof bundle for phase exit must include passing automated regression tests, required integration tests, and performance checks for phase-relevant hot paths.
 19. Personal and other sensitive memory categories are deny-by-default across apps and workflows unless explicit allow policy and permissions exist.
 20. Preference and behavior resolution must be deterministic, precedence-driven, and traceable; no hidden or non-auditable preference overrides are allowed.
+21. Every decision-supporting integration must consume one canonical decision-context contract before execution-sensitive actions.
+22. Degraded-mode behavior is explicit per action class (`block`, `warn`, `continue`) and must be enforced consistently across API, broker, and adapter paths.
+23. External agent identities (service principals and delegated user sessions) must be first-class and auditable.
+24. Concurrent memory writes from multiple agents must resolve through deterministic conflict/merge rules; no last-writer-wins by accident.
+25. Pre-decision memory/retrieval paths require explicit SLOs with regression checks.
 
 ## Repo Extraction Readiness Gates
 1. `anymem` API/SDK contract v1 is documented and stable.
@@ -36,6 +41,7 @@
 6. Package trust, revocation, and update rules are documented and testable.
 7. Each feature has defined required test coverage before it can be marked complete.
 8. Each phase has explicit exit criteria and a recorded proof bundle before the phase can be marked complete.
+9. Phase proof bundles include non-coding benchmark coverage for retrieval and decision-context quality.
 
 ## Transition Rule
 - Legacy root planning files remain for one cycle as reference only.

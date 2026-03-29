@@ -11,11 +11,16 @@
 - Manual memory authoring and preference profile capture.
 - Generic policy/procedure evaluation.
 - Deterministic preference precedence and conflict resolution.
+- Canonical decision-context contract for agent/tool execution.
+- Degraded-mode action policy for memory/policy outages.
 - Generic approvals and approval conversation flows.
 - Append-only trace/proof.
+- External agent identity model (service principal + delegated session).
 - Memory lifecycle governance (decay, archival, revalidation).
+- Concurrent memory write conflict resolution.
 - Outcome feedback to governed memory proposal loop.
 - Context packing and budget policies for model and tool integrations.
+- Pre-decision latency SLOs and regression guardrails.
 - Sensitive personal-memory guardrails and redaction/consent controls.
 - Memory package export/install/activation controls.
 - Package trust lifecycle, publisher identity, revocation, and update policy.
@@ -52,6 +57,7 @@
 - Supports granular permission-based RBAC without hard-coding a fixed small role set.
 - Supports live-first UI freshness without requiring first-party polling loops as the primary update mechanism.
 - Supports long-term growth of personal and shared memory without quality collapse through lifecycle and precedence controls.
+- Supports reliable pre-decision behavior under partial failure through explicit degraded-mode policy.
 
 ## Delivery Rule
 - A feature is not considered complete until its required tests are added and passing.

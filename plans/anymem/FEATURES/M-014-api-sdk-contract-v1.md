@@ -40,6 +40,7 @@ Define the stable public contract that external products and adapters use to con
 - `POST /api/v1/auth/login`
 - `GET /api/v1/workspaces/current`
 - `POST /api/v1/runtime/bootstrap-tokens`
+- `POST /api/v1/decision-context`
 - `GET /api/v1/memory/records`
 - `POST /api/v1/memory/records`
 - `GET /api/v1/memory/records/:id`
@@ -115,6 +116,24 @@ Define the stable public contract that external products and adapters use to con
     - `expires_at`
     - `broker_endpoint_hint`
     - `granted_capabilities[]`
+- `POST /api/v1/decision-context`
+  - request:
+    - `action_type`
+    - `target_refs`
+    - `actor_context`
+    - `tool_context`
+    - `activation_context`
+    - `context_budget_profile` (optional)
+    - `idempotency_key`
+  - response:
+    - `relevant_context[]`
+    - `applicable_policy[]`
+    - `required_approval_refs[]`
+    - `required_proof_refs[]`
+    - `confidence`
+    - `selection_rationale`
+    - `degraded_mode`
+    - `resolution_artifact_ref`
 - `GET /api/v1/memory/records`
   - query:
     - `cursor`
@@ -311,6 +330,7 @@ Define the stable public contract that external products and adapters use to con
 ## Request Context
 - Required context on every authenticated call: actor ID, workspace ID, caller product, session/tool identifier when present.
 - Effective activation state must be carried explicitly on requests where retrieval behavior depends on it, or must be resolvable server-side from canonical scope state.
+- External non-wrapper integrations must include service-principal or delegated-session identity context with auditable principal mapping.
 
 ## Async and Event Model
 - Canonical state lives in REST resources; no write-only event commands.
@@ -423,6 +443,7 @@ Define the stable public contract that external products and adapters use to con
 - Webhook verification, retry, and duplicate-delivery expectations are explicit.
 - First-party live transport and replay semantics are explicit enough that web UI, mobile UI, and broker clients can share one recovery model.
 - Initial endpoint families are fixed enough that SDK and adapter work can start without inventing new domain boundaries.
+- Decision-context contract is explicit enough that external agents can consume a stable pre-action schema without tool-specific interpretation drift.
 
 ## Dependencies
-- `M-001`, `M-009`, `M-016`
+- `M-001`, `M-009`, `M-016`, `M-026`

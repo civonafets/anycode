@@ -14,6 +14,7 @@ Define deterministic context-packing rules per integration/model budget so memor
 - Truncation strategy is deterministic and traceable (no silent random drops).
 - Packing outputs include attribution for included and dropped context segments.
 - Overflow and budget-pressure metrics are emitted for tuning and regression checks.
+- Packing outputs align with the canonical decision-context contract for cross-tool consistency.
 
 ## Dependencies
-- `M-003`, `M-005`, `M-011`, `M-014`, `M-015`, `M-019`
+- `M-003`, `M-005`, `M-011`, `M-014`, `M-015`, `M-019`, `M-024`

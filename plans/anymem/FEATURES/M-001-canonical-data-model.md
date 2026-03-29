@@ -13,6 +13,7 @@ Define canonical entities for auth tenancy context, memory, policy/procedure, ap
 - Generic workflow approvals are modeled without coding-only assumptions.
 - Retrieval snapshots, search-mode metadata, and ranking components are persisted.
 - Memory package lineage and activation controls are first-class in schema.
+- Memory records support versioning and conflict metadata for deterministic merge/supersede handling across concurrent agent writes.
 
 ## Dependencies
 - None

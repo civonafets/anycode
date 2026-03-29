@@ -45,3 +45,8 @@
 | M-021 | Context Packing and Budget Policy | P0 | 2 - Broker + Tooling | Planned | [`M-021-context-packing-and-budget-policy.md`](./M-021-context-packing-and-budget-policy.md) |
 | M-022 | Outcome Feedback to Memory Proposal Loop | P1 | 2 - Broker + Tooling | Planned | [`M-022-outcome-feedback-to-memory-proposal-loop.md`](./M-022-outcome-feedback-to-memory-proposal-loop.md) |
 | M-023 | Personal Profile Privacy and Sensitive Memory Guardrails | P0 | 1 - Governance Core | Planned | [`M-023-personal-profile-privacy-and-sensitive-memory-guardrails.md`](./M-023-personal-profile-privacy-and-sensitive-memory-guardrails.md) |
+| M-024 | Universal Decision-Context Contract | P0 | 1 - Governance Core | Planned | [`M-024-universal-decision-context-contract.md`](./M-024-universal-decision-context-contract.md) |
+| M-025 | Degraded-Mode and Continuity Policy | P0 | 1 - Governance Core | Planned | [`M-025-degraded-mode-and-continuity-policy.md`](./M-025-degraded-mode-and-continuity-policy.md) |
+| M-026 | External Agent Identity and Principal Model | P0 | 0 - Planning | Planned | [`M-026-external-agent-identity-and-principal-model.md`](./M-026-external-agent-identity-and-principal-model.md) |
+| M-027 | Concurrent Memory Write Conflict Resolution | P1 | 1 - Governance Core | Planned | [`M-027-concurrent-memory-write-conflict-resolution.md`](./M-027-concurrent-memory-write-conflict-resolution.md) |
+| M-028 | Pre-Decision Performance SLOs and Latency Guardrails | P0 | 1 - Governance Core | Planned | [`M-028-pre-decision-performance-slos.md`](./M-028-pre-decision-performance-slos.md) |
