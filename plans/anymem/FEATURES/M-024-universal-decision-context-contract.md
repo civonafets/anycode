@@ -11,6 +11,7 @@ Provide one canonical pre-action contract that any AI agent integration consumes
 ## Acceptance Criteria
 - Decision-context response shape is fixed and reusable across tool vendors:
   - `relevant_context[]`
+  - `retrieval_plan_ref` (optional)
   - `applicable_policy[]`
   - `required_approval_refs[]`
   - `required_proof_refs[]`
@@ -18,6 +19,9 @@ Provide one canonical pre-action contract that any AI agent integration consumes
   - `selection_rationale`
   - `degraded_mode`
   - `resolution_artifact_ref`
+- Contract supports a two-step retrieval pattern for hybrid deployments:
+  - step 1: ask anymem where to look (`retrieval/plan`)
+  - step 2: fetch from planned targets through governed paths
 - Contract is available through API and SDK in v1 and does not require wrapper-only paths.
 - Context payload includes attribution and provenance references for included items.
 - Contract is fully traceable so auditors can reconstruct pre-action context at decision time.

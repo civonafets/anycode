@@ -24,6 +24,7 @@
 - Context packing and budget policies for model and tool integrations.
 - Pre-decision latency SLOs and regression guardrails.
 - First-class secondary use case: hybrid retrieval integration for external full-document/vector corpora through governed gateways.
+- Retrieval-plan-first hybrid gateway for RAG acceleration (agents ask anymem where to look before external fetch).
 - Memory interchange and portability contracts for cross-tool and cross-vendor movement.
 - Ingestion trust scoring and anti-poisoning controls.
 - Connector ingestion and provenance-preserving sync model.
@@ -85,6 +86,7 @@
 - Prevents stale-topic over-personalization through explicit recency, suppression, and distraction regression controls.
 - Supports reliable pre-decision behavior under partial failure through explicit degraded-mode policy.
 - Supports first-class hybrid deployments where anymem governs decisions while external vector/doc systems serve large corpus retrieval.
+- Supports high-throughput hybrid retrieval with measurable warm-cache gains and bounded degraded behavior.
 - Supports portable memory flows and multimodal evidence without sacrificing governance/auditability.
 - Supports enterprise operations with strong identity, isolation, resilience, and admin controls.
 - Supports enterprise AI safety expectations with DLP, legal hold, and context-attack defenses.

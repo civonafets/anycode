@@ -12,6 +12,13 @@ Measure and regress retrieval quality, attribution, and toggle/package impact be
 - Gold-set tasks and queries exist for replayable retrieval evaluation.
 - Gold-set coverage spans coding and non-coding workflows so quality does not overfit engineering use cases.
 - Benchmarks cover native memory, external packages, embedded packages, and activation toggles.
+- Benchmarks include explicit hybrid-routing workloads where anymem plans retrieval over external corpora before fetch.
+- Benchmark matrix includes:
+  - warm L1 hit
+  - warm L2 hit
+  - cold miss
+  - backend timeout/degraded path
+  - high-concurrency identical-query bursts
 - Ranking regressions can be detected offline.
 - Evaluation captures attribution for which sources changed quality or precision.
 - Evaluation includes decision-context quality checks (selection precision and missing-critical-context rate).
@@ -22,6 +29,7 @@ Measure and regress retrieval quality, attribution, and toggle/package impact be
 - Time-sliced and workstream-sliced benchmark sets exist to catch long-tail over-personalization drift.
 - Retrieval/policy rollout gates fail when distraction metrics regress beyond agreed thresholds.
 - Benchmarks include long-horizon recall checks proving that old but still-relevant memories remain retrievable under strong intent/workstream match.
+- Benchmark outputs include cache-performance counters (tier hit ratio, miss cost, invalidation lag, stale-serving rate).
 
 ## Dependencies
 - `M-005`, `M-011`, `M-012`, `M-020`, `M-021`, `M-022`, `M-024`

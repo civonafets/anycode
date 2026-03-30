@@ -58,6 +58,9 @@
 50. Retrieval promotion gates must include distraction metrics (irrelevant-memory mention rate, stale-topic resurfacing rate, suppression-violation rate).
 51. Memory lifecycle controls are non-destructive by default: decay, stale marking, and archival may change retrieval behavior but must not hard-delete canonical memory records.
 52. Hard deletion requires an explicit human-initiated delete action in normal operation; automated lifecycle jobs may not delete memory.
+53. Hybrid RAG acceleration requires retrieval-plan-first contracts where agents can ask anymem where to look before expensive corpus fetch.
+54. Cache keys and cache invalidation must include tenancy, scope, activation, policy version, and backend-index revision dimensions to prevent stale or cross-scope leakage.
+55. Cache observability (`hit/miss`, tier, age, invalidation lag, warm/cold latency) is required for production tuning and rollout gates.
 
 ## Repo Extraction Readiness Gates
 1. `anymem` API/SDK contract v1 is documented and stable.
@@ -75,6 +78,7 @@
 13. Explainability and policy-promotion guardrails include regression-checked attribution outputs and replay/canary pass evidence.
 14. Retrieval readiness includes passing recency/suppression/intent-match conformance and distraction-metric thresholds.
 15. Lifecycle readiness proves non-destructive retention behavior: automated decay/archive jobs do not hard-delete canonical memory.
+16. Hybrid retrieval readiness proves retrieval-plan correctness, cache-isolation correctness, and warm/cold/degraded performance envelopes.
 
 ## Transition Rule
 - Legacy root planning files are reference-only and non-authoritative.

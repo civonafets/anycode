@@ -41,12 +41,14 @@ Define the stable public contract that external products and adapters use to con
 - `GET /api/v1/workspaces/current`
 - `POST /api/v1/runtime/bootstrap-tokens`
 - `POST /api/v1/decision-context`
+- `POST /api/v1/retrieval/plan`
 - `GET /api/v1/memory/records`
 - `POST /api/v1/memory/records`
 - `GET /api/v1/memory/records/:id`
 - `POST /api/v1/memory/search`
 - `POST /api/v1/memory/describe`
 - `POST /api/v1/memory/expand_query`
+- `POST /api/v1/retrieval/fetch` (optional gateway helper for multi-backend planned fanout)
 - `POST /api/v1/policies/evaluate`
 - `GET /api/v1/approvals`
 - `POST /api/v1/approvals`
@@ -129,6 +131,7 @@ Define the stable public contract that external products and adapters use to con
     - `idempotency_key`
   - response:
     - `relevant_context[]`
+    - `retrieval_plan_ref` (optional, when hybrid routing is used)
     - `applicable_policy[]`
     - `required_approval_refs[]`
     - `required_proof_refs[]`
@@ -136,6 +139,25 @@ Define the stable public contract that external products and adapters use to con
     - `selection_rationale`
     - `degraded_mode`
     - `resolution_artifact_ref`
+- `POST /api/v1/retrieval/plan`
+  - request:
+    - `query`
+    - `task_intent` (optional, recommended)
+    - `workstream_ref` (optional, recommended)
+    - `target_refs` (optional)
+    - `activation_context`
+    - `context_budget_profile` (optional)
+    - `latency_budget_ms` (optional)
+    - `idempotency_key`
+  - response:
+    - `plan_id`
+    - `prioritized_targets[]`
+    - `query_rewrites[]`
+    - `fetch_limits`
+    - `deadline_ms`
+    - `policy_constraints[]`
+    - `cache_hint`
+    - `expires_at`
 - `GET /api/v1/memory/records`
   - query:
     - `cursor`
@@ -187,6 +209,10 @@ Define the stable public contract that external products and adapters use to con
     - `search_mode`
     - `ranking_version`
     - `score_breakdown[]` (optional compact factors)
+    - `cache.hit` (optional)
+    - `cache.tier` (optional)
+    - `cache.age_ms` (optional)
+    - `cache.key_fingerprint` (optional)
     - `next_cursor` (optional)
 - `POST /api/v1/memory/describe`
   - request:
@@ -206,6 +232,17 @@ Define the stable public contract that external products and adapters use to con
     - `operation_id`
     - `status`
     - `result` (present when completed inline)
+- `POST /api/v1/retrieval/fetch`
+  - request:
+    - `plan_id`
+    - `overrides` (optional bounded adjustments)
+    - `idempotency_key`
+  - response:
+    - `results[]`
+    - `backend_trace[]`
+    - `cache.hit` (optional)
+    - `cache.tier` (optional)
+    - `degraded_mode`
 - `POST /api/v1/policies/evaluate`
   - request:
     - `action_type`
