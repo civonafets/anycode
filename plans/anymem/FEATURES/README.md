@@ -75,3 +75,4 @@
 | M-051 | Policy-as-Code Verification and Promotion Gates | P1 | 2 - Broker + Tooling | Planned | [`M-051-policy-as-code-verification-and-promotion-gates.md`](./M-051-policy-as-code-verification-and-promotion-gates.md) |
 | M-052 | Protected Memory Packages and Commercial Entitlements | P1 | 2 - Broker + Tooling | Planned | [`M-052-protected-memory-packages-and-commercial-entitlements.md`](./M-052-protected-memory-packages-and-commercial-entitlements.md) |
 | M-053 | Memory Marketplace and Publisher Distribution Platform | P1 | 3 - Standalone Surfaces | Planned | [`M-053-memory-marketplace-and-publisher-distribution-platform.md`](./M-053-memory-marketplace-and-publisher-distribution-platform.md) |
+| M-054 | Checkpointed Delta Timelines and Replay Compression | P1 | 2 - Broker + Tooling | Planned | [`M-054-checkpointed-delta-timelines-and-replay-compression.md`](./M-054-checkpointed-delta-timelines-and-replay-compression.md) |

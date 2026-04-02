@@ -930,6 +930,25 @@ window.ANYMEM_DATA = {
         "M-045",
         "M-052"
       ]
+    },
+    {
+      "id": "M-054",
+      "file": "M-054-checkpointed-delta-timelines-and-replay-compression.md",
+      "title": "M-054 - Checkpointed Delta Timelines and Replay Compression",
+      "priority": "P1",
+      "phase": "2 - Broker + Tooling",
+      "state": "Planned",
+      "goal": "Compress high-churn mutable histories by storing bounded replay checkpoints plus ordered deltas, while keeping canonical memory records and retrieval indexes as the primary query surface.",
+      "acceptanceCount": 8,
+      "firstAcceptance": "Supported timeline types can reconstruct an exact historical state from the nearest valid checkpoint plus subsequent deltas.",
+      "dependencies": [
+        "M-001",
+        "M-005",
+        "M-025",
+        "M-028",
+        "M-035",
+        "M-037"
+      ]
     }
   ],
   "phaseDescriptions": {

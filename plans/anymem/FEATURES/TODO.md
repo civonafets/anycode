@@ -56,6 +56,7 @@
 31. `M-051` implement policy-as-code validation and promotion gates with replay/canary evidence.
 32. `M-052` implement protected proprietary package modes, entitlement resolution, and fail-closed protected retrieval.
 33. `M-053` implement marketplace listings, acquisition/install flows, and publisher distribution surfaces.
+34. `M-054` implement checkpointed delta timelines, bounded replay, and compression observability for high-churn histories.
 
 ## Rule
 - anymem planning owns generic governance domains and does not depend on anycode implementation details.

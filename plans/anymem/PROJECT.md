@@ -45,6 +45,7 @@
 - Prompt-injection and context-attack resilience with taint-aware context assembly.
 - Deployment profile parity for SaaS, self-hosted, and air-gapped environments.
 - Memory influence explainability with `why included` / `why excluded` attribution.
+- Checkpointed delta timelines and replay compression for traces, sessions, mutable artifacts, and other high-churn histories.
 - Policy-as-code validation and promotion gates with replay/canary requirements.
 - Sensitive personal-memory guardrails and redaction/consent controls.
 - Memory package export/install/activation controls.
@@ -95,6 +96,7 @@
 - Supports enterprise operations with strong identity, isolation, resilience, and admin controls.
 - Supports enterprise AI safety expectations with DLP, legal hold, and context-attack defenses.
 - Supports auditable decision explainability and safe policy promotion across deployment profiles.
+- Supports compressed replay-friendly history for mutable high-churn state without making delta logs the canonical source for memory retrieval or policy evaluation.
 
 ## Delivery Rule
 - A feature is not considered complete until its required tests are added and passing.
