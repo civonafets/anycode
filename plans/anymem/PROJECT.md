@@ -49,6 +49,8 @@
 - Sensitive personal-memory guardrails and redaction/consent controls.
 - Memory package export/install/activation controls.
 - Package trust lifecycle, publisher identity, revocation, and update policy.
+- Protected proprietary memory packages with entitlement-gated access and raw-payload protection modes.
+- First-party marketplace/catalog support for memory package discovery, distribution, and commercial install flows.
 - Stable external API/SDK contract for product consumers.
 - Retrieval evaluation and benchmark framework.
 - Role/scope/delegation model for publish/install/embed/toggle/approve actions.
@@ -88,6 +90,8 @@
 - Supports first-class hybrid deployments where anymem governs decisions while external vector/doc systems serve large corpus retrieval.
 - Supports high-throughput hybrid retrieval with measurable warm-cache gains and bounded degraded behavior.
 - Supports portable memory flows and multimodal evidence without sacrificing governance/auditability.
+- Supports employee-only and commercially licensed proprietary memory distribution with fail-closed entitlement enforcement.
+- Supports marketplace-ready publisher distribution without forcing protected packages to expose raw memory payloads to buyers.
 - Supports enterprise operations with strong identity, isolation, resilience, and admin controls.
 - Supports enterprise AI safety expectations with DLP, legal hold, and context-attack defenses.
 - Supports auditable decision explainability and safe policy promotion across deployment profiles.

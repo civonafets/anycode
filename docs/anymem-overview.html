@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>anymem Feature Overview</title>
+  <style>
+    :root {
+      --bg: #071321;
+      --bg-glow: #1b3153;
+      --panel: #0e1e31;
+      --panel-2: #10243a;
+      --ink: #eaf4ff;
+      --muted: #9db6d4;
+      --line: #2b4a6b;
+      --accent: #49d7ff;
+      --accent-2: #5bf3c8;
+      --p0: #ffd166;
+      --p1: #7bdff2;
+      --planned: #8fb6d8;
+      --in-progress: #57f4c5;
+      --radius: 14px;
+      --shadow: 0 10px 34px rgba(0, 0, 0, 0.32);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(1200px 700px at 22% -20%, var(--bg-glow) 0%, var(--bg) 64%);
+      color: var(--ink);
+      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.46;
+    }
+
+    code {
+      border: 1px solid #365b7f;
+      background: #13263c;
+      border-radius: 6px;
+      padding: 1px 5px;
+      font-size: 0.8rem;
+      color: #d5ebff;
+    }
+
+    .wrap {
+      width: min(1220px, 95vw);
+      margin: 0 auto;
+      padding: 24px 0 48px;
+    }
+
+    .hero {
+      background: linear-gradient(155deg, #122948 0%, #0d1c2e 100%);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+      margin-bottom: 14px;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      letter-spacing: 0.2px;
+    }
+
+    h1 {
+      font-size: clamp(1.45rem, 2.4vw, 2rem);
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-size: clamp(1.02rem, 1.85vw, 1.28rem);
+      margin-bottom: 8px;
+    }
+
+    h3 {
+      font-size: 0.97rem;
+      margin-bottom: 6px;
+    }
+
+    p {
+      margin: 8px 0;
+      color: #d7eaff;
+    }
+
+    .muted {
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .grid.cols-4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .grid.cols-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .panel {
+      background: linear-gradient(180deg, var(--panel) 0%, var(--panel-2) 100%);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 15px;
+      box-shadow: var(--shadow);
+    }
+
+    .stat {
+      min-height: 96px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .stat .label {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .stat .value {
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: var(--accent-2);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .flow-wrap {
+      border: 1px solid #305273;
+      background: #0a1728;
+      border-radius: 10px;
+      padding: 7px;
+      overflow-x: auto;
+    }
+
+    .flow-wrap-large {
+      padding: 10px;
+      border-radius: 12px;
+    }
+
+    .explain-list {
+      margin: 8px 0 0 0;
+      padding-left: 20px;
+      display: grid;
+      gap: 6px;
+      color: #d8ebff;
+      font-size: 0.92rem;
+    }
+
+    .note {
+      border: 1px solid #3a5d80;
+      background: #0f2338;
+      border-radius: 10px;
+      padding: 10px;
+      margin-top: 10px;
+      color: #d4e9ff;
+      font-size: 0.9rem;
+    }
+
+    .legend-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+      color: #afcae7;
+      font-size: 0.84rem;
+    }
+
+    .legend-chip {
+      border: 1px solid #3b5f82;
+      border-radius: 999px;
+      padding: 2px 8px;
+      background: #102237;
+      color: #d5eafe;
+    }
+
+    svg text {
+      fill: #d4e9ff;
+      font-size: 12px;
+      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .bar-chart {
+      display: grid;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .bar-row {
+      display: grid;
+      grid-template-columns: minmax(130px, 42%) 1fr auto;
+      gap: 10px;
+      align-items: center;
+      font-size: 0.9rem;
+    }
+
+    .bar-track {
+      border: 1px solid #385d82;
+      border-radius: 999px;
+      height: 11px;
+      background: #0b1727;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-right: 1px solid rgba(255, 255, 255, 0.6);
+    }
+
+    .val {
+      font-variant-numeric: tabular-nums;
+      color: #d9ecff;
+      font-weight: 600;
+    }
+
+    .phase-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .phase-card {
+      border: 1px solid #335678;
+      border-radius: 10px;
+      background: #0b1829;
+      padding: 11px;
+      display: grid;
+      gap: 6px;
+    }
+
+    .phase-features {
+      font-size: 0.8rem;
+      color: #a7c2e0;
+      line-height: 1.35;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: 1.7fr repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 8px;
+      margin-bottom: 12px;
+    }
+
+    input,
+    select {
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid #335678;
+      background: #091525;
+      color: #e7f3ff;
+      padding: 9px 10px;
+      font-size: 0.92rem;
+    }
+
+    input::placeholder {
+      color: #89a8ca;
+    }
+
+    .feature-count {
+      font-size: 0.9rem;
+      color: #a9c3e3;
+      margin-bottom: 7px;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .feature {
+      border: 1px solid #33597d;
+      border-radius: 11px;
+      background: #0a1524;
+      padding: 11px;
+      display: grid;
+      gap: 7px;
+    }
+
+    .feature h3 {
+      margin: 0;
+      font-size: 0.95rem;
+      line-height: 1.35;
+    }
+
+    .badges {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .badge {
+      border: 1px solid #3c5d7e;
+      border-radius: 999px;
+      background: #13263d;
+      color: #d5ebff;
+      font-size: 0.74rem;
+      padding: 2px 8px;
+    }
+
+    .badge[data-priority="P0"] {
+      background: #35290f;
+      border-color: #9a7c2b;
+      color: #ffe9a8;
+    }
+
+    .badge[data-priority="P1"] {
+      background: #112a32;
+      border-color: #2e6f7c;
+      color: #caf4ff;
+    }
+
+    .badge[data-state="Planned"] {
+      background: #102339;
+      border-color: #3f6488;
+      color: #c8e4ff;
+    }
+
+    .badge[data-state="In Progress"] {
+      background: #0f2c25;
+      border-color: #317d6f;
+      color: #c0ffe9;
+    }
+
+    .goal {
+      margin: 0;
+      color: #def0ff;
+      font-size: 0.9rem;
+    }
+
+    .meta {
+      margin: 0;
+      color: #a7c2e0;
+      font-size: 0.83rem;
+    }
+
+    .deps code {
+      margin-right: 4px;
+      margin-top: 4px;
+      display: inline-block;
+    }
+
+    a {
+      color: #84e7ff;
+      text-decoration-thickness: 1px;
+    }
+
+    .empty {
+      border: 1px dashed #3a607f;
+      border-radius: 10px;
+      background: #0a1524;
+      padding: 14px;
+      color: #b1cae7;
+    }
+
+    @media (max-width: 980px) {
+      .grid.cols-4,
+      .grid.cols-2,
+      .phase-list,
+      .features {
+        grid-template-columns: 1fr;
+      }
+
+      .controls {
+        grid-template-columns: 1fr;
+      }
+
+      .bar-row {
+        grid-template-columns: minmax(95px, 42%) 1fr auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <h1>anymem: Readable Feature Explainer</h1>
+      <p id="one-line"></p>
+      <p class="muted">Generated from the plan files so this page reflects the current feature specs in <code>plans/anymem/FEATURES</code>.</p>
+    </section>
+
+    <section id="stats" class="grid cols-4"></section>
+
+    <section class="grid cols-2" style="margin-top:12px;">
+      <article class="panel">
+        <h2>What anymem Is</h2>
+        <p><strong>anymem</strong> is a memory and governance platform for AI decision-making. It gives apps and agents one consistent place to retrieve context, apply policy, request approvals, and keep proof of why decisions happened.</p>
+        <p>Instead of memory being a loose add-on, anymem treats it as core infrastructure: scope-safe retrieval, explainable ranking, traceability, controlled activation of knowledge packages, and deterministic behavior across tools.</p>
+        <ol class="explain-list">
+          <li>Client sends intent, auth context, and workspace scope.</li>
+          <li>anymem enforces permissions/policy before retrieval runs.</li>
+          <li>Memory retrieval + ranking builds candidate context.</li>
+          <li>Optional retrieval gateway plans and fetches external corpus context.</li>
+          <li>Context packer emits bounded, explainable decision context.</li>
+          <li>Trace/proof + events are emitted for audit and live UI updates.</li>
+        </ol>
+      </article>
+
+      <article class="panel">
+        <h2>Where RAG Gateway Is Used</h2>
+        <p><strong>Short answer:</strong> both. The gateway is useful for coding and non-coding workloads when external corpora are involved.</p>
+        <p><strong>Coding use case:</strong> `anycode` can call anymem first to decide where to fetch coding context (design docs, prior RFCs, runbooks, package memory, KB). The gateway is optional but available for these flows.</p>
+        <p><strong>Document-heavy RAG use case:</strong> for large external corpora, anymem uses retrieval-plan-first + hot cache so agents query the right sources faster while staying policy-safe.</p>
+        <div class="note">
+          The gateway is not limited to document cache mode. It is a first-class secondary path that can accelerate coding and general agent workflows whenever external retrieval is needed.
+        </div>
+      </article>
+    </section>
+
+    <section class="panel" style="margin-top:12px;">
+      <h2>How It Works: Detailed Architecture</h2>
+      <p class="muted">Simple view: one main left-to-right flow, one optional hybrid retrieval branch.</p>
+      <div class="flow-wrap flow-wrap-large">
+        <svg viewBox="0 0 1680 620" width="100%" role="img" aria-label="Simplified anymem architecture">
+          <defs>
+            <marker id="arrow-wide" markerWidth="11" markerHeight="11" refX="9" refY="3.5" orient="auto">
+              <path d="M0,0 L0,7 L10,3.5 z" fill="#73dfff"></path>
+            </marker>
+          </defs>
+
+          <rect x="30" y="24" width="1620" height="206" rx="14" fill="#0f2236" stroke="#345a80"/>
+          <text x="50" y="52" fill="#8ecaf7">Core Path (Always)</text>
+
+          <rect x="30" y="250" width="1620" height="164" rx="14" fill="#0f2033" stroke="#33577b"/>
+          <text x="50" y="278" fill="#8ecaf7">Governance Path (When Required)</text>
+
+          <rect x="30" y="434" width="1620" height="162" rx="14" fill="#102033" stroke="#325678"/>
+          <text x="50" y="462" fill="#8ecaf7">Optional Hybrid Retrieval Branch</text>
+
+          <rect x="70" y="106" width="250" height="90" rx="10" fill="#14324f" stroke="#4e7aa3"/>
+          <text x="195" y="138" text-anchor="middle">Callers</text>
+          <text x="195" y="158" text-anchor="middle">anycode, dashboard, agents</text>
+          <text x="195" y="176" text-anchor="middle">submit request</text>
+
+          <rect x="360" y="106" width="270" height="90" rx="10" fill="#173753" stroke="#5485af"/>
+          <text x="495" y="138" text-anchor="middle">Entry Contract</text>
+          <text x="495" y="158" text-anchor="middle">REST API + SDK</text>
+          <text x="495" y="176" text-anchor="middle">optional local broker</text>
+
+          <rect x="670" y="106" width="280" height="90" rx="10" fill="#1a3d59" stroke="#5c8cb4"/>
+          <text x="810" y="138" text-anchor="middle">Auth + Policy Gate</text>
+          <text x="810" y="158" text-anchor="middle">workspace scope + permissions</text>
+          <text x="810" y="176" text-anchor="middle">allow / block / approval</text>
+
+          <rect x="990" y="106" width="300" height="90" rx="10" fill="#1a3d59" stroke="#5c8cb4"/>
+          <text x="1140" y="138" text-anchor="middle">Memory Retrieval + Ranking</text>
+          <text x="1140" y="158" text-anchor="middle">recency + usage + suppression</text>
+          <text x="1140" y="176" text-anchor="middle">context packing</text>
+
+          <rect x="1435" y="106" width="230" height="90" rx="10" fill="#1b405e" stroke="#6395ba"/>
+          <text x="1550" y="138" text-anchor="middle">Decision Context Output</text>
+          <text x="1550" y="158" text-anchor="middle">why included / excluded</text>
+          <text x="1550" y="176" text-anchor="middle">returned to caller</text>
+
+          <line x1="320" y1="151" x2="360" y2="151" stroke="#73dfff" stroke-width="2.2" marker-end="url(#arrow-wide)"/>
+          <line x1="630" y1="151" x2="670" y2="151" stroke="#73dfff" stroke-width="2.2" marker-end="url(#arrow-wide)"/>
+          <line x1="950" y1="151" x2="990" y2="151" stroke="#73dfff" stroke-width="2.2" marker-end="url(#arrow-wide)"/>
+          <line x1="1290" y1="151" x2="1435" y2="151" stroke="#73dfff" stroke-width="2.2" marker-end="url(#arrow-wide)"/>
+
+          <rect x="700" y="306" width="300" height="84" rx="10" fill="#1a3b57" stroke="#5a8db7"/>
+          <text x="850" y="336" text-anchor="middle">Approval Conversation</text>
+          <text x="850" y="355" text-anchor="middle">chat in-thread</text>
+          <text x="850" y="373" text-anchor="middle">approve/edit/rewrite/defer/escalate</text>
+
+          <rect x="1040" y="306" width="260" height="84" rx="10" fill="#1b405e" stroke="#6395ba"/>
+          <text x="1170" y="336" text-anchor="middle">Trace / Proof</text>
+          <text x="1170" y="355" text-anchor="middle">append-only evidence</text>
+          <text x="1170" y="373" text-anchor="middle">decision attribution</text>
+
+          <rect x="1340" y="306" width="260" height="84" rx="10" fill="#1b405e" stroke="#6395ba"/>
+          <text x="1470" y="336" text-anchor="middle">Live Delivery</text>
+          <text x="1470" y="355" text-anchor="middle">SSE + replay</text>
+          <text x="1470" y="373" text-anchor="middle">webhooks/event export</text>
+
+          <line x1="810" y1="196" x2="850" y2="306" stroke="#73dfff" stroke-width="2.2" marker-end="url(#arrow-wide)"/>
+          <text x="820" y="257" fill="#a8d9ff">if approval needed</text>
+          <line x1="1000" y1="348" x2="1040" y2="348" stroke="#73dfff" stroke-width="2.2" marker-end="url(#arrow-wide)"/>
+          <line x1="1300" y1="348" x2="1340" y2="348" stroke="#73dfff" stroke-width="2.2" marker-end="url(#arrow-wide)"/>
+
+          <rect x="970" y="492" width="260" height="78" rx="10" fill="#1d4158" stroke="#6394b8"/>
+          <text x="1100" y="520" text-anchor="middle">Hybrid Gateway Planner</text>
+          <text x="1100" y="538" text-anchor="middle">retrieval-plan-first</text>
+          <text x="1100" y="556" text-anchor="middle">where/how/how-much</text>
+
+          <rect x="1270" y="492" width="170" height="78" rx="10" fill="#1d4158" stroke="#6394b8"/>
+          <text x="1355" y="520" text-anchor="middle">L1/L2 Cache</text>
+          <text x="1355" y="538" text-anchor="middle">hot tier</text>
+          <text x="1355" y="556" text-anchor="middle">optional</text>
+
+          <rect x="1460" y="492" width="180" height="78" rx="10" fill="#1d4158" stroke="#6394b8"/>
+          <text x="1550" y="520" text-anchor="middle">External Docs</text>
+          <text x="1550" y="538" text-anchor="middle">vector/doc</text>
+          <text x="1550" y="556" text-anchor="middle">backends</text>
+
+          <line x1="1120" y1="196" x2="1100" y2="492" stroke="#73dfff" stroke-width="2.2" stroke-dasharray="7 6" marker-end="url(#arrow-wide)"/>
+          <text x="1130" y="358" fill="#a8d9ff">optional external retrieval</text>
+          <line x1="1230" y1="531" x2="1270" y2="531" stroke="#73dfff" stroke-width="2.2" marker-end="url(#arrow-wide)"/>
+          <line x1="1440" y1="531" x2="1460" y2="531" stroke="#73dfff" stroke-width="2.2" marker-end="url(#arrow-wide)"/>
+          <line x1="1550" y1="492" x2="1550" y2="196" stroke="#73dfff" stroke-width="2.2" stroke-dasharray="7 6" marker-end="url(#arrow-wide)"/>
+          <text x="1558" y="344" fill="#a8d9ff">optional enrichment</text>
+        </svg>
+      </div>
+      <div class="legend-row">
+        <span class="legend-chip">Solid arrows: primary flow</span>
+        <span class="legend-chip">Middle lane: approval + audit + live updates</span>
+        <span class="legend-chip">Dashed arrows: optional hybrid retrieval</span>
+      </div>
+    </section>
+
+    <section class="panel" style="margin-top:12px;">
+      <h2>Sequence Graph: Coding Request vs Doc-Heavy RAG</h2>
+      <p class="muted">Top lane is a coding decision flow (through anycode). Bottom lane is a doc-heavy path that explicitly engages the hybrid gateway and cache tiers.</p>
+      <div class="flow-wrap flow-wrap-large">
+        <svg viewBox="0 0 1680 360" width="100%" role="img" aria-label="Coding and RAG request sequence graph">
+          <defs>
+            <marker id="arrow-seq" markerWidth="10" markerHeight="10" refX="8" refY="3.5" orient="auto">
+              <path d="M0,0 L0,7 L9,3.5 z" fill="#73dfff"></path>
+            </marker>
+          </defs>
+
+          <text x="34" y="42" fill="#8ecaf7">Coding Lane (anycode)</text>
+          <rect x="30" y="54" width="230" height="54" rx="8" fill="#173652" stroke="#5386b1"/>
+          <text x="145" y="86" text-anchor="middle">1. anycode request</text>
+          <rect x="290" y="54" width="230" height="54" rx="8" fill="#173652" stroke="#5386b1"/>
+          <text x="405" y="86" text-anchor="middle">2. policy + scope check</text>
+          <rect x="550" y="54" width="230" height="54" rx="8" fill="#173652" stroke="#5386b1"/>
+          <text x="665" y="86" text-anchor="middle">3. memory retrieval</text>
+          <rect x="810" y="54" width="230" height="54" rx="8" fill="#173652" stroke="#5386b1"/>
+          <text x="925" y="86" text-anchor="middle">4. ranking + packing</text>
+          <rect x="1070" y="54" width="260" height="54" rx="8" fill="#173652" stroke="#5386b1"/>
+          <text x="1200" y="86" text-anchor="middle">5. return context + proof</text>
+          <line x1="260" y1="81" x2="290" y2="81" stroke="#73dfff" stroke-width="2" marker-end="url(#arrow-seq)"/>
+          <line x1="520" y1="81" x2="550" y2="81" stroke="#73dfff" stroke-width="2" marker-end="url(#arrow-seq)"/>
+          <line x1="780" y1="81" x2="810" y2="81" stroke="#73dfff" stroke-width="2" marker-end="url(#arrow-seq)"/>
+          <line x1="1040" y1="81" x2="1070" y2="81" stroke="#73dfff" stroke-width="2" marker-end="url(#arrow-seq)"/>
+
+          <text x="34" y="194" fill="#8ecaf7">Doc-Heavy Lane (Hybrid RAG)</text>
+          <rect x="30" y="206" width="230" height="54" rx="8" fill="#1b3e58" stroke="#6194b9"/>
+          <text x="145" y="238" text-anchor="middle">1. request to anymem</text>
+          <rect x="290" y="206" width="230" height="54" rx="8" fill="#1b3e58" stroke="#6194b9"/>
+          <text x="405" y="238" text-anchor="middle">2. retrieval plan</text>
+          <rect x="550" y="206" width="230" height="54" rx="8" fill="#1b3e58" stroke="#6194b9"/>
+          <text x="665" y="238" text-anchor="middle">3. check L1/L2 cache</text>
+          <rect x="810" y="206" width="230" height="54" rx="8" fill="#1b3e58" stroke="#6194b9"/>
+          <text x="925" y="238" text-anchor="middle">4. fetch external docs</text>
+          <rect x="1070" y="206" width="230" height="54" rx="8" fill="#1b3e58" stroke="#6194b9"/>
+          <text x="1185" y="238" text-anchor="middle">5. rank + policy filter</text>
+          <rect x="1330" y="206" width="320" height="54" rx="8" fill="#1b3e58" stroke="#6194b9"/>
+          <text x="1490" y="238" text-anchor="middle">6. return bounded context + traces</text>
+          <line x1="260" y1="233" x2="290" y2="233" stroke="#73dfff" stroke-width="2" marker-end="url(#arrow-seq)"/>
+          <line x1="520" y1="233" x2="550" y2="233" stroke="#73dfff" stroke-width="2" marker-end="url(#arrow-seq)"/>
+          <line x1="780" y1="233" x2="810" y2="233" stroke="#73dfff" stroke-width="2" marker-end="url(#arrow-seq)"/>
+          <line x1="1040" y1="233" x2="1070" y2="233" stroke="#73dfff" stroke-width="2" marker-end="url(#arrow-seq)"/>
+          <line x1="1300" y1="233" x2="1330" y2="233" stroke="#73dfff" stroke-width="2" marker-end="url(#arrow-seq)"/>
+
+          <line x1="665" y1="108" x2="665" y2="206" stroke="#73dfff" stroke-width="2" stroke-dasharray="7 6" marker-end="url(#arrow-seq)"/>
+          <text x="676" y="160" fill="#a8d9ff">shared retrieval primitives</text>
+        </svg>
+      </div>
+    </section>
+
+    <section class="panel" style="margin-top:12px;">
+      <h2>Approval + Chat Lifecycle State Graph</h2>
+      <p class="muted">This graph models the reusable approval domain: chat-driven clarification, non-binary dispositions, and deterministic transitions.</p>
+      <div class="flow-wrap flow-wrap-large">
+        <svg viewBox="0 0 1680 560" width="100%" role="img" aria-label="Approval and chat lifecycle state machine">
+          <defs>
+            <marker id="arrow-approval" markerWidth="10" markerHeight="10" refX="8" refY="3.5" orient="auto">
+              <path d="M0,0 L0,7 L9,3.5 z" fill="#73dfff"></path>
+            </marker>
+          </defs>
+
+          <rect x="24" y="20" width="1632" height="520" rx="16" fill="#0d1c2e" stroke="#355b80"/>
+
+          <rect x="700" y="220" width="280" height="90" rx="12" fill="#1d405e" stroke="#6799bf"/>
+          <text x="840" y="252" text-anchor="middle">pending</text>
+          <text x="840" y="271" text-anchor="middle">(active review)</text>
+          <text x="840" y="290" text-anchor="middle">edit/rewrite -> pending</text>
+
+          <rect x="360" y="90" width="290" height="80" rx="12" fill="#1a3b57" stroke="#5a8db7"/>
+          <text x="505" y="122" text-anchor="middle">awaiting-agent-response</text>
+          <text x="505" y="141" text-anchor="middle">human asked follow-up</text>
+
+          <rect x="1028" y="90" width="260" height="80" rx="12" fill="#1a3b57" stroke="#5a8db7"/>
+          <text x="1158" y="122" text-anchor="middle">awaiting-proof</text>
+          <text x="1158" y="141" text-anchor="middle">request-proof issued</text>
+
+          <rect x="168" y="230" width="210" height="74" rx="12" fill="#183550" stroke="#5485ae"/>
+          <text x="273" y="259" text-anchor="middle">cancelled</text>
+          <text x="273" y="278" text-anchor="middle">(terminal)</text>
+
+          <rect x="644" y="54" width="200" height="74" rx="12" fill="#184534" stroke="#55a088"/>
+          <text x="744" y="83" text-anchor="middle">approved</text>
+          <text x="744" y="102" text-anchor="middle">(terminal)</text>
+
+          <rect x="1308" y="230" width="200" height="74" rx="12" fill="#4a1f2a" stroke="#b16675"/>
+          <text x="1408" y="259" text-anchor="middle">rejected</text>
+          <text x="1408" y="278" text-anchor="middle">(terminal)</text>
+
+          <rect x="420" y="374" width="220" height="80" rx="12" fill="#2f314e" stroke="#7f86c0"/>
+          <text x="530" y="405" text-anchor="middle">deferred</text>
+          <text x="530" y="424" text-anchor="middle">reopen -> pending</text>
+
+          <rect x="1018" y="374" width="220" height="80" rx="12" fill="#2f314e" stroke="#7f86c0"/>
+          <text x="1128" y="405" text-anchor="middle">escalated</text>
+          <text x="1128" y="424" text-anchor="middle">return -> pending</text>
+
+          <rect x="740" y="430" width="240" height="80" rx="12" fill="#3a3045" stroke="#9c80ba"/>
+          <text x="860" y="461" text-anchor="middle">superseded</text>
+          <text x="860" y="480" text-anchor="middle">material scope/target change</text>
+
+          <line x1="760" y1="220" x2="560" y2="170" stroke="#73dfff" stroke-width="2.2" marker-end="url(#arrow-approval)"/>
+          <text x="630" y="180" fill="#a8d9ff">follow-up question</text>
+
+          <line x1="910" y1="220" x2="1088" y2="170" stroke="#73dfff" stroke-width="2.2" marker-end="url(#arrow-approval)"/>
+          <text x="970" y="180" fill="#a8d9ff">request-proof</text>
+
+          <line x1="760" y1="230" x2="760" y2="128" stroke="#73dfff" stroke-width="2.2" marker-end="url(#arrow-approval)"/>
+          <text x="768" y="168" fill="#a8d9ff">approve</text>
+
+          <line x1="980" y1="262" x2="1308" y2="262" stroke="#73dfff" stroke-width="2.2" marker-end="url(#arrow-approval)"/>
+          <text x="1128" y="252" fill="#a8d9ff">reject</text>
+
+          <line x1="700" y1="278" x2="378" y2="268" stroke="#73dfff" stroke-width="2.2" marker-end="url(#arrow-approval)"/>
+          <text x="522" y="292" fill="#a8d9ff">cancel</text>
+
+          <line x1="760" y1="304" x2="588" y2="374" stroke="#73dfff" stroke-width="2.2" marker-end="url(#arrow-approval)"/>
+          <text x="654" y="350" fill="#a8d9ff">defer</text>
+
+          <line x1="940" y1="304" x2="1064" y2="374" stroke="#73dfff" stroke-width="2.2" marker-end="url(#arrow-approval)"/>
+          <text x="974" y="351" fill="#a8d9ff">escalate</text>
+
+          <line x1="560" y1="170" x2="700" y2="245" stroke="#73dfff" stroke-width="2.2" marker-end="url(#arrow-approval)"/>
+          <text x="605" y="226" fill="#a8d9ff">agent reply</text>
+
+          <line x1="1088" y1="170" x2="980" y2="245" stroke="#73dfff" stroke-width="2.2" marker-end="url(#arrow-approval)"/>
+          <text x="1010" y="224" fill="#a8d9ff">proof attached</text>
+
+          <line x1="530" y1="374" x2="720" y2="300" stroke="#73dfff" stroke-width="2.2" marker-end="url(#arrow-approval)"/>
+          <line x1="1128" y1="374" x2="960" y2="300" stroke="#73dfff" stroke-width="2.2" marker-end="url(#arrow-approval)"/>
+          <text x="744" y="338" fill="#a8d9ff">reopen/return</text>
+
+          <line x1="840" y1="310" x2="860" y2="430" stroke="#73dfff" stroke-width="2.2" stroke-dasharray="7 6" marker-end="url(#arrow-approval)"/>
+          <line x1="520" y1="170" x2="800" y2="430" stroke="#73dfff" stroke-width="2.2" stroke-dasharray="7 6" marker-end="url(#arrow-approval)"/>
+          <line x1="1158" y1="170" x2="920" y2="430" stroke="#73dfff" stroke-width="2.2" stroke-dasharray="7 6" marker-end="url(#arrow-approval)"/>
+          <line x1="530" y1="454" x2="760" y2="470" stroke="#73dfff" stroke-width="2.2" stroke-dasharray="7 6" marker-end="url(#arrow-approval)"/>
+          <line x1="1128" y1="454" x2="980" y2="470" stroke="#73dfff" stroke-width="2.2" stroke-dasharray="7 6" marker-end="url(#arrow-approval)"/>
+          <text x="694" y="447" fill="#a8d9ff">any non-terminal -> superseded</text>
+        </svg>
+      </div>
+      <div class="legend-row">
+        <span class="legend-chip">Solid Arrows: regular state transitions</span>
+        <span class="legend-chip">Dashed Arrows: supersede transitions</span>
+        <span class="legend-chip">Chat occurs directly inside approval thread</span>
+      </div>
+    </section>
+
+    <section class="grid cols-2" style="margin-top:12px;">
+      <article class="panel">
+        <h2>Graph: Features by Phase</h2>
+        <p class="muted">Distribution of implementation work across phase sequence.</p>
+        <div id="chart-phase" class="bar-chart"></div>
+      </article>
+      <article class="panel">
+        <h2>Graph: Features by Priority</h2>
+        <p class="muted">P0 = foundational, P1 = expansion/hardening.</p>
+        <div id="chart-priority" class="bar-chart"></div>
+      </article>
+      <article class="panel">
+        <h2>Graph: Features by State</h2>
+        <p class="muted">How much is planned vs currently in progress.</p>
+        <div id="chart-state" class="bar-chart"></div>
+      </article>
+      <article class="panel">
+        <h2>Graph: Dependency Hubs</h2>
+        <p class="muted">Most referenced dependencies; these are the structural anchors.</p>
+        <div id="chart-deps" class="bar-chart"></div>
+      </article>
+    </section>
+
+    <section class="panel" style="margin-top:12px;">
+      <h2>Phase-by-Phase Outcomes</h2>
+      <p class="muted">Concise intent + what becomes manually testable after each phase.</p>
+      <div id="phase-list" class="phase-list"></div>
+    </section>
+
+    <section class="panel" style="margin-top:12px;">
+      <h2>Full Feature Catalog (All M-* Features)</h2>
+      <p class="muted">Every feature includes goal, concrete first acceptance outcome, dependencies, and source plan link.</p>
+
+      <div class="controls">
+        <input id="search" type="search" placeholder="Search by ID, title, goal, dependency..." />
+        <select id="phase-filter"><option value="all">All phases</option></select>
+        <select id="priority-filter"><option value="all">All priorities</option></select>
+        <select id="state-filter"><option value="all">All states</option></select>
+      </div>
+
+      <div id="feature-count" class="feature-count"></div>
+      <div id="features" class="features"></div>
+    </section>
+  </div>
+
+  <script src="./anymem-feature-data.js"></script>
+  <script>
+    (function bootstrap() {
+      const data = window.ANYMEM_DATA;
+      if (!data || !Array.isArray(data.features)) {
+        document.body.innerHTML = '<div style="padding:16px;color:#fff;">Missing ANYMEM_DATA. Open <code>docs/anymem-overview.html</code> together with <code>docs/anymem-feature-data.js</code>.</div>';
+        return;
+      }
+
+      const features = data.features.slice();
+      const phaseDescriptions = data.phaseDescriptions || {};
+
+      const phaseOrder = [...new Set(features.map((f) => f.phase))].sort((a, b) => {
+        const aN = Number((a.match(/^(\d+)/) || [999])[0]);
+        const bN = Number((b.match(/^(\d+)/) || [999])[0]);
+        return aN - bN;
+      });
+
+      const statsEl = document.getElementById('stats');
+      const phaseChartEl = document.getElementById('chart-phase');
+      const priorityChartEl = document.getElementById('chart-priority');
+      const stateChartEl = document.getElementById('chart-state');
+      const depsChartEl = document.getElementById('chart-deps');
+      const phaseListEl = document.getElementById('phase-list');
+      const featuresEl = document.getElementById('features');
+      const featureCountEl = document.getElementById('feature-count');
+      const oneLineEl = document.getElementById('one-line');
+
+      const searchEl = document.getElementById('search');
+      const phaseFilterEl = document.getElementById('phase-filter');
+      const priorityFilterEl = document.getElementById('priority-filter');
+      const stateFilterEl = document.getElementById('state-filter');
+
+      oneLineEl.textContent = data.oneLineSummary || 'Workflow-agnostic memory and governance platform.';
+
+      function esc(s) {
+        return String(s)
+          .replaceAll('&', '&amp;')
+          .replaceAll('<', '&lt;')
+          .replaceAll('>', '&gt;');
+      }
+
+      function countBy(key) {
+        const map = new Map();
+        features.forEach((f) => {
+          const k = f[key] || 'Unknown';
+          map.set(k, (map.get(k) || 0) + 1);
+        });
+        return [...map.entries()].map(([label, value]) => ({ label, value }));
+      }
+
+      function renderBars(target, rows, palette) {
+        const max = Math.max(...rows.map((r) => r.value), 1);
+        target.innerHTML = rows
+          .map((r, idx) => {
+            const width = ((r.value / max) * 100).toFixed(2);
+            const color = palette[idx % palette.length];
+            return `
+              <div class="bar-row">
+                <div>${esc(r.label)}</div>
+                <div class="bar-track"><div class="bar-fill" style="width:${width}%;background:${color};"></div></div>
+                <div class="val">${r.value}</div>
+              </div>
+            `;
+          })
+          .join('');
+      }
+
+      function setupStats() {
+        const stats = [
+          { label: 'Total Features', value: features.length },
+          { label: 'Phases', value: phaseOrder.length },
+          { label: 'In Progress', value: features.filter((f) => f.state === 'In Progress').length },
+          { label: 'Planned', value: features.filter((f) => f.state === 'Planned').length }
+        ];
+
+        statsEl.innerHTML = stats
+          .map(
+            (s) => `
+              <article class="panel stat">
+                <div class="label">${esc(s.label)}</div>
+                <div class="value">${s.value}</div>
+              </article>
+            `
+          )
+          .join('');
+      }
+
+      function setupCharts() {
+        const phaseRows = countBy('phase').sort((a, b) => {
+          const aN = Number((a.label.match(/^(\d+)/) || [999])[0]);
+          const bN = Number((b.label.match(/^(\d+)/) || [999])[0]);
+          return aN - bN;
+        });
+        const priorityRows = countBy('priority').sort((a, b) => b.value - a.value || a.label.localeCompare(b.label));
+        const stateRows = countBy('state').sort((a, b) => b.value - a.value || a.label.localeCompare(b.label));
+
+        const incoming = new Map();
+        features.forEach((f) => {
+          (f.dependencies || []).forEach((dep) => {
+            incoming.set(dep, (incoming.get(dep) || 0) + 1);
+          });
+        });
+
+        const depRows = [...incoming.entries()]
+          .map(([label, value]) => ({ label, value }))
+          .sort((a, b) => b.value - a.value || a.label.localeCompare(b.label))
+          .slice(0, 12);
+
+        renderBars(phaseChartEl, phaseRows, ['#95a2ff', '#4fd9ff', '#60f4cf', '#ffd166']);
+        renderBars(priorityChartEl, priorityRows, ['#ffd166', '#7bdff2']);
+        renderBars(stateChartEl, stateRows, ['#8fb6d8', '#57f4c5']);
+        renderBars(depsChartEl, depRows.length ? depRows : [{ label: 'No dependencies listed', value: 0 }], ['#61dbff', '#7ef4d4', '#98a4ff', '#ffd166']);
+      }
+
+      function setupPhaseView() {
+        phaseListEl.innerHTML = phaseOrder
+          .map((phase) => {
+            const list = features.filter((f) => f.phase === phase);
+            const info = phaseDescriptions[phase] || {
+              intent: 'See feature files for details.',
+              testable: 'Phase proof bundle defines concrete checks.'
+            };
+            const ids = list.map((f) => f.id).join(', ');
+            return `
+              <article class="phase-card">
+                <h3>${esc(phase)}</h3>
+                <p class="meta"><strong>Intent:</strong> ${esc(info.intent)}</p>
+                <p class="meta"><strong>Testable After Phase:</strong> ${esc(info.testable)}</p>
+                <p class="meta"><strong>Feature Count:</strong> ${list.length}</p>
+                <p class="phase-features"><strong>Feature IDs:</strong> ${esc(ids)}</p>
+              </article>
+            `;
+          })
+          .join('');
+      }
+
+      function fillSelect(selectEl, values) {
+        selectEl.insertAdjacentHTML('beforeend', values.map((v) => `<option value="${esc(v)}">${esc(v)}</option>`).join(''));
+      }
+
+      function setupFilters() {
+        fillSelect(phaseFilterEl, phaseOrder);
+        fillSelect(priorityFilterEl, [...new Set(features.map((f) => f.priority))].sort());
+        fillSelect(stateFilterEl, [...new Set(features.map((f) => f.state))].sort());
+      }
+
+      function matches(feature, query, phase, priority, state) {
+        if (phase !== 'all' && feature.phase !== phase) {
+          return false;
+        }
+        if (priority !== 'all' && feature.priority !== priority) {
+          return false;
+        }
+        if (state !== 'all' && feature.state !== state) {
+          return false;
+        }
+        if (!query) {
+          return true;
+        }
+
+        const haystack = [
+          feature.id,
+          feature.title,
+          feature.goal,
+          feature.firstAcceptance,
+          feature.phase,
+          feature.priority,
+          feature.state,
+          (feature.dependencies || []).join(' ')
+        ]
+          .join(' ')
+          .toLowerCase();
+
+        return haystack.includes(query);
+      }
+
+      function renderFeatures() {
+        const query = searchEl.value.trim().toLowerCase();
+        const phase = phaseFilterEl.value;
+        const priority = priorityFilterEl.value;
+        const state = stateFilterEl.value;
+
+        const visible = features.filter((f) => matches(f, query, phase, priority, state));
+
+        featureCountEl.textContent = `${visible.length} of ${features.length} features shown`;
+
+        if (!visible.length) {
+          featuresEl.innerHTML = '<div class="empty">No feature matches the current search/filter criteria.</div>';
+          return;
+        }
+
+        featuresEl.innerHTML = visible
+          .map((f) => {
+            const shortTitle = f.title.replace(/^M-\d+\s+-\s+/, '');
+            const deps = (f.dependencies || []).length
+              ? f.dependencies.map((dep) => `<code>${esc(dep)}</code>`).join('')
+              : '<span class="muted">None</span>';
+            const sourcePath = `../plans/anymem/FEATURES/${f.file}`;
+
+            return `
+              <article class="feature">
+                <h3>${esc(f.id)}: ${esc(shortTitle)}</h3>
+                <div class="badges">
+                  <span class="badge">${esc(f.phase)}</span>
+                  <span class="badge" data-priority="${esc(f.priority)}">${esc(f.priority)}</span>
+                  <span class="badge" data-state="${esc(f.state)}">${esc(f.state)}</span>
+                  <span class="badge">Criteria: ${f.acceptanceCount}</span>
+                </div>
+                <p class="goal">${esc(f.goal || 'No goal text found in spec.')}</p>
+                <p class="meta"><strong>Concrete outcome:</strong> ${esc(f.firstAcceptance || 'See source feature file for full acceptance criteria.')}</p>
+                <p class="meta deps"><strong>Depends on:</strong> ${deps}</p>
+                <p class="meta"><a href="${sourcePath}">Open source feature spec</a></p>
+              </article>
+            `;
+          })
+          .join('');
+      }
+
+      function wireEvents() {
+        [searchEl, phaseFilterEl, priorityFilterEl, stateFilterEl].forEach((el) => {
+          el.addEventListener('input', renderFeatures);
+          el.addEventListener('change', renderFeatures);
+        });
+      }
+
+      setupStats();
+      setupCharts();
+      setupPhaseView();
+      setupFilters();
+      wireEvents();
+      renderFeatures();
+    })();
+  </script>
+</body>
+</html>

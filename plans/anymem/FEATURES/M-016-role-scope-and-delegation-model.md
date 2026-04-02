@@ -6,7 +6,7 @@
 - State: `Planned`
 
 ## Goal
-Define who can publish, install, embed, activate, approve, and delegate across workspace, user, and session scopes.
+Define who can publish, install, embed, activate, license, acquire, approve, and delegate across workspace, user, and session scopes.
 
 ## Authorization Model
 - Permission system: granular action permissions are canonical.
@@ -21,6 +21,8 @@ Define who can publish, install, embed, activate, approve, and delegate across w
 - Approval view/participate/disposition
 - Proof submit/view
 - Package publish/install/embed/revoke/update/toggle
+- Package protection, entitlement, and raw-export controls
+- Marketplace browse/list/acquire controls
 - Role and permission administration
 - Delegation grant creation and delegation approval
 - External principal registration, rotation, and disable controls
@@ -47,11 +49,19 @@ Define who can publish, install, embed, activate, approve, and delegate across w
 - `proof.read`
 - `proof.submit`
 - `package.publish`
+- `package.protect`
+- `package.export_raw`
 - `package.install_external`
 - `package.embed`
 - `package.revoke`
 - `package.update`
 - `package.toggle`
+- `entitlement.read`
+- `entitlement.write`
+- `entitlement.revoke`
+- `marketplace.browse`
+- `marketplace.listing.write`
+- `marketplace.acquire`
 - `role.read`
 - `role.write`
 - `permission.assign`
@@ -65,9 +75,10 @@ Define who can publish, install, embed, activate, approve, and delegate across w
 ## Initial Built-In Role Bundles
 - `owner`: all permissions
 - `admin`: all except role administration and owner-only destructive workspace actions
+- `publisher`: package publish/update/revoke/protect, marketplace listing write, entitlement read/write
 - `approver`: approval read, approval message create, all approval disposition permissions, proof read, package install/toggle
-- `member`: memory read/search/expand, approval read, proof submit, package install external where workspace policy allows
-- `viewer`: read-only memory, policy, approval, and proof access
+- `member`: memory read/search/expand, approval read, proof submit, marketplace browse/acquire, package install external where workspace policy allows
+- `viewer`: read-only memory, policy, approval, proof, and marketplace browse access
 
 ## Delegation Rules
 - Delegation grants are explicit, time-bounded, and scope-bounded.
@@ -77,6 +88,7 @@ Define who can publish, install, embed, activate, approve, and delegate across w
 
 ## Acceptance Criteria
 - Publish/install/embed/toggle/approve permissions are explicit.
+- Protected package, raw-export, entitlement, and marketplace-acquisition permissions are explicit.
 - Scope precedence is deterministic across workspace, user, and session levels.
 - Delegated actions and approvals preserve actor provenance.
 - The model works in personal/self-host and multi-user SaaS-safe modes.

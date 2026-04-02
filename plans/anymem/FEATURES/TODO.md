@@ -54,6 +54,8 @@
 29. `M-049` implement SaaS/self-hosted/air-gapped deployment profile parity and conformance tests.
 30. `M-050` implement memory influence explainability and decision attribution surfaces.
 31. `M-051` implement policy-as-code validation and promotion gates with replay/canary evidence.
+32. `M-052` implement protected proprietary package modes, entitlement resolution, and fail-closed protected retrieval.
+33. `M-053` implement marketplace listings, acquisition/install flows, and publisher distribution surfaces.
 
 ## Rule
 - anymem planning owns generic governance domains and does not depend on anycode implementation details.

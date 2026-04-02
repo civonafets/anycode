@@ -18,6 +18,7 @@ Define the stable public contract that external products and adapters use to con
   - approvals + conversations + dispositions
   - trace/proof
   - package export/install/activation
+  - package listings + entitlements
 
 ## First-Party Live Transport and Replay
 - Canonical first-party live transport in v1: `GET /api/v1/events/stream` over `text/event-stream`.
@@ -62,6 +63,12 @@ Define the stable public contract that external products and adapters use to con
 - `GET /api/v1/packages/exports/:id`
 - `POST /api/v1/packages/installs`
 - `GET /api/v1/packages/installs/:id`
+- `GET /api/v1/packages/listings`
+- `GET /api/v1/packages/listings/:id`
+- `POST /api/v1/packages/listings`
+- `GET /api/v1/entitlements`
+- `POST /api/v1/entitlements/resolve`
+- `POST /api/v1/entitlements/grants`
 - `POST /api/v1/activations/resolve`
 - `POST /api/v1/activations/toggles`
 
