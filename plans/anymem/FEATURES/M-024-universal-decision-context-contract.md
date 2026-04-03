@@ -22,8 +22,15 @@ Provide one canonical pre-action contract that any AI agent integration consumes
 - Contract supports a two-step retrieval pattern for hybrid deployments:
   - step 1: ask anymem where to look (`retrieval/plan`)
   - step 2: fetch from planned targets through governed paths
+- `relevant_context[]` supports typed layered memory items such as:
+  - compact curated knowledge views
+  - synthesized observations/concept summaries
+  - raw evidence/facts
+  - policy/approval/proof references
 - Contract is available through API and SDK in v1 and does not require wrapper-only paths.
 - Context payload includes attribution and provenance references for included items.
+- Synthesized context items include lineage to the underlying evidence set so agents and auditors can inspect grounding rather than trusting summaries blindly.
+- Context items expose escalation/compression metadata so integrations can see when an item is verbatim-required, summary-derived, or expanded due to high-risk handling.
 - Contract is fully traceable so auditors can reconstruct pre-action context at decision time.
 - Compatibility guarantees are documented for additive evolution.
 

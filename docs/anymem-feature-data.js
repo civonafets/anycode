@@ -949,6 +949,97 @@ window.ANYMEM_DATA = {
         "M-035",
         "M-037"
       ]
+    },
+    {
+      "id": "M-055",
+      "file": "M-055-knowledge-compilation-concept-graph-and-derived-views.md",
+      "title": "M-055 - Knowledge Compilation, Concept Graph, and Derived Views",
+      "priority": "P1",
+      "phase": "2 - Broker + Tooling",
+      "state": "Planned",
+      "goal": "Continuously compile raw sources and canonical memory into fast-access derived knowledge views such as concept pages, backlinks, indexes, digests, and graph-ready projections that agents and humans can consume without scanning the full corpus each time.",
+      "acceptanceCount": 8,
+      "firstAcceptance": "Incremental compilation updates only affected derived views after source or policy changes.",
+      "dependencies": [
+        "M-001",
+        "M-005",
+        "M-011",
+        "M-018",
+        "M-029",
+        "M-033"
+      ]
+    },
+    {
+      "id": "M-056",
+      "file": "M-056-markdown-vault-projection-and-filesystem-sync.md",
+      "title": "M-056 - Markdown Vault Projection and Filesystem Sync",
+      "priority": "P1",
+      "phase": "2 - Broker + Tooling",
+      "state": "Planned",
+      "goal": "Expose authorized knowledge as a markdown/filesystem-native vault projection for human and agent workflows while keeping canonical memory in governed storage.",
+      "acceptanceCount": 7,
+      "firstAcceptance": "Authorized compiled views and selected raw/derived artifacts can be projected to a local markdown vault.",
+      "dependencies": [
+        "M-014",
+        "M-030",
+        "M-033",
+        "M-049",
+        "M-055"
+      ]
+    },
+    {
+      "id": "M-057",
+      "file": "M-057-knowledge-health-checks-and-repair-loops.md",
+      "title": "M-057 - Knowledge Health Checks and Repair Loops",
+      "priority": "P1",
+      "phase": "2 - Broker + Tooling",
+      "state": "Planned",
+      "goal": "Continuously audit compiled knowledge and related projections for integrity, freshness, completeness, and useful next-step repairs.",
+      "acceptanceCount": 6,
+      "firstAcceptance": "Health checks emit structured findings with severity, evidence, and affected scope.",
+      "dependencies": [
+        "M-005",
+        "M-031",
+        "M-043",
+        "M-055",
+        "M-056"
+      ]
+    },
+    {
+      "id": "M-058",
+      "file": "M-058-derived-artifact-templates-and-deterministic-renderers.md",
+      "title": "M-058 - Derived Artifact Templates and Deterministic Renderers",
+      "priority": "P1",
+      "phase": "2 - Broker + Tooling",
+      "state": "Planned",
+      "goal": "Let agents generate graphs, reports, slide decks, maps, and other reusable artifacts from governed knowledge through predefined templates, rules, and renderer components instead of ad hoc one-off prompting.",
+      "acceptanceCount": 7,
+      "firstAcceptance": "Template registry supports reusable graph/report/slide/table/artifact definitions with versioning and permissions.",
+      "dependencies": [
+        "M-014",
+        "M-021",
+        "M-037",
+        "M-050",
+        "M-055"
+      ]
+    },
+    {
+      "id": "M-059",
+      "file": "M-059-hosted-external-memory-serving-and-creator-monetization.md",
+      "title": "M-059 - Hosted External Memory Serving and Creator Monetization",
+      "priority": "P1",
+      "phase": "3 - Standalone Surfaces",
+      "state": "Planned",
+      "goal": "Let publishers sell or license curated portions of their memory as anymem-hosted protected external packages that remain under governed serving control and are consumable only through authenticated anymem API/SDK/MCP paths.",
+      "acceptanceCount": 8,
+      "firstAcceptance": "A publisher can publish a curated memory slice as an anymem-hosted `protected_external` package without exposing raw payloads to buyers.",
+      "dependencies": [
+        "M-014",
+        "M-017",
+        "M-041",
+        "M-052",
+        "M-053"
+      ]
     }
   ],
   "phaseDescriptions": {

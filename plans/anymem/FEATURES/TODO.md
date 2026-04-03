@@ -57,6 +57,11 @@
 32. `M-052` implement protected proprietary package modes, entitlement resolution, and fail-closed protected retrieval.
 33. `M-053` implement marketplace listings, acquisition/install flows, and publisher distribution surfaces.
 34. `M-054` implement checkpointed delta timelines, bounded replay, and compression observability for high-churn histories.
+35. `M-055` implement incremental knowledge compilation, concept graph building, and fast derived-view generation.
+36. `M-056` implement markdown vault projection, local sync profiles, and governed write-back rules.
+37. `M-057` implement knowledge health checks, integrity audits, and repair suggestion/automation loops.
+38. `M-058` implement reusable artifact templates/renderers for graphs, reports, slides, and other governed outputs.
+39. `M-059` implement anymem-hosted protected package serving, creator metering, seller analytics, and payout-ledger flows.
 
 ## Rule
 - anymem planning owns generic governance domains and does not depend on anycode implementation details.

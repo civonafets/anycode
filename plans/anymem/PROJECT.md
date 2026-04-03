@@ -46,12 +46,23 @@
 - Deployment profile parity for SaaS, self-hosted, and air-gapped environments.
 - Memory influence explainability with `why included` / `why excluded` attribution.
 - Checkpointed delta timelines and replay compression for traces, sessions, mutable artifacts, and other high-churn histories.
+- Precompiled knowledge views (concept pages, indexes, backlinks, digests, and graph-ready projections) for fast broad agent access.
+- Hierarchical knowledge layers for fast recall:
+  - user-curated compact knowledge views for common/high-value queries
+  - automatically synthesized observations from accumulated evidence
+  - raw evidence/facts for grounding and verification
+- Markdown/filesystem vault projections as a supplemental human and agent working surface.
+- Automated knowledge health checks, repair suggestions, and compilation-quality audits.
+- Deterministic derived artifact generation from governed knowledge through reusable templates/components/renderers.
+- Benchmark-native long-horizon memory evaluation for million-plus-token regimes where context stuffing is non-viable.
 - Policy-as-code validation and promotion gates with replay/canary requirements.
 - Sensitive personal-memory guardrails and redaction/consent controls.
 - Memory package export/install/activation controls.
 - Package trust lifecycle, publisher identity, revocation, and update policy.
 - Protected proprietary memory packages with entitlement-gated access and raw-payload protection modes.
 - First-party marketplace/catalog support for memory package discovery, distribution, and commercial install flows.
+- anymem-hosted protected external memory serving for commercial publisher packages.
+- Usage metering, seller analytics, and payout-ledger inputs for marketplace memory commerce.
 - Stable external API/SDK contract for product consumers.
 - Retrieval evaluation and benchmark framework.
 - Role/scope/delegation model for publish/install/embed/toggle/approve actions.
@@ -93,10 +104,18 @@
 - Supports portable memory flows and multimodal evidence without sacrificing governance/auditability.
 - Supports employee-only and commercially licensed proprietary memory distribution with fail-closed entitlement enforcement.
 - Supports marketplace-ready publisher distribution without forcing protected packages to expose raw memory payloads to buyers.
+- Supports creators earning money from curated protected memory packages through anymem-hosted serving paths without exposing raw payloads to buyers.
+- Supports API/SDK/MCP access to hosted external memory only for principals authenticated and governed through anymem, with explicit external-source labeling and metering.
 - Supports enterprise operations with strong identity, isolation, resilience, and admin controls.
 - Supports enterprise AI safety expectations with DLP, legal hold, and context-attack defenses.
 - Supports auditable decision explainability and safe policy promotion across deployment profiles.
 - Supports compressed replay-friendly history for mutable high-churn state without making delta logs the canonical source for memory retrieval or policy evaluation.
+- Supports fast broad knowledge access through precompiled summaries, indexes, and concept views without assuming agents receive the full raw memory corpus in every context window.
+- Supports BEAM-class long-horizon workloads through selective retrieval, compact synthesized knowledge layers, and anti-context-stuffing defaults.
+- Supports evidence escalation: when confidence is low, decision risk is high, or policy demands it, anymem expands from compiled knowledge to raw supporting evidence automatically.
+- Supports memory-level compression controls so explicitly critical records can be marked as never-compress, verbatim-required, or always-include for eligible workflows.
+- Supports markdown-native local workflows and Obsidian-style vault usage as a projection surface without making markdown the canonical authority.
+- Supports reusable graph/report/slide/artifact generation from governed knowledge through predefined templates and components.
 
 ## Delivery Rule
 - A feature is not considered complete until its required tests are added and passing.
