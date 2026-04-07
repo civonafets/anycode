@@ -554,6 +554,7 @@
         <h2>What anymem Does Well</h2>
         <ul class="summary-list">
           <li>Keeps long-term memory useful for agents without dumping everything into every prompt.</li>
+          <li>Turns messy raw inputs into cleaner atomic memory units that are easier to retrieve correctly.</li>
           <li>Lets humans and agents add, review, govern, and reuse memory in one place.</li>
           <li>Supports private, shared, scoped, and protected memory at the same time.</li>
           <li>Explains why a memory was used and keeps proof of important decisions.</li>
@@ -571,6 +572,30 @@
           <li>RAG acceleration layer that tells agents where to look before expensive fetches.</li>
           <li>Compiled knowledge base with summaries, concept pages, backlinks, and graph-ready views.</li>
           <li>Marketplace and hosted external memory for creators who want to package and sell expertise.</li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="grid cols-2" style="margin-top:12px;">
+      <article class="panel">
+        <h2>How Knowledge Enters anymem</h2>
+        <ul class="summary-list">
+          <li><strong>Raw inputs:</strong> chats, notes, docs, repos, images, audio, video, approvals, and external connectors.</li>
+          <li><strong>Normalization:</strong> messy fragments can be turned into atomic facts, events, preferences, instructions, and observations.</li>
+          <li><strong>Workflow links:</strong> records can be connected as review chains, revisions, fixes, handoffs, assignments, and outcomes.</li>
+          <li><strong>Compiled views:</strong> the system can build summaries, concept pages, indexes, and graph-ready structures on top of canonical memory.</li>
+          <li><strong>Governance:</strong> scope, policy, sensitivity, approvals, and package activation still apply at every layer.</li>
+        </ul>
+      </article>
+
+      <article class="panel">
+        <h2>What Makes Retrieval Smarter</h2>
+        <ul class="summary-list">
+          <li><strong>Query-type routing:</strong> fact lookup, temporal recall, preference recall, workflow lookup, and multi-hop synthesis do not all use the same retrieval strategy.</li>
+          <li><strong>Layered memory:</strong> agents can start with compact views, then move to synthesized observations, then to raw evidence.</li>
+          <li><strong>Evidence escalation:</strong> high-risk, low-confidence, or verbatim-required cases automatically expand to original supporting evidence.</li>
+          <li><strong>Hybrid planning:</strong> anymem can decide where external RAG systems should be queried before expensive fetches happen.</li>
+          <li><strong>Long-horizon focus:</strong> the system is designed for memory sizes where full-history context stuffing stops working.</li>
         </ul>
       </article>
     </section>
@@ -643,6 +668,46 @@
           <div class="mini-card">
             <strong>Hosted seller memory</strong>
             <span>anymem can host protected external memory on our servers and serve it to entitled buyers through API, SDK, and MCP.</span>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="grid cols-2" style="margin-top:12px;">
+      <article class="panel">
+        <h2>Workflow Memory</h2>
+        <p class="muted">anymem is not only a bag of records. It is also meant to remember how work moved.</p>
+        <div class="triple-grid">
+          <div class="mini-card">
+            <strong>Assignments</strong>
+            <span>Track what is open, who owns it, and what is still pending.</span>
+          </div>
+          <div class="mini-card">
+            <strong>Reviews and fixes</strong>
+            <span>Link a review to the original work and link the fix back to the reviewed item.</span>
+          </div>
+          <div class="mini-card">
+            <strong>Handoffs and outcomes</strong>
+            <span>Keep the chain of what was handed over, changed, blocked, or resolved.</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="panel">
+        <h2>Training and Improvement Loops</h2>
+        <p class="muted">The plan now includes optional downstream learning, but only through governed export and replay.</p>
+        <div class="triple-grid">
+          <div class="mini-card">
+            <strong>Training export</strong>
+            <span>Approved, provenance-clean memory and workflow traces can be exported as training datasets.</span>
+          </div>
+          <div class="mini-card">
+            <strong>Profiles</strong>
+            <span>Exports can support behavior imitation, review-correction learning, persona adaptation, and workflow learning.</span>
+          </div>
+          <div class="mini-card">
+            <strong>Autoresearch harness</strong>
+            <span>Replayable experiments can test retrieval, compilation, prompts, and pipeline changes before rollout.</span>
           </div>
         </div>
       </article>
@@ -779,10 +844,12 @@
         <h2>Quality and Safety Rules</h2>
         <ul class="summary-list">
           <li>Compiled views are never the only truth. They must point back to evidence.</li>
+          <li>Normalization outputs keep lineage to the original source instead of replacing it invisibly.</li>
           <li>Critical memories can be marked <code>prefer_verbatim</code> or <code>never_compress</code>.</li>
           <li>High-risk or low-confidence decisions must escalate to raw evidence automatically.</li>
           <li>Permissions, package activation, and policy gates apply before context reaches the agent.</li>
           <li>Protected external memory can be used without giving buyers the raw payload.</li>
+          <li>Training export is optional and gated by approval, provenance, DLP, and licensing rules.</li>
           <li>Every important step can be traced later through proof and event logs.</li>
         </ul>
       </article>
@@ -869,8 +936,10 @@
         <h2>What Makes It Different</h2>
         <ul class="summary-list">
           <li>It is not just vector search or a note store. Governance is built in.</li>
+          <li>It tries to normalize and structure memory before retrieval has to guess what a fragment means.</li>
           <li>It supports both personal and enterprise memory models from the start.</li>
           <li>It separates canonical truth from compiled speed layers.</li>
+          <li>It understands workflow history, not only standalone notes and facts.</li>
           <li>It can accelerate external RAG while still being useful without external corpora.</li>
           <li>It treats memory as something installable, shareable, and monetizable.</li>
           <li>It is designed for long-horizon memory where context stuffing stops working.</li>

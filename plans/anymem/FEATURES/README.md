@@ -81,3 +81,12 @@
 | M-057 | Knowledge Health Checks and Repair Loops | P1 | 2 - Broker + Tooling | Planned | [`M-057-knowledge-health-checks-and-repair-loops.md`](./M-057-knowledge-health-checks-and-repair-loops.md) |
 | M-058 | Derived Artifact Templates and Deterministic Renderers | P1 | 2 - Broker + Tooling | Planned | [`M-058-derived-artifact-templates-and-deterministic-renderers.md`](./M-058-derived-artifact-templates-and-deterministic-renderers.md) |
 | M-059 | Hosted External Memory Serving and Creator Monetization | P1 | 3 - Standalone Surfaces | Planned | [`M-059-hosted-external-memory-serving-and-creator-monetization.md`](./M-059-hosted-external-memory-serving-and-creator-monetization.md) |
+| M-060 | Atomic Memory Units and Normalization Pipeline | P1 | 1 - Governance Core | Planned | [`M-060-atomic-memory-units-and-normalization-pipeline.md`](./M-060-atomic-memory-units-and-normalization-pipeline.md) |
+| M-061 | Query-Type Routing and Retrieval Modes | P1 | 1 - Governance Core | Planned | [`M-061-query-type-routing-and-retrieval-modes.md`](./M-061-query-type-routing-and-retrieval-modes.md) |
+| M-062 | Workflow Edge Graph and Handoff Memory | P1 | 1 - Governance Core | Planned | [`M-062-workflow-edge-graph-and-handoff-memory.md`](./M-062-workflow-edge-graph-and-handoff-memory.md) |
+| M-063 | Memory-to-Training Export Pipeline | P1 | 2 - Broker + Tooling | Planned | [`M-063-memory-to-training-export-pipeline.md`](./M-063-memory-to-training-export-pipeline.md) |
+| M-064 | Autoresearch Memory Optimization Harness | P1 | 2 - Broker + Tooling | Planned | [`M-064-autoresearch-memory-optimization-harness.md`](./M-064-autoresearch-memory-optimization-harness.md) |
+| M-065 | Wake-Up and Bootstrap Context Profiles | P1 | 2 - Broker + Tooling | Planned | [`M-065-wake-up-and-bootstrap-context-profiles.md`](./M-065-wake-up-and-bootstrap-context-profiles.md) |
+| M-066 | Memory Topology Projection and Navigation Graph | P1 | 2 - Broker + Tooling | Planned | [`M-066-memory-topology-projection-and-navigation-graph.md`](./M-066-memory-topology-projection-and-navigation-graph.md) |
+| M-067 | Lifecycle Capture Hooks and Session Safeguards | P1 | 2 - Broker + Tooling | Planned | [`M-067-lifecycle-capture-hooks-and-session-safeguards.md`](./M-067-lifecycle-capture-hooks-and-session-safeguards.md) |
+| M-068 | Compact Context Dialects for Offline Agents | P1 | 2 - Broker + Tooling | Planned | [`M-068-compact-context-dialects-for-offline-agents.md`](./M-068-compact-context-dialects-for-offline-agents.md) |

@@ -1040,6 +1040,167 @@ window.ANYMEM_DATA = {
         "M-052",
         "M-053"
       ]
+    },
+    {
+      "id": "M-060",
+      "file": "M-060-atomic-memory-units-and-normalization-pipeline.md",
+      "title": "M-060 - Atomic Memory Units and Normalization Pipeline",
+      "priority": "P1",
+      "phase": "1 - Governance Core",
+      "state": "Planned",
+      "goal": "Normalize incoming memory into self-contained atomic units so retrieval does not depend on ambiguous fragments, unresolved references, or inconsistent time/entity representation.",
+      "acceptanceCount": 6,
+      "firstAcceptance": "Canonical memory can represent normalized atomic units such as facts, events, preferences, instructions, and observations.",
+      "dependencies": [
+        "M-001",
+        "M-005",
+        "M-018",
+        "M-031",
+        "M-037"
+      ]
+    },
+    {
+      "id": "M-061",
+      "file": "M-061-query-type-routing-and-retrieval-modes.md",
+      "title": "M-061 - Query-Type Routing and Retrieval Modes",
+      "priority": "P1",
+      "phase": "1 - Governance Core",
+      "state": "Planned",
+      "goal": "Route retrieval through different strategies based on what kind of memory task the caller is actually performing, instead of treating every query the same.",
+      "acceptanceCount": 7,
+      "firstAcceptance": "Retrieval mode selection is explicit, inspectable, and overrideable through policy where needed.",
+      "dependencies": [
+        "M-011",
+        "M-015",
+        "M-021",
+        "M-024",
+        "M-060"
+      ]
+    },
+    {
+      "id": "M-062",
+      "file": "M-062-workflow-edge-graph-and-handoff-memory.md",
+      "title": "M-062 - Workflow Edge Graph and Handoff Memory",
+      "priority": "P1",
+      "phase": "1 - Governance Core",
+      "state": "Planned",
+      "goal": "Model linked work memory so agents and humans can retrieve not only isolated records, but also the relationships between tasks, reviews, revisions, assignments, fixes, and outcomes.",
+      "acceptanceCount": 6,
+      "firstAcceptance": "Canonical memory model supports typed directed workflow edges between records.",
+      "dependencies": [
+        "M-001",
+        "M-005",
+        "M-010",
+        "M-026",
+        "M-060"
+      ]
+    },
+    {
+      "id": "M-063",
+      "file": "M-063-memory-to-training-export-pipeline.md",
+      "title": "M-063 - Memory-to-Training Export Pipeline",
+      "priority": "P1",
+      "phase": "2 - Broker + Tooling",
+      "state": "Planned",
+      "goal": "Export curated, provenance-clean, approval-safe memory and workflow traces into training-ready datasets that can be used for fine-tuning or other downstream adaptation workflows.",
+      "acceptanceCount": 6,
+      "firstAcceptance": "Export pipeline can produce versioned training datasets from selected memory scopes, workflow traces, and review chains.",
+      "dependencies": [
+        "M-005",
+        "M-030",
+        "M-046",
+        "M-052",
+        "M-062"
+      ]
+    },
+    {
+      "id": "M-064",
+      "file": "M-064-autoresearch-memory-optimization-harness.md",
+      "title": "M-064 - Autoresearch Memory Optimization Harness",
+      "priority": "P1",
+      "phase": "2 - Broker + Tooling",
+      "state": "Planned",
+      "goal": "Continuously evaluate and improve memory-system architecture, retrieval routing, prompt/data-pipeline behavior, and compilation strategies through replayable experiment loops rather than manual tuning alone.",
+      "acceptanceCount": 6,
+      "firstAcceptance": "Experiment harness can replay benchmark and real workload slices against candidate memory-system variants.",
+      "dependencies": [
+        "M-015",
+        "M-035",
+        "M-055",
+        "M-057",
+        "M-061"
+      ]
+    },
+    {
+      "id": "M-065",
+      "file": "M-065-wake-up-and-bootstrap-context-profiles.md",
+      "title": "M-065 - Wake-Up and Bootstrap Context Profiles",
+      "priority": "P1",
+      "phase": "2 - Broker + Tooling",
+      "state": "Planned",
+      "goal": "Provide tiny always-loadable bootstrap context packets so agents can orient quickly on session start or reconnect without paying the cost of broad retrieval every time.",
+      "acceptanceCount": 6,
+      "firstAcceptance": "Bootstrap packets are deterministic, small, and cheap enough for frequent local/offline use.",
+      "dependencies": [
+        "M-021",
+        "M-024",
+        "M-034",
+        "M-049",
+        "M-055"
+      ]
+    },
+    {
+      "id": "M-066",
+      "file": "M-066-memory-topology-projection-and-navigation-graph.md",
+      "title": "M-066 - Memory Topology Projection and Navigation Graph",
+      "priority": "P1",
+      "phase": "2 - Broker + Tooling",
+      "state": "Planned",
+      "goal": "Generate derived navigation projections over memory so agents and humans can narrow retrieval quickly by project, person, topic, type, or other high-signal structure without making any single navigation metaphor canonical truth.",
+      "acceptanceCount": 6,
+      "firstAcceptance": "The system can build and update navigation projections from canonical memory and workflow graphs.",
+      "dependencies": [
+        "M-005",
+        "M-055",
+        "M-060",
+        "M-062"
+      ]
+    },
+    {
+      "id": "M-067",
+      "file": "M-067-lifecycle-capture-hooks-and-session-safeguards.md",
+      "title": "M-067 - Lifecycle Capture Hooks and Session Safeguards",
+      "priority": "P1",
+      "phase": "2 - Broker + Tooling",
+      "state": "Planned",
+      "goal": "Capture important memory at the right operational moments through explicit lifecycle hooks instead of relying only on manual writes or end-of-session reconstruction.",
+      "acceptanceCount": 6,
+      "firstAcceptance": "Hook contracts are explicit and usable by broker/runtime integrations.",
+      "dependencies": [
+        "M-003",
+        "M-005",
+        "M-014",
+        "M-018",
+        "M-065"
+      ]
+    },
+    {
+      "id": "M-068",
+      "file": "M-068-compact-context-dialects-for-offline-agents.md",
+      "title": "M-068 - Compact Context Dialects for Offline Agents",
+      "priority": "P1",
+      "phase": "2 - Broker + Tooling",
+      "state": "Planned",
+      "goal": "Offer optional compact derived context forms for offline or local agents where token budget and transport cost matter, while keeping canonical evidence and APIs as the authority.",
+      "acceptanceCount": 6,
+      "firstAcceptance": "Compact dialect generation is optional, profile-driven, and reproducible.",
+      "dependencies": [
+        "M-021",
+        "M-024",
+        "M-049",
+        "M-055",
+        "M-065"
+      ]
     }
   ],
   "phaseDescriptions": {

@@ -62,6 +62,15 @@
 37. `M-057` implement knowledge health checks, integrity audits, and repair suggestion/automation loops.
 38. `M-058` implement reusable artifact templates/renderers for graphs, reports, slides, and other governed outputs.
 39. `M-059` implement anymem-hosted protected package serving, creator metering, seller analytics, and payout-ledger flows.
+40. `M-060` implement atomic memory normalization, entity/time resolution, and self-contained fact/event units.
+41. `M-061` implement query-type routing and retrieval-mode selection for different memory tasks.
+42. `M-062` implement workflow edge graph, pending work retrieval, and linked handoff/review/fix chains.
+43. `M-063` implement curated memory-to-training export with provenance, approvals, and redaction safety gates.
+44. `M-064` implement autoresearch-style experiment harness for memory architecture and pipeline optimization.
+45. `M-065` implement tiny wake-up/bootstrap context packets with profile-specific content and freshness rules.
+46. `M-066` implement derived topology projections for fast project/person/topic/type navigation.
+47. `M-067` implement lifecycle hooks for session start, autosave, topic shift, session end, and pre-compaction safety capture.
+48. `M-068` implement optional compact context dialects for offline/local agent consumption with evidence-preserving reversibility.
 
 ## Rule
 - anymem planning owns generic governance domains and does not depend on anycode implementation details.

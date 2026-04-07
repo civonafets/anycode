@@ -55,6 +55,15 @@
 - Automated knowledge health checks, repair suggestions, and compilation-quality audits.
 - Deterministic derived artifact generation from governed knowledge through reusable templates/components/renderers.
 - Benchmark-native long-horizon memory evaluation for million-plus-token regimes where context stuffing is non-viable.
+- Canonical atomic memory-unit normalization for self-contained fact/event storage with resolved entities and normalized time.
+- Query-type-aware retrieval routing so fact lookup, temporal recall, preference recall, multi-hop synthesis, and policy retrieval use different retrieval strategies.
+- Workflow edge graph for handoffs, reviews, revisions, assignments, fixes, and other linked work memory.
+- Safe memory-to-training export for curated, approved, provenance-clean fine-tuning datasets.
+- Autoresearch-style memory optimization harness for discovering retrieval, compilation, and prompt/data-pipeline improvements through replayable experiments.
+- Wake-up/bootstrap context profiles for tiny always-loaded memory packets that help local and remote agents orient quickly.
+- Derived memory topology projections for project/person/topic/type-based navigation and fast narrowing without hard-coding a single ontology as canonical truth.
+- Lifecycle capture hooks for session start, periodic save, topic shift, session end, and pre-compaction safety capture.
+- Optional compact context dialects for offline/local agents where transport and token budget matter, without replacing canonical evidence or APIs.
 - Policy-as-code validation and promotion gates with replay/canary requirements.
 - Sensitive personal-memory guardrails and redaction/consent controls.
 - Memory package export/install/activation controls.
@@ -116,6 +125,10 @@
 - Supports memory-level compression controls so explicitly critical records can be marked as never-compress, verbatim-required, or always-include for eligible workflows.
 - Supports markdown-native local workflows and Obsidian-style vault usage as a projection surface without making markdown the canonical authority.
 - Supports reusable graph/report/slide/artifact generation from governed knowledge through predefined templates and components.
+- Supports optional fine-tuning/export workflows from reviewed and approved memory traces without making model training a prerequisite for core memory quality.
+- Supports architecture tuning through replayable memory experiments, not just manual intuition or hyperparameter tweaking.
+- Supports a tiny always-loadable bootstrap layer so agents can orient quickly without paying the cost of broad retrieval on every wake-up.
+- Supports offline/local-first memory usage with compact derived context forms while keeping canonical evidence and governed APIs intact.
 
 ## Delivery Rule
 - A feature is not considered complete until its required tests are added and passing.
