@@ -64,6 +64,9 @@
 - Derived memory topology projections for project/person/topic/type-based navigation and fast narrowing without hard-coding a single ontology as canonical truth.
 - Lifecycle capture hooks for session start, periodic save, topic shift, session end, and pre-compaction safety capture.
 - Optional compact context dialects for offline/local agents where transport and token budget matter, without replacing canonical evidence or APIs.
+- Action risk-tier classification with deterministic policy mapping (`low`, `medium`, `high`, `critical`).
+- Mandatory approval/escalation rules tied to action risk tier and blast radius.
+- Risk evidence envelopes and remediation policy references in decision/trace artifacts for dispute handling.
 - Policy-as-code validation and promotion gates with replay/canary requirements.
 - Sensitive personal-memory guardrails and redaction/consent controls.
 - Memory package export/install/activation controls.
@@ -115,6 +118,8 @@
 - Supports marketplace-ready publisher distribution without forcing protected packages to expose raw memory payloads to buyers.
 - Supports creators earning money from curated protected memory packages through anymem-hosted serving paths without exposing raw payloads to buyers.
 - Supports API/SDK/MCP access to hosted external memory only for principals authenticated and governed through anymem, with explicit external-source labeling and metering.
+- Supports deterministic risk-tier enforcement so high/critical actions cannot bypass required approvals or escalation paths.
+- Supports auditable remediation/compensation policy references for commercial hosted-memory failures and entitlement disputes.
 - Supports enterprise operations with strong identity, isolation, resilience, and admin controls.
 - Supports enterprise AI safety expectations with DLP, legal hold, and context-attack defenses.
 - Supports auditable decision explainability and safe policy promotion across deployment profiles.

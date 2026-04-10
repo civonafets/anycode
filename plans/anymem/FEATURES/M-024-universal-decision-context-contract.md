@@ -12,9 +12,13 @@ Provide one canonical pre-action contract that any AI agent integration consumes
 - Decision-context response shape is fixed and reusable across tool vendors:
   - `relevant_context[]`
   - `retrieval_plan_ref` (optional)
+  - `risk_tier`
+  - `risk_reasons[]` (optional)
   - `applicable_policy[]`
   - `required_approval_refs[]`
   - `required_proof_refs[]`
+  - `required_escalation_refs[]` (optional)
+  - `remediation_policy_ref` (optional)
   - `confidence`
   - `selection_rationale`
   - `degraded_mode`

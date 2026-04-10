@@ -10,6 +10,7 @@ Define workflow-generic approval object model with conversations, non-binary out
 
 ## Required Object Shape
 - Core record fields: stable approval ID, workflow type, status, requested action, actor, scope, target resource references, policy/proof references, created/updated timestamps.
+- Core record fields: stable approval ID, workflow type, status, requested action, actor, scope, target resource references, policy/proof references, `risk_tier`, created/updated timestamps.
 - Conversation fields: message ID, approval ID, speaker type (`agent`, `human`, `system`), body, attachments/evidence refs, created timestamp.
 - Disposition fields: disposition ID, approval ID, action (`approve`, `reject`, `edit`, `rewrite`, `request-proof`, `defer`, `escalate`), actor, rationale, payload patch or replacement ref, created timestamp.
 
@@ -22,10 +23,11 @@ Define workflow-generic approval object model with conversations, non-binary out
   - `created_by_actor_id`
   - `current_scope`
   - `target_refs`
-  - `policy_refs`
-  - `proof_refs`
-  - `created_at`
-  - `updated_at`
+- `policy_refs`
+- `proof_refs`
+- `risk_tier`
+- `created_at`
+- `updated_at`
 - Message resource:
   - `message_id`
   - `approval_id`
@@ -94,6 +96,7 @@ Define workflow-generic approval object model with conversations, non-binary out
 - Live approval updates are emitted as events suitable for first-party subscribed UI.
 - External products can resume approval handling from canonical resource state after disconnect or process restart.
 - Initial approval, message, and disposition resource fields are fixed enough for backend and UI implementation.
+- Supports policy-driven multi-party approval requirements for critical-tier actions without ambiguous terminal-state behavior.
 
 ## Dependencies
 - `M-001`, `M-002`, `M-009`

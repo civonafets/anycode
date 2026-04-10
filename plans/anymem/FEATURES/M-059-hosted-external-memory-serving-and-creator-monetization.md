@@ -53,9 +53,14 @@ Let publishers sell or license curated portions of their memory as anymem-hosted
 - Metering and payout-ledger events are auditable, replayable, and exportable.
 - Hosted serving preserves tenant isolation and package-protection guarantees even when many buyer workspaces use the same publisher package.
 - Disabled, expired, or revoked commercial packages stop new hosted retrieval within a bounded propagation window defined by policy.
+- High-impact commercial actions (entitlement grant changes, emergency disable, payout overrides, broad publisher policy changes) support risk-tier classification and mandatory approval/escalation where configured.
+- Failure-handling policy references are explicit for hosted commercial flows:
+  - entitlement rollback behavior
+  - SLA/service-credit eligibility hooks
+  - dispute and remediation trace linkage
 
 ## Dependencies
-- `M-014`, `M-017`, `M-041`, `M-052`, `M-053`
+- `M-014`, `M-017`, `M-041`, `M-052`, `M-053`, `M-069`
 
 ## Required Coverage
 - Integration tests for hosted protected retrieval through REST, SDK, and MCP paths.
@@ -64,3 +69,4 @@ Let publishers sell or license curated portions of their memory as anymem-hosted
 - Isolation tests for multi-tenant hosted serving across many buyer workspaces and publishers.
 - Revocation and emergency-disable tests for hosted packages already in active use.
 - Reporting tests for seller analytics and payout-ledger export consistency.
+- Remediation-policy linkage tests for commercial failure and dispute scenarios.

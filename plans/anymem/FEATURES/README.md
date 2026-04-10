@@ -90,3 +90,4 @@
 | M-066 | Memory Topology Projection and Navigation Graph | P1 | 2 - Broker + Tooling | Planned | [`M-066-memory-topology-projection-and-navigation-graph.md`](./M-066-memory-topology-projection-and-navigation-graph.md) |
 | M-067 | Lifecycle Capture Hooks and Session Safeguards | P1 | 2 - Broker + Tooling | Planned | [`M-067-lifecycle-capture-hooks-and-session-safeguards.md`](./M-067-lifecycle-capture-hooks-and-session-safeguards.md) |
 | M-068 | Compact Context Dialects for Offline Agents | P1 | 2 - Broker + Tooling | Planned | [`M-068-compact-context-dialects-for-offline-agents.md`](./M-068-compact-context-dialects-for-offline-agents.md) |
+| M-069 | Agentic Risk Tiering and Remediation Controls | P1 | 2 - Broker + Tooling | Planned | [`M-069-agentic-risk-tiering-and-remediation-controls.md`](./M-069-agentic-risk-tiering-and-remediation-controls.md) |

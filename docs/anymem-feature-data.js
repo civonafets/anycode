@@ -1201,6 +1201,25 @@ window.ANYMEM_DATA = {
         "M-055",
         "M-065"
       ]
+    },
+    {
+      "id": "M-069",
+      "file": "M-069-agentic-risk-tiering-and-remediation-controls.md",
+      "title": "M-069 - Agentic Risk Tiering and Remediation Controls",
+      "priority": "P1",
+      "phase": "2 - Broker + Tooling",
+      "state": "Planned",
+      "goal": "Provide a unified risk-tier and remediation framework for governed agent actions so high-impact operations have deterministic approval requirements, traceable risk evidence, and explicit incident/remediation policy linkage.",
+      "acceptanceCount": 6,
+      "firstAcceptance": "Risk tier is emitted in policy and decision-context outputs for governed actions.",
+      "dependencies": [
+        "M-004",
+        "M-005",
+        "M-006",
+        "M-024",
+        "M-045",
+        "M-059"
+      ]
     }
   ],
   "phaseDescriptions": {

@@ -71,6 +71,7 @@
 46. `M-066` implement derived topology projections for fast project/person/topic/type navigation.
 47. `M-067` implement lifecycle hooks for session start, autosave, topic shift, session end, and pre-compaction safety capture.
 48. `M-068` implement optional compact context dialects for offline/local agent consumption with evidence-preserving reversibility.
+49. `M-069` implement action risk-tier mapping, tier-based mandatory approvals/escalation, and remediation/dispute linkage controls.
 
 ## Rule
 - anymem planning owns generic governance domains and does not depend on anycode implementation details.
