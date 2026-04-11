@@ -12,6 +12,9 @@ Provide one canonical pre-action contract that any AI agent integration consumes
 - Decision-context response shape is fixed and reusable across tool vendors:
   - `relevant_context[]`
   - `retrieval_plan_ref` (optional)
+  - `requested_fidelity` (optional)
+  - `applied_fidelity`
+  - `fidelity_decision_reason` (optional)
   - `risk_tier`
   - `risk_reasons[]` (optional)
   - `applicable_policy[]`
@@ -21,6 +24,7 @@ Provide one canonical pre-action contract that any AI agent integration consumes
   - `remediation_policy_ref` (optional)
   - `confidence`
   - `selection_rationale`
+  - `consumption` (request token/cost telemetry)
   - `degraded_mode`
   - `resolution_artifact_ref`
 - Contract supports a two-step retrieval pattern for hybrid deployments:
@@ -31,10 +35,16 @@ Provide one canonical pre-action contract that any AI agent integration consumes
   - synthesized observations/concept summaries
   - raw evidence/facts
   - policy/approval/proof references
+- `relevant_context[]` items expose representation and grounding metadata:
+  - representation class (`compact`, `summary`, `verbatim`, `original_artifact`)
+  - citation/provenance references
+  - source/original references when full evidence is used
 - Contract is available through API and SDK in v1 and does not require wrapper-only paths.
 - Context payload includes attribution and provenance references for included items.
 - Synthesized context items include lineage to the underlying evidence set so agents and auditors can inspect grounding rather than trusting summaries blindly.
 - Context items expose escalation/compression metadata so integrations can see when an item is verbatim-required, summary-derived, or expanded due to high-risk handling.
+- Contract supports strict-fidelity calls where explicit `full_cited`/`full_original` requirements must be met or fail with deterministic machine-readable errors.
+- Consumption telemetry is structured enough for user-visible spend tracking, benchmark slicing, and regression gates.
 - Contract is fully traceable so auditors can reconstruct pre-action context at decision time.
 - Compatibility guarantees are documented for additive evolution.
 

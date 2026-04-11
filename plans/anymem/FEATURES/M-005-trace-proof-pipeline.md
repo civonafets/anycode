@@ -10,8 +10,14 @@ Maintain append-only auditability for decisions, approvals, retrieval, proof, an
 
 ## Acceptance Criteria
 - Retrieval mode/ranking version and effective activation state are traceable.
+- Requested vs applied retrieval fidelity is traceable per decision/retrieval call, including whether fidelity was selected by agent, user directive, or policy override.
 - Export/install/sensitivity pipeline steps are traceable.
 - Auditors can reconstruct decision-time known context.
+- Trace/proof records include request-level consumption telemetry for observability and spend analysis:
+  - packed context token estimate
+  - retrieval processing token estimate (when applicable)
+  - fidelity class and layer-wise token breakdown
+  - estimated cost attribution fields
 - Trace/proof records include risk-tier envelope data for governed actions:
   - `risk_tier`
   - risk rationale

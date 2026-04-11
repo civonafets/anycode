@@ -10,6 +10,13 @@ Define deterministic context-packing rules per integration/model budget so memor
 
 ## Acceptance Criteria
 - Budget profiles are defined per tool/model integration with explicit token and section budgets.
+- Packing policy supports per-request retrieval fidelity directives:
+  - `auto`
+  - `compact`
+  - `balanced`
+  - `full_cited`
+  - `full_original`
+- Caller can delegate fidelity choice to agent/runtime (`auto`) or explicitly request high-fidelity context for precision-critical tasks.
 - Context assembly order is deterministic and policy-aware.
 - Context assembly enforces suppression and intent/workstream relevance gates before budget allocation.
 - Context assembly is hierarchical by default:
@@ -23,9 +30,17 @@ Define deterministic context-packing rules per integration/model budget so memor
 - Packing policy includes retrieval-plan-aware budget slicing:
   - budget reserved for high-confidence planned targets first
   - bounded fallback slice for exploratory retrieval only when allowed
+- Packing policy supports strict-fidelity enforcement:
+  - when strict fidelity is requested, no silent downgrade to lower-fidelity context is allowed
+  - if strict fidelity cannot be satisfied, return deterministic policy/budget failure with machine-readable reason
 - Truncation strategy is deterministic and traceable (no silent random drops).
 - Packing outputs include attribution for included and dropped context segments.
 - Overflow and budget-pressure metrics are emitted for tuning and regression checks.
+- Packing emits request-level consumption telemetry:
+  - estimated packed prompt tokens
+  - retrieval processing tokens (when applicable)
+  - token/cost split by memory layer and fidelity class
+  - estimated savings versus full-original baseline when compact/balanced is used
 - Packing outputs align with the canonical decision-context contract for cross-tool consistency.
 - Under budget pressure, low-relevance aged context is dropped before recent high-intent matches unless policy marks context as mandatory.
 - Packing metadata includes whether context came from warm cache, cold retrieval, or degraded fallback so downstream behavior can be audited.

@@ -76,6 +76,12 @@ Define the stable public contract that external products and adapters use to con
 - IDs are opaque stable strings.
 - Timestamps use ISO 8601 UTC strings.
 - Collections use cursor pagination where needed: `next_cursor` and `limit`.
+- Retrieval fidelity enum is stable across endpoints:
+  - `auto`
+  - `compact`
+  - `balanced`
+  - `full_cited`
+  - `full_original`
 - Error envelope shape:
   - `error.code`
   - `error.message`
@@ -134,16 +140,26 @@ Define the stable public contract that external products and adapters use to con
     - `actor_context`
     - `tool_context`
     - `activation_context`
+    - `retrieval_fidelity` (optional enum; default `auto`)
+    - `strict_fidelity` (optional bool; default `false`)
     - `context_budget_profile` (optional)
     - `idempotency_key`
   - response:
     - `relevant_context[]`
     - `retrieval_plan_ref` (optional, when hybrid routing is used)
+    - `requested_fidelity` (optional)
+    - `applied_fidelity`
+    - `fidelity_decision_reason` (optional)
     - `applicable_policy[]`
     - `required_approval_refs[]`
     - `required_proof_refs[]`
     - `confidence`
     - `selection_rationale`
+    - `consumption`
+      - `packed_context_tokens_estimate`
+      - `retrieval_tokens_estimate` (optional)
+      - `tokens_by_layer` (optional)
+      - `estimated_cost` (optional)
     - `degraded_mode`
     - `resolution_artifact_ref`
 - `POST /api/v1/retrieval/plan`
@@ -153,6 +169,8 @@ Define the stable public contract that external products and adapters use to con
     - `workstream_ref` (optional, recommended)
     - `target_refs` (optional)
     - `activation_context`
+    - `retrieval_fidelity` (optional enum; default `auto`)
+    - `strict_fidelity` (optional bool; default `false`)
     - `context_budget_profile` (optional)
     - `latency_budget_ms` (optional)
     - `idempotency_key`
@@ -163,6 +181,7 @@ Define the stable public contract that external products and adapters use to con
     - `fetch_limits`
     - `deadline_ms`
     - `policy_constraints[]`
+    - `recommended_fidelity`
     - `cache_hint`
     - `expires_at`
 - `GET /api/v1/memory/records`
@@ -211,9 +230,11 @@ Define the stable public contract that external products and adapters use to con
     - `filters.exclude_suppressed` (default `true`)
     - `actor_context`
     - `activation_context`
+    - `retrieval_fidelity` (optional enum; default `auto`)
   - response:
     - `results[]`
     - `search_mode`
+    - `applied_fidelity`
     - `ranking_version`
     - `score_breakdown[]` (optional compact factors)
     - `cache.hit` (optional)
@@ -247,6 +268,11 @@ Define the stable public contract that external products and adapters use to con
   - response:
     - `results[]`
     - `backend_trace[]`
+    - `applied_fidelity`
+    - `consumption`
+      - `retrieval_tokens_estimate` (optional)
+      - `tokens_by_backend` (optional)
+      - `estimated_cost` (optional)
     - `cache.hit` (optional)
     - `cache.tier` (optional)
     - `degraded_mode`
@@ -498,6 +524,8 @@ Define the stable public contract that external products and adapters use to con
 - First-party live transport and replay semantics are explicit enough that web UI, mobile UI, and broker clients can share one recovery model.
 - Initial endpoint families are fixed enough that SDK and adapter work can start without inventing new domain boundaries.
 - Decision-context contract is explicit enough that external agents can consume a stable pre-action schema without tool-specific interpretation drift.
+- Fidelity-selection controls and strict-fidelity failure semantics are explicit enough that callers can choose compact vs full evidence behavior deterministically.
+- Request-level token/consumption telemetry is explicit enough for benchmark slicing, spend visibility, and regression gating.
 
 ## Dependencies
 - `M-001`, `M-009`, `M-016`, `M-026`
