@@ -19,6 +19,7 @@ Offer optional compact derived context forms for offline or local agents where t
   - low-latency bootstrap
   - offline package transport
   - low-token recurring recall
+  - compact adaptive-UI component manifests and validation hints for weaker local models
 
 ## Acceptance Criteria
 - Compact dialect generation is optional, profile-driven, and reproducible.
@@ -26,6 +27,7 @@ Offer optional compact derived context forms for offline or local agents where t
 - Records marked `prefer_verbatim` or `never_compress` are handled according to policy and never silently reduced below allowed fidelity.
 - Dialect use is observable so evaluations can compare compact-form versus ordinary context delivery.
 - Offline/local agents can consume compact dialect outputs without needing a proprietary canonical backend format.
+- Dialect family includes a compact adaptive-UI composition form that can describe approved components, allowed props, and correction hints in less context than the full registry format.
 - Dialect changes are versioned and regression-tested like any other contract.
 
 ## Dependencies

@@ -23,6 +23,10 @@ Define who can publish, install, embed, activate, license, acquire, approve, and
 - Package publish/install/embed/revoke/update/toggle
 - Package protection, entitlement, and raw-export controls
 - Marketplace browse/list/acquire controls
+- View read/compose/validate/save/refresh/share controls
+- Dataset create/read/attach/promote/delete controls
+- Presentation-mode and adaptive UI runtime controls
+- Event subscription and webhook administration controls
 - Role and permission administration
 - Delegation grant creation and delegation approval
 - External principal registration, rotation, and disable controls
@@ -62,6 +66,21 @@ Define who can publish, install, embed, activate, license, acquire, approve, and
 - `marketplace.browse`
 - `marketplace.listing.write`
 - `marketplace.acquire`
+- `view.read`
+- `view.compose`
+- `view.validate`
+- `view.save`
+- `view.refresh`
+- `view.share`
+- `view.archive`
+- `dataset.create`
+- `dataset.read`
+- `dataset.attach`
+- `dataset.promote`
+- `dataset.delete`
+- `presentation_mode.write`
+- `events.subscribe`
+- `webhook.manage`
 - `role.read`
 - `role.write`
 - `permission.assign`
@@ -76,9 +95,9 @@ Define who can publish, install, embed, activate, license, acquire, approve, and
 - `owner`: all permissions
 - `admin`: all except role administration and owner-only destructive workspace actions
 - `publisher`: package publish/update/revoke/protect, marketplace listing write, entitlement read/write
-- `approver`: approval read, approval message create, all approval disposition permissions, proof read, package install/toggle
-- `member`: memory read/search/expand, approval read, proof submit, marketplace browse/acquire, package install external where workspace policy allows
-- `viewer`: read-only memory, policy, approval, proof, and marketplace browse access
+- `approver`: approval read, approval message create, all approval disposition permissions, proof read, package install/toggle, view read
+- `member`: memory read/search/expand, approval read, proof submit, marketplace browse/acquire, package install external where workspace policy allows, view read, view.compose, view.validate, dataset.create, dataset.read, dataset.attach, presentation_mode.write, events.subscribe
+- `viewer`: read-only memory, policy, approval, proof, marketplace browse, and view read access
 
 ## Delegation Rules
 - Delegation grants are explicit, time-bounded, and scope-bounded.
@@ -97,6 +116,7 @@ Define who can publish, install, embed, activate, license, acquire, approve, and
 - Every sensitive action records both acting principal and delegated-on-behalf-of principal when delegation exists.
 - Initial permission names and built-in role bundles are defined well enough for implementation to start without inventing authorization vocabulary.
 - External service principals and delegated user sessions are first-class identities with auditable mapping to actions.
+- Endpoint-to-permission mapping is explicit enough that API, broker, event, and webhook surfaces share the same authorization vocabulary.
 
 ## Dependencies
 - `M-001`, `M-009`

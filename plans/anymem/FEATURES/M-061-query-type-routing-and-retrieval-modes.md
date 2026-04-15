@@ -16,6 +16,7 @@ Route retrieval through different strategies based on what kind of memory task t
 - `workflow_state_lookup`
 - `multi_hop_synthesis`
 - `artifact_or_multimodal_lookup`
+- `view_lookup`
 
 ## Retrieval Fidelity Profiles (Orthogonal to Mode)
 - `auto`
@@ -40,6 +41,7 @@ Route retrieval through different strategies based on what kind of memory task t
 - Multi-hop synthesis favors compiled views and linked evidence sets while preserving drill-down paths.
 - Temporal recall favors time-normalized events and sequence-aware ranking.
 - Preference recall favors durable behavioral memory with suppression/recency controls suited to persona memory.
+- View lookup favors saved-view discovery, compatibility checks, and reuse before new adaptive UI generation is attempted.
 - Benchmark and replay outputs include retrieval mode attribution so regressions can be diagnosed by mode rather than only by aggregate score.
 - Benchmark and replay outputs include fidelity attribution and token/cost usage slices so regressions can be diagnosed by retrieval depth, not only aggregate quality.
 

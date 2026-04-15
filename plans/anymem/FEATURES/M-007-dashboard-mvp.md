@@ -14,6 +14,8 @@ Deliver standalone governance dashboard for memory, policy, approvals, trace/pro
 - Retrieval attribution is visible for precision/effect debugging.
 - Memory-level relevance controls are operable from dashboard (`mute`, `snooze_until`, unsuppress) with audit-linked change history.
 - Dashboard exposes per-memory recency/usage/intent-match hints so operators can debug stale-topic resurfacing.
+- Adaptive UI session mode is visible and operable per session (`off`, `suggest`, `auto`, `required_if_supported`).
+- Saved-view inventory is visible with freshness, scope, provenance, reuse count, and refresh status.
 
 ## Dependencies
-- `M-002`, `M-005`, `M-006`, `M-010`, `M-012`
+- `M-002`, `M-005`, `M-006`, `M-010`, `M-012`, `M-070`

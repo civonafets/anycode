@@ -42,6 +42,7 @@ Define deterministic context-packing rules per integration/model budget so memor
   - token/cost split by memory layer and fidelity class
   - estimated savings versus full-original baseline when compact/balanced is used
 - Packing outputs align with the canonical decision-context contract for cross-tool consistency.
+- Packing policy can emit compact component-manifest slices and view-composition hints for adaptive UI flows so low-capability local models do not need full registry context.
 - Under budget pressure, low-relevance aged context is dropped before recent high-intent matches unless policy marks context as mandatory.
 - Packing metadata includes whether context came from warm cache, cold retrieval, or degraded fallback so downstream behavior can be audited.
 - Policy explicitly disallows naive full-history stuffing as the default strategy, even on large-window models, except for explicit debug/research modes.

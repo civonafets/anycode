@@ -11,6 +11,7 @@ Prevent sensitive data from being ingested, retrieved, exported, or streamed out
 ## Acceptance Criteria
 - Memory and connector inputs are classified into policy-relevant sensitivity labels.
 - DLP checks run on ingest, retrieval/context assembly, export/package generation, and event/webhook delivery.
+- DLP checks also run on caller-provided adaptive UI datasets, saved-view share/publish flows, and event-stream subscriber filtering paths.
 - Redaction supports field-level and content-span masking with explicit reason codes.
 - Violations can be quarantined and routed to approval/review flows.
 - DLP/redaction decisions are traceable and auditable without exposing raw restricted content.

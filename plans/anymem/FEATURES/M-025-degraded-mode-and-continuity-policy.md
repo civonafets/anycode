@@ -13,6 +13,14 @@ Define consistent fail behavior for memory/policy/retrieval degradation so agent
   - `block`
   - `warn`
   - `continue`
+- Non-degradable control-plane dependencies are explicit and fail closed:
+  - authn/authz
+  - entitlement state for protected memory or packages
+  - DLP/redaction enforcement
+  - legal hold restrictions
+  - signer verification and signature trust state
+  - key status for protected or encrypted flows
+- `continue` is never allowed for the non-degradable dependency set above; only `block` or a tightly bounded cached-positive path explicitly approved by policy may apply.
 - Degraded-mode policy is enforced consistently across API, broker, and adapters.
 - Decision-context responses include degraded-mode indicators and reason codes.
 - Hybrid retrieval degradation rules are explicit:

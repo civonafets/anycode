@@ -12,6 +12,10 @@ Define hard boundaries so adapters and consumers cannot become canonical runtime
 - Core can run without Analyt or anycode.
 - Contracts support personal/self-host and hosted multi-workspace without schema fork.
 - Adapter/consumer integrations use token exchange and API contracts only.
+- Adaptive UI follows the same boundary:
+  - anymem owns component semantics, validation, lineage, saved-view lifecycle, and presentation-mode policy enforcement
+  - external products may render or host declarative specs returned by anymem
+  - external products may not redefine canonical component behavior, bypass validation, or become persistence owners of governed saved-view state
 
 ## Dependencies
 - `M-001`

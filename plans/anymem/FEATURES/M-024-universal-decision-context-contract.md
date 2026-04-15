@@ -15,6 +15,8 @@ Provide one canonical pre-action contract that any AI agent integration consumes
   - `requested_fidelity` (optional)
   - `applied_fidelity`
   - `fidelity_decision_reason` (optional)
+  - `recommended_presentation` (optional)
+  - `saved_view_matches[]` (optional)
   - `risk_tier`
   - `risk_reasons[]` (optional)
   - `applicable_policy[]`
@@ -35,6 +37,10 @@ Provide one canonical pre-action contract that any AI agent integration consumes
   - synthesized observations/concept summaries
   - raw evidence/facts
   - policy/approval/proof references
+- Contract can carry bounded adaptive-presentation guidance without mixing it into canonical evidence:
+  - recommended answer mode (`text`, `saved_view`, `new_view`)
+  - matching saved view references with freshness/reuse hints
+  - supported view kinds when visual presentation is appropriate
 - `relevant_context[]` items expose representation and grounding metadata:
   - representation class (`compact`, `summary`, `verbatim`, `original_artifact`)
   - citation/provenance references
@@ -44,6 +50,7 @@ Provide one canonical pre-action contract that any AI agent integration consumes
 - Synthesized context items include lineage to the underlying evidence set so agents and auditors can inspect grounding rather than trusting summaries blindly.
 - Context items expose escalation/compression metadata so integrations can see when an item is verbatim-required, summary-derived, or expanded due to high-risk handling.
 - Contract supports strict-fidelity calls where explicit `full_cited`/`full_original` requirements must be met or fail with deterministic machine-readable errors.
+- Contract makes text-vs-visual recommendation inspectable so agents can explain why a saved or newly generated view was chosen instead of plain text.
 - Consumption telemetry is structured enough for user-visible spend tracking, benchmark slicing, and regression gates.
 - Contract is fully traceable so auditors can reconstruct pre-action context at decision time.
 - Compatibility guarantees are documented for additive evolution.

@@ -8,12 +8,17 @@
 ## Goal
 Define the stable public contract that external products and adapters use to consume anymem.
 
+## Adaptive UI Schema Note
+- The concrete v1 `component_manifest`, `dataset_contract`, and `view_spec` shapes are locked by `M-071`.
+- This feature defines transport/resource contracts; it should not become a second competing schema source for adaptive UI internals.
+
 ## Contract Shape
 - Authoritative interface: REST/JSON resources plus official SDKs wrapping those resources.
 - Live delivery interface: workspace-scoped ordered `SSE` for first-party clients; signed webhooks for external consumers.
 - Resource groups:
   - auth + tenancy context
   - memory + retrieval (`search`, `describe`, `expand_query`)
+  - views + adaptive presentation
   - policy/procedure evaluation
   - approvals + conversations + dispositions
   - trace/proof
@@ -35,6 +40,10 @@ Define the stable public contract that external products and adapters use to con
 - Default replay retention target in v1: `72h`.
 - When requested cursor is outside the retained window, server responds with `409 replay_window_expired`; client must resync canonical resources and restart from head.
 - Heartbeat comments are emitted on idle connections so UI and broker clients can detect broken links quickly without polling resource endpoints.
+- Event stream authorization is subscriber-scoped:
+  - replay and live delivery are filtered against the subscriber's current effective permissions and scope
+  - unauthorized resources do not leak existence through topic presence, IDs, or payload shape
+  - when a previously authorized subscriber loses access, future replay/live delivery fails closed for those resources
 
 ## Initial Endpoint Families
 - `POST /api/v1/auth/register`
@@ -71,6 +80,16 @@ Define the stable public contract that external products and adapters use to con
 - `POST /api/v1/entitlements/grants`
 - `POST /api/v1/activations/resolve`
 - `POST /api/v1/activations/toggles`
+- `GET /api/v1/views`
+- `POST /api/v1/views/datasets`
+- `POST /api/v1/views/compose`
+- `POST /api/v1/views`
+- `GET /api/v1/views/components`
+- `POST /api/v1/views/validate`
+- `POST /api/v1/views/match`
+- `GET /api/v1/views/:id`
+- `POST /api/v1/views/:id/refresh`
+- `POST /api/v1/runtime/presentation-mode`
 
 ## Common Wire Conventions
 - IDs are opaque stable strings.
@@ -82,12 +101,62 @@ Define the stable public contract that external products and adapters use to con
   - `balanced`
   - `full_cited`
   - `full_original`
+- Presentation mode enum is stable across endpoints:
+  - `off`
+  - `suggest`
+  - `auto`
+  - `required_if_supported`
 - Error envelope shape:
   - `error.code`
   - `error.message`
   - `error.retryable`
   - `error.details`
 - Mutating requests accept `idempotency_key` when duplicate submission risk exists.
+- Adaptive UI and presentation-specific error codes are stable:
+  - `presentation_mode_not_allowed`
+  - `supported_view_unavailable`
+  - `dataset_contract_invalid`
+  - `dataset_expired`
+  - `component_pack_not_allowed`
+  - `view_validation_failed`
+  - `saved_view_incompatible`
+  - `required_if_supported_unsatisfied`
+
+## Authorization Contract
+- Every public endpoint is mapped to canonical permission names from `M-016`; implementations must not invent endpoint-local authorization vocabulary.
+- Endpoints that return filtered collections or event streams apply authorization before pagination or replay cursor evaluation so hidden resources cannot be inferred through counts or gaps.
+- Initial explicit mappings for adaptive UI and live delivery surfaces:
+  - `GET /api/v1/views`, `GET /api/v1/views/:id`, `GET /api/v1/views/components` -> `view.read`
+  - `POST /api/v1/views/datasets` -> `dataset.create`
+  - `POST /api/v1/views/compose` -> `view.compose`
+  - `POST /api/v1/views` -> `view.save` and `view.share` when `share_mode` exceeds owner-only scope
+  - `POST /api/v1/views/validate` -> `view.validate`
+  - `POST /api/v1/views/match` -> `view.read`
+  - `POST /api/v1/views/:id/refresh` -> `view.refresh`
+  - `POST /api/v1/runtime/presentation-mode` -> `presentation_mode.write`
+  - `GET /api/v1/events/stream` -> `events.subscribe`
+
+## Preferred Adaptive UI Flows
+- External API consumer with caller-provided data:
+  - optionally `POST /api/v1/views/match`
+  - `POST /api/v1/views/datasets`
+  - `POST /api/v1/views/compose`
+  - optionally `POST /api/v1/views/validate`
+  - optionally `POST /api/v1/views` to save reusable view state
+- Agent with strong local capability:
+  - fetch component manifest if needed
+  - compose bounded `view_spec`
+  - validate
+  - render/save
+- Weaker local agent:
+  - prefer compact component manifest or profile-limited subset
+  - prefer `POST /api/v1/views/compose`
+  - use validation hints on retry rather than inventing new props/components
+- Saved-view reuse path:
+  - `POST /api/v1/views/match`
+  - if compatible match exists, refresh or reuse before composing a new view
+- Compose path rule:
+  - unless caller explicitly disables reuse lookup, `views/match` semantics run before new composition and may short-circuit with reuse recommendation
 
 ## Initial Request and Response Shapes
 - `POST /api/v1/auth/register`
@@ -142,6 +211,20 @@ Define the stable public contract that external products and adapters use to con
     - `activation_context`
     - `retrieval_fidelity` (optional enum; default `auto`)
     - `strict_fidelity` (optional bool; default `false`)
+    - `presentation_context` (optional)
+      - `presentation_mode`
+      - `theme_mode` (optional)
+      - `allowed_view_kinds[]` (optional)
+      - `saved_view_lookup` (optional; default `true`)
+      - `component_pack_refs[]` (optional)
+    - `input_datasets[]` (optional)
+      - `dataset_id` (client-generated or server-issued)
+      - `dataset_class` (defaults to `ephemeral_inline` when omitted)
+      - `schema`
+      - `rows` or `payload_ref`
+      - `provenance`
+      - `sensitivity`
+      - `ttl`
     - `context_budget_profile` (optional)
     - `idempotency_key`
   - response:
@@ -155,6 +238,9 @@ Define the stable public contract that external products and adapters use to con
     - `required_proof_refs[]`
     - `confidence`
     - `selection_rationale`
+    - `recommended_presentation` (optional)
+    - `saved_view_matches[]` (optional)
+    - `component_manifest_refs[]` (optional)
     - `consumption`
       - `packed_context_tokens_estimate`
       - `retrieval_tokens_estimate` (optional)
@@ -216,6 +302,141 @@ Define the stable public contract that external products and adapters use to con
     - `record`
     - `lineage`
     - `activation_refs`
+- `GET /api/v1/views`
+  - query:
+    - `cursor`
+    - `limit`
+    - `query` (optional)
+    - `scope` (optional)
+    - `view_kind` (optional)
+    - `session_id` (optional)
+  - response:
+    - `views[]`
+    - `next_cursor`
+- `POST /api/v1/views/datasets`
+  - request:
+    - `dataset_class`
+    - `schema`
+    - `rows` or `payload_ref`
+    - `provenance`
+    - `sensitivity`
+    - `ttl`
+    - `retention_mode` (optional)
+    - `idempotency_key`
+  - response:
+    - `dataset_ref`
+    - `content_hash`
+    - `dataset_class`
+    - `expires_at`
+  - notes:
+    - datasets are immutable after creation
+    - inline datasets are for bounded request/session-scoped payloads only; large corpora belong to canonical memory or hybrid retrieval paths
+- `POST /api/v1/views/compose`
+  - request:
+    - `compose_mode` (`recommend_only`, `compose_preview`, `compose_and_persist_preview`)
+    - `query`
+    - `task_intent` (optional)
+    - `target_refs` (optional)
+    - `dataset_ref` (optional)
+    - `input_datasets[]` (optional)
+    - `activation_context`
+    - `presentation_context` (optional)
+    - `idempotency_key`
+  - response:
+    - `recommended_action` (`reuse_saved_view`, `return_preview`, `persisted_preview_ready`, `fallback_text`, `unsupported`, `blocked`)
+    - `compose_mode_applied`
+    - `saved_view_matches[]` (optional)
+    - `view_spec` (optional)
+    - `preview_ref` (optional)
+    - `validation`
+      - `valid`
+      - `errors[]` (optional)
+      - `correction_hints[]` (optional)
+    - `component_manifest_refs[]` (optional)
+    - `consumption` (optional)
+  - notes:
+    - canonical compose endpoint for external consumers and weaker local agents
+    - may return reuse recommendation instead of a new spec when a compatible saved view exists
+    - when `view_spec` is returned, it is already server-validated against the effective component manifest/profile
+    - low-capability profiles should default to server-side `compose_preview` rather than local speculative authoring
+- `GET /api/v1/views/components`
+  - query:
+    - `component_pack_ref` (optional)
+    - `profile_ref` (optional)
+    - `compact` (optional bool; default `false`)
+  - response:
+    - `component_manifest`
+    - `manifest_version`
+  - notes:
+    - manifest is machine-readable and authoritative for allowed components, props, and validation semantics
+- `POST /api/v1/views`
+  - request:
+    - `title`
+    - `view_kind`
+    - `view_spec`
+    - `source_refs[]`
+    - `source_query` (optional)
+    - `dataset_ref` (optional)
+    - `renderer_profile_ref`
+    - `theme_profile_ref`
+    - `scope`
+    - `share_mode`
+    - `save_mode`
+    - `idempotency_key`
+  - response:
+    - `view`
+  - notes:
+    - saves governed reusable view state; it is not required for one-off render flows
+    - save path enforces ACL/share-mode validation and sensitivity inheritance from bound data and source records
+- `POST /api/v1/views/validate`
+  - request:
+    - `view_spec`
+    - `renderer_profile_ref`
+    - `theme_profile_ref`
+    - `component_manifest_ref` (optional)
+    - `idempotency_key`
+  - response:
+    - `valid`
+    - `errors[]`
+    - `correction_hints[]`
+  - notes:
+    - validation is deterministic and server-governed; clients must not silently coerce invalid props
+- `POST /api/v1/views/match`
+  - request:
+    - `query`
+    - `task_intent` (optional)
+    - `target_refs` (optional)
+    - `dataset_ref` (optional)
+    - `activation_context`
+    - `presentation_context` (optional)
+    - `idempotency_key`
+  - response:
+    - `matches[]`
+    - `recommended_action` (`reuse_saved_view`, `compose_preview`, `fallback_text`, `unsupported`, `blocked`)
+  - notes:
+    - matching considers scope compatibility, dataset compatibility, component-pack compatibility, freshness policy, and current permissions
+- `GET /api/v1/views/:id`
+  - response:
+    - `view`
+    - `latest_render`
+    - `lineage`
+    - `activation_refs`
+- `POST /api/v1/views/:id/refresh`
+  - request:
+    - `presentation_context` (optional)
+    - `idempotency_key`
+  - response:
+    - `render_revision`
+  - notes:
+    - refresh re-authorizes source access and share-mode compatibility before reading bound data
+- `POST /api/v1/runtime/presentation-mode`
+  - request:
+    - `session_id`
+    - `presentation_mode`
+    - `theme_mode` (optional)
+    - `idempotency_key`
+  - response:
+    - `session_presentation_state`
 - `POST /api/v1/memory/search`
   - request:
     - `query`
@@ -353,6 +574,8 @@ Define the stable public contract that external products and adapters use to con
     - `id` field set to `stream_position`
     - `event` field set to topic name
     - `data` field set to serialized event envelope
+  - notes:
+    - replay honors current authorization, not only authorization that existed when the event was first emitted
 - `POST /api/v1/proof-artifacts`
   - request:
     - `kind`
@@ -526,6 +749,8 @@ Define the stable public contract that external products and adapters use to con
 - Decision-context contract is explicit enough that external agents can consume a stable pre-action schema without tool-specific interpretation drift.
 - Fidelity-selection controls and strict-fidelity failure semantics are explicit enough that callers can choose compact vs full evidence behavior deterministically.
 - Request-level token/consumption telemetry is explicit enough for benchmark slicing, spend visibility, and regression gating.
+- Adaptive presentation and saved-view contracts are explicit enough that clients can reuse governed views instead of regenerating them ad hoc.
+- Component manifests, prop validation, and dataset-input contracts are explicit enough that weaker local agents can compose valid adaptive views with low hallucination risk.
 
 ## Dependencies
 - `M-001`, `M-009`, `M-016`, `M-026`

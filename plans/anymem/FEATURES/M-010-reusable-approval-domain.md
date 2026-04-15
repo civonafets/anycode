@@ -9,10 +9,19 @@
 Define workflow-generic approval object model with conversations, non-binary outcomes, and scope-safe visibility.
 
 ## Required Object Shape
-- Core record fields: stable approval ID, workflow type, status, requested action, actor, scope, target resource references, policy/proof references, created/updated timestamps.
 - Core record fields: stable approval ID, workflow type, status, requested action, actor, scope, target resource references, policy/proof references, `risk_tier`, created/updated timestamps.
 - Conversation fields: message ID, approval ID, speaker type (`agent`, `human`, `system`), body, attachments/evidence refs, created timestamp.
 - Disposition fields: disposition ID, approval ID, action (`approve`, `reject`, `edit`, `rewrite`, `request-proof`, `defer`, `escalate`), actor, rationale, payload patch or replacement ref, created timestamp.
+- Approval-governance envelope fields:
+  - `min_distinct_approvers`
+  - `required_role_refs[]`
+  - `separation_of_duties_rule`
+  - `self_approval_forbidden`
+  - `delegated_approval_allowed`
+  - `approval_expires_at` (optional)
+  - `approval_invalidated_by_payload_change`
+  - `approval_invalidated_by_scope_change`
+  - `approval_policy_hash`
 
 ## Initial API Resource Shape
 - Approval resource:
@@ -23,11 +32,12 @@ Define workflow-generic approval object model with conversations, non-binary out
   - `created_by_actor_id`
   - `current_scope`
   - `target_refs`
-- `policy_refs`
-- `proof_refs`
-- `risk_tier`
-- `created_at`
-- `updated_at`
+  - `policy_refs`
+  - `proof_refs`
+  - `risk_tier`
+  - `approval_governance`
+  - `created_at`
+  - `updated_at`
 - Message resource:
   - `message_id`
   - `approval_id`
@@ -87,6 +97,8 @@ Define workflow-generic approval object model with conversations, non-binary out
 - `request-proof` moves the approval to `awaiting-proof`.
 - `defer` moves the approval to `deferred`.
 - `escalate` moves the approval to `escalated`.
+- Any payload or scope mutation that trips the configured invalidation rules clears previously counted approvals and returns the record to a non-terminal reviewable state or `superseded`, depending on policy.
+- Approval completion is reached only when quorum, required roles, and separation-of-duties constraints are all satisfied.
 
 ## Acceptance Criteria
 - Domain supports memory/policy/risky-action/non-coding workflows.
@@ -97,6 +109,7 @@ Define workflow-generic approval object model with conversations, non-binary out
 - External products can resume approval handling from canonical resource state after disconnect or process restart.
 - Initial approval, message, and disposition resource fields are fixed enough for backend and UI implementation.
 - Supports policy-driven multi-party approval requirements for critical-tier actions without ambiguous terminal-state behavior.
+- Quorum rules, role requirements, self-approval restrictions, delegated-approval rules, and invalidation-on-change behavior are explicit enough that implementations do not invent approval semantics.
 
 ## Dependencies
 - `M-001`, `M-002`, `M-009`

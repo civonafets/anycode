@@ -12,6 +12,7 @@ Define one generic skill contract for memory/retrieval, policy checks, approvals
 - Skill keeps memory vs policy responsibilities explicit.
 - Skill enforces retrieval + policy + proof order of operations.
 - Skill includes package activation awareness in retrieval behavior.
+- Skill can surface canonical adaptive-presentation operations such as saved-view discovery and bounded view generation without inventing tool-specific UI semantics.
 - Skill contract can be mapped to an optional MCP adapter without inventing non-canonical governance semantics.
 
 ## Dependencies

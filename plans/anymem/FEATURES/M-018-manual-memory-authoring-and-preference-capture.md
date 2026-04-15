@@ -14,6 +14,8 @@ Allow users to manually add, edit, and manage memories (including personal thoug
   - `preference`
   - `principle`
   - `style_preference`
+  - `presentation_preference`
+  - `visualization_rule`
   - `temporary_note`
 - Manual writes require explicit metadata:
   - scope
@@ -30,6 +32,7 @@ Allow users to manually add, edit, and manage memories (including personal thoug
   - archive
 - Optional expiration windows control default retrieval visibility (snooze/archive behavior), not automatic hard deletion.
 - Workspace policy can require approval for selected manual memory categories before they affect retrieval.
+- Selected presentation-related manual records can be proposed as inputs to adaptive UI behavior, but they do not become hard enforcement until an approved policy/profile promotion path applies them.
 - Manual authoring is available via API and standalone surfaces.
 
 ## Dependencies

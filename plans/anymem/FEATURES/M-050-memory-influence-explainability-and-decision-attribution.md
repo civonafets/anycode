@@ -13,6 +13,7 @@ Make memory and policy influence on decisions inspectable, debuggable, and audit
 - Retrieval results include `why included` and `why excluded` metadata with policy-safe detail levels.
 - Attribution includes recency/age factor, usage factor, and intent/workstream match contribution for each included candidate.
 - Attribution explicitly reports suppression outcomes (`muted`, `snoozed`, `hard_excluded`) for excluded candidates where permission allows.
+- Attribution can explain why the runtime stayed in text mode, reused a saved view, or generated a new bounded view.
 - Operators can compare alternative context bundles and influence outcomes for debugging.
 - Operators can issue reversible tuning actions (`mute`, `snooze`, `unsuppress`) from attribution/debug surfaces with full audit trace.
 - Attribution views respect permissions and redact restricted details while preserving audit value.

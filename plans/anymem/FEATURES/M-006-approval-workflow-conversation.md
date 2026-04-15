@@ -14,6 +14,7 @@ Provide generic approval review surfaces with non-binary outcomes and same-scree
 - Works for coding and non-coding workflow types.
 - Mandatory approval behavior is enforceable from policy risk-tier outputs (`medium`/`high`/`critical` as configured).
 - Critical-tier actions support multi-party approval requirements with deterministic completion rules.
+- Approval surfaces expose quorum status, remaining approver requirements, separation-of-duties constraints, and invalidation reasons when payload or scope changes reset prior approvals.
 
 ## Dependencies
 - `M-004`, `M-005`, `M-010`

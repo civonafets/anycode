@@ -54,6 +54,8 @@
 - Markdown/filesystem vault projections as a supplemental human and agent working surface.
 - Automated knowledge health checks, repair suggestions, and compilation-quality audits.
 - Deterministic derived artifact generation from governed knowledge through reusable templates/components/renderers.
+- Governed adaptive UI runtime for on-demand dashboards, visualizations, and bounded mini-apps built from approved components, declarative view specs, and approved theme/style profiles.
+- Saved view/spec lifecycle with reuse, refresh, fork, archive, and per-session presentation-mode controls.
 - Benchmark-native long-horizon memory evaluation for million-plus-token regimes where context stuffing is non-viable.
 - Canonical atomic memory-unit normalization for self-contained fact/event storage with resolved entities and normalized time.
 - Query-type-aware retrieval routing so fact lookup, temporal recall, preference recall, multi-hop synthesis, and policy retrieval use different retrieval strategies.
@@ -98,6 +100,11 @@
 - First-party surfaces consume ordered `SSE` subscriptions from `anymem`; third-party integrations use webhook delivery or explicit event consumption contracts.
 - Strong-enforcement local clients use the official local client SDK over the canonical broker IPC protocol.
 - Optional MCP adapters stay above the canonical REST/SDK contract and never replace it.
+- Adaptive UI follows the same rule:
+  - external consumers call canonical view/dataset/compose/validate/save resources
+  - agents do not become the source of truth for component definitions or prop semantics
+  - renderer/component contracts stay server-governed and machine-readable
+  - external hosts may render validated declarative specs, but anymem remains the authority for validation semantics, lineage, share-mode enforcement, and saved-view lifecycle
 
 ## Success Conditions
 - Can run standalone.
@@ -130,6 +137,9 @@
 - Supports memory-level compression controls so explicitly critical records can be marked as never-compress, verbatim-required, or always-include for eligible workflows.
 - Supports markdown-native local workflows and Obsidian-style vault usage as a projection surface without making markdown the canonical authority.
 - Supports reusable graph/report/slide/artifact generation from governed knowledge through predefined templates and components.
+- Supports adaptive UI generation from approved component packs and declarative view specs without arbitrary freeform application code execution.
+- Supports per-session presentation toggles and saved-view reuse/discovery so repeated visual workflows do not always require fresh generation tokens.
+- Supports a clear safe path for weaker local models: compact manifests first, server-side compose/validate when needed, and no requirement for large-model freeform spec authoring.
 - Supports optional fine-tuning/export workflows from reviewed and approved memory traces without making model training a prerequisite for core memory quality.
 - Supports architecture tuning through replayable memory experiments, not just manual intuition or hyperparameter tweaking.
 - Supports a tiny always-loadable bootstrap layer so agents can orient quickly without paying the cost of broad retrieval on every wake-up.

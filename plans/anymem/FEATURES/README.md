@@ -91,3 +91,5 @@
 | M-067 | Lifecycle Capture Hooks and Session Safeguards | P1 | 2 - Broker + Tooling | Planned | [`M-067-lifecycle-capture-hooks-and-session-safeguards.md`](./M-067-lifecycle-capture-hooks-and-session-safeguards.md) |
 | M-068 | Compact Context Dialects for Offline Agents | P1 | 2 - Broker + Tooling | Planned | [`M-068-compact-context-dialects-for-offline-agents.md`](./M-068-compact-context-dialects-for-offline-agents.md) |
 | M-069 | Agentic Risk Tiering and Remediation Controls | P1 | 2 - Broker + Tooling | Planned | [`M-069-agentic-risk-tiering-and-remediation-controls.md`](./M-069-agentic-risk-tiering-and-remediation-controls.md) |
+| M-070 | Governed Adaptive UI and Saved View Runtime | P1 | 2 - Broker + Tooling | Planned | [`M-070-governed-adaptive-ui-and-saved-view-runtime.md`](./M-070-governed-adaptive-ui-and-saved-view-runtime.md) |
+| M-071 | Adaptive UI Contract v1 and Starter Component Pack | P0 | 0 - Planning | Planned | [`M-071-adaptive-ui-contract-v1-and-starter-component-pack.md`](./M-071-adaptive-ui-contract-v1-and-starter-component-pack.md) |

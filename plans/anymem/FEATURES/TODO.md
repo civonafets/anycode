@@ -72,6 +72,8 @@
 47. `M-067` implement lifecycle hooks for session start, autosave, topic shift, session end, and pre-compaction safety capture.
 48. `M-068` implement optional compact context dialects for offline/local agent consumption with evidence-preserving reversibility.
 49. `M-069` implement action risk-tier mapping, tier-based mandatory approvals/escalation, and remediation/dispute linkage controls.
+50. `M-071` lock adaptive UI v1 schema, starter component pack, dataset contract, validation error/correction-hint shapes, and canonical fixtures before implementation starts.
+51. `M-070` implement governed adaptive UI runtime with approved component packs, saved-view reuse, and per-session presentation controls.
 
 ## Rule
 - anymem planning owns generic governance domains and does not depend on anycode implementation details.

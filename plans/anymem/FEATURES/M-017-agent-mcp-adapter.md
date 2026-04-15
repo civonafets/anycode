@@ -35,6 +35,7 @@ Expose an optional agent-facing MCP adapter that reduces tool-surface context co
 - Permission failures, approval requirements, and proof requirements surface consistently with REST/SDK behavior.
 - MCP `execute` paths support canonical retrieval-fidelity controls (`auto`, `compact`, `balanced`, `full_cited`, `full_original`) without introducing adapter-only semantics.
 - MCP responses can surface canonical consumption telemetry fields so agent hosts can expose token/spend impact to users.
+- MCP operations can expose saved-view discovery, bounded adaptive UI generation, and per-session presentation-mode controls through canonical anymem resources instead of adapter-only view logic.
 - Tool discovery and execution remain bounded enough for reliable use in agent hosts such as Codex app.
 
 ## Dependencies
